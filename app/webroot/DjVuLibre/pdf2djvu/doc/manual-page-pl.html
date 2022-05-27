@@ -1,0 +1,219 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>pdf2djvu</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div lang="pl" class="refentry" title="pdf2djvu"><a name="idp98728"></a><div class="titlepage"></div><div class="refnamediv"><h2>Nazwa</h2><p>pdf2djvu &#8212; tworzy pliki DjVu z plików PDF</p></div><div class="refsynopsisdiv" title="Sk&#322;adnia"><h2>Sk&#322;adnia</h2><div class="cmdsynopsis"><p><code class="command">pdf2djvu</code>  [ { <code class="option">-o</code>  |   <code class="option">--output</code> }   <em class="replaceable"><code>plik-wyj&#347;ciowy-djvu</code></em>  ] [<em class="replaceable"><code>opcja</code></em>...]  <em class="replaceable"><code>plik-pdf</code></em>... </p></div><div class="cmdsynopsis"><p><code class="command">pdf2djvu</code>    { <code class="option">-i</code>  |   <code class="option">--indirect</code> }   <em class="replaceable"><code>plik-indeksowy-djvu</code></em>    [<em class="replaceable"><code>opcja</code></em>...]  <em class="replaceable"><code>plik-pdf</code></em>... </p></div><div class="cmdsynopsis"><p><code class="command">pdf2djvu</code>  { <code class="option">--version</code>  |   <code class="option">--help</code>  |   <code class="option">-h</code> }</p></div></div><div class="refsection" title="Opis"><a name="idp2537976"></a><h2>Opis</h2><p>
+        Program ten tworzy plik DjVu na podstawie jedngo lub wi&#281;cej plików w
+formacie Portable Document Format.
+    </p></div><div class="refsection" title="Opcje"><a name="idp2684192"></a><h2>Opcje</h2><p>
+        <span class="command"><strong>pdf2djvu</strong></span> przyjmuje nast&#281;puj&#261;ce opcje:
+    </p><div class="refsection" title="Typ dokumentu, nazwy plików"><a name="idp3528608"></a><h3>Typ dokumentu, nazwy plików</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-o</code>, </span><span class="term"><code class="option">--output=<code class="filename"><em class="replaceable"><code>plik-wyj&#347;ciowy-djvu</code></em></code></code></span></dt><dd><p>
+                    Utwórz spakowany dokument wielostronicowy. Zapisz wynik do
+<code class="filename"><em class="replaceable"><code>wyj&#347;ciowego-pliku-djvu</code></em></code>
+zamiast na standardowe wyj&#347;cie.
+                </p></dd><dt><span class="term"><code class="option">-i</code>, </span><span class="term"><code class="option">--indirect=<code class="filename"><em class="replaceable"><code>indeksowy-plik-djvu</code></em></code></code></span></dt><dd><p>
+                    Utwórz rozdzielony dokument wielostronicowy. Jako nazwy pliku indeksowego
+u&#380;yj <code class="filename"><em class="replaceable"><code>pliku-indeksowego-djvu</code></em></code>;
+pliki sk&#322;adowe umie&#347;&#263; w tym samym katalogu. Katalog musi istnie&#263; z prawami
+do zapisu.
+                </p></dd><dt><span class="term"><code class="option">--pageid-template=<em class="replaceable"><code>szablon</code></em></code></span></dt><dd><p>
+                    Okre&#347;la schemat nazewnictwa identyfikatorów stron.  Opis j&#281;zyka szablonów
+znajduje si&#281; w rozdziale <span class="quote">&#8222;<span class="quote"><a class="link" href="#template-language" title="J&#281;zyk szablonów">J&#281;zyk szablonów</a></span>&#8221;</span>.
+                </p><p>
+                    Domy&#347;lny szablon to <span class="quote">&#8222;<span class="quote"><code class="literal">p{page:04*}.djvu</code></span>&#8221;</span>.
+                </p><p>
+                    Aby umo&#380;liwi&#263; przeno&#347;no&#347;&#263;, identyfikatory stron:
+                    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+                                musz&#261; sk&#322;ada&#263; si&#281; tylko z ma&#322;ych liter ASCII, cyfr, znaków
+<code class="literal">_</code>, <code class="literal">+</code>, <code class="literal">-</code> i kropki,
+                            </p></li><li class="listitem"><p>
+                                nie mog&#261; zaczyna&#263; si&#281; od znaku <code class="literal">+</code>, <code class="literal">-</code>
+ani kropki,
+                            </p></li><li class="listitem"><p>
+                                nie mog&#261; zawiera&#263; dwóch kropek z rz&#281;du,
+                            </p></li><li class="listitem"><p>
+                                musz&#261; ko&#324;czy&#263; si&#281; rozszerzeniem <code class="literal">.djvu</code> lub
+<code class="literal">.djv</code>.
+                            </p></li></ul></div><p>
+                </p></dd><dt><span class="term"><code class="option">--pageid-prefix=<em class="replaceable"><code>prefiks</code></em></code></span></dt><dd><p>
+                    Równowa&#380;no&#347;&#263;
+<span class="quote">&#8222;<span class="quote"><code class="literal">--pageid-template=<em class="replaceable"><code>prefiks</code></em>{page:04*}.djvu</code></span>&#8221;</span>.
+                </p></dd><dt><span class="term"><code class="option">--page-title-template=<em class="replaceable"><code>szablon</code></em></code></span></dt><dd><p>
+                    Okre&#347;la schemat tytu&#322;ów stron.  Opis j&#281;zyka szablonów znajduje si&#281; w
+rozdziale <span class="quote">&#8222;<span class="quote"><a class="link" href="#template-language" title="J&#281;zyk szablonów">J&#281;zyk szablonów</a></span>&#8221;</span>.
+                </p><p>
+                    Domy&#347;lnie tytu&#322;y nie s&#261; ustawiane.
+                </p></dd></dl></div></div><div class="refsection" title="Rozdzielczo&#347;&#263;, wielko&#347;&#263; strony"><a name="idp2423064"></a><h3>Rozdzielczo&#347;&#263;, wielko&#347;&#263; strony</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-d</code>, </span><span class="term"><code class="option">--dpi=<em class="replaceable"><code>rozdzielczo&#347;&#263;</code></em></code></span></dt><dd><p>
+                    Okre&#347;la, &#380;e po&#380;&#261;dan&#261; rozdzielczo&#347;ci&#261; jest
+<em class="replaceable"><code>rozdzielczo&#347;&#263;</code></em> punktów na cal. Domy&#347;ln&#261; warto&#347;ci&#261;
+jest 300 dpi. Dopuszczalny zakres to: 72 &#8804;
+<em class="replaceable"><code>rozdzielczo&#347;&#263;</code></em> &#8804; 6000.
+                </p></dd><dt><span class="term"><code class="option">--media-box</code></span></dt><dd><p>
+                    Do okre&#347;lenia rozmiaru strony u&#380;yj
+<em class="firstterm">MediaBox</em>. Domy&#347;lnie u&#380;ywane jest
+<em class="firstterm">CropBox</em>.
+                </p></dd><dt><span class="term"><code class="option">--page-size=<em class="replaceable"><code>szeroko&#347;&#263;</code></em>x<em class="replaceable"><code>wysoko&#347;&#263;</code></em></code></span></dt><dd><p>
+                    Okre&#347;la, &#380;e preferowanym rozmiarem strony jest
+<em class="replaceable"><code>szeroko&#347;&#263;</code></em> pikseli ×
+<em class="replaceable"><code>wysoko&#347;&#263;</code></em> pikseli. Faktyczny rozmiar strony mo&#380;e
+zosta&#263; zmieniony, by zachowa&#263; proporcje obrazu i wymogi DjVu
+dot. rozdzielczo&#347;ci. (Ta opcja ma pierwsze&#324;stwo nad
+<code class="option">-d</code>/<code class="option">--dpi</code>.)
+                </p></dd><dt><span class="term"><code class="option">--guess-dpi</code></span></dt><dd><p>
+                    Spróbuj odgadn&#261;&#263; pierwotn&#261; rozdzielczo&#347;&#263; poprzez ogl&#261;d osadzonych
+obrazów. U&#380;ywa&#263; ostro&#380;nie.
+                </p></dd></dl></div></div><div class="refsection" title="Jako&#347;&#263; obrazu"><a name="idp2523240"></a><h3>Jako&#347;&#263; obrazu</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">--bg-slices=<em class="replaceable"><code>n</code></em>+<em class="replaceable"><code>&#8230;</code></em>+<em class="replaceable"><code>n</code></em></code>, </span><span class="term"><code class="option">--bg-slices=<em class="replaceable"><code>n</code></em>,<em class="replaceable"><code>&#8230;</code></em>,<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    Okre&#347;la jako&#347;&#263; kompresji warstwy t&#322;a IW44. Opcja ta jest podobna do opcji
+<code class="option">-slice</code> programu <span class="command"><strong>c44</strong></span>. Szczegó&#322;y znajduj&#261;
+si&#281; w podr&#281;czniku <span class="citerefentry"><span class="refentrytitle">c44</span>(1)</span>. Domy&#347;ln&#261; warto&#347;ci&#261; jest
+<code class="literal">72+11+10+10</code>.
+                </p></dd><dt><span class="term"><code class="option">--bg-subsample=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    Okre&#347;la wspó&#322;czynnik podpróbkowania t&#322;a. Domy&#347;ln&#261; warto&#347;ci&#261; jest
+3. Dopuszczalne warto&#347;ci to liczby ca&#322;kowite od 1 do 12 w&#322;&#261;cznie.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=default</code></span></dt><dd><p>
+                    Staraj zachowa&#263; si&#281; wszystkie kolory pierwszego planu. Tak jest domy&#347;lnie.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=web</code></span></dt><dd><p>
+                    Zredukuj kolory pierwszego planu do palety WWW (216 kolorów). Ta opcja nie
+jest zalecana.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    U&#380;yj GraphicsMagicka do zredukowania do <em class="replaceable"><code>n</code></em> liczby
+ró&#380;nych kolorów na pierwszym planie. Dopuszczalne warto&#347;ci to liczby
+ca&#322;kowite od 1 do 4080. Ta opcja nie jest zalecana.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=black</code></span></dt><dd><p>
+                    Odrzu&#263; informacje o kolorach pierwszego planu.
+                </p></dd><dt><span class="term"><code class="option">--monochrome</code></span></dt><dd><p>
+                    Rastruj strony jako dwukolorowe bitmapy. W takim wypadku opcje
+<code class="option">--bg-<em class="replaceable"><code>&#8230;</code></em></code> i
+<code class="option">--fg-<em class="replaceable"><code>&#8230;</code></em></code> nie s&#261; respektowane.
+                </p></dd><dt><span class="term"><code class="option">--loss-level=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    Okre&#347;la agresywno&#347;&#263; kompresji stratnej. Domy&#347;ln&#261; warto&#347;ci&#261; jest 0 (kompresja
+bezstratna). Dopuszczalne warto&#347;ci to liczby ca&#322;kowite od 0 do 200
+w&#322;&#261;cznie. Opcja ta jest podobna do opcji <code class="option">-losslevel</code>
+programu <span class="command"><strong>cjb2</strong></span>; szczegó&#322;y znajduj&#261; si&#281; w podr&#281;czniku
+<span class="citerefentry"><span class="refentrytitle">cjb2</span>(1)</span> .  Opcja ta jest respektowna tylko razem z opcj&#261;
+<code class="option">--monochrome</code>.
+                </p></dd><dt><span class="term"><code class="option">--lossy</code></span></dt><dd><p>
+                    Synonim <code class="option">--loss-level=100</code>.
+                </p></dd><dt><span class="term"><code class="option">--anti-alias</code></span></dt><dd><p>
+                    W&#322;&#261;cz antyaliasing fontów i grafiki wektorowej. Ta opcja nie jest zalecana.
+                </p></dd></dl></div></div><div class="refsection" title="Wyodr&#281;bnianie"><a name="idp3264312"></a><h3>Wyodr&#281;bnianie</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">--no-metadata</code></span></dt><dd><p>
+                    Nie wyodr&#281;bniaj metadanych.
+                </p><p>
+                    Domy&#347;lnie:
+                    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+                                Wyodr&#281;bniane s&#261; nast&#281;puj&#261;ce has&#322;a s&#322;ownika informacji o dokumencie:
+<code class="literal">Title</code>, <code class="literal">Author</code>,
+<code class="literal">Subject</code>, <code class="literal">Creator</code>,
+<code class="literal">Producer</code>, <code class="literal">CreationDate</code>,
+<code class="literal">ModDate</code>.  Zapisy daty i czasu s&#261; formatowane wg <a class="ulink" href="http://www.ietf.org/rfc/rfc3339" target="_top">RFC 3999</a>, z dat&#261; i czasem
+oddzielonymi pojedyncz&#261; spacj&#261;.
+                            </p></li><li class="listitem"><p>
+                                Metadane XMP s&#261; wyodr&#281;bniane (lub tworzone) i odpowiednio aktualizowane.
+                            </p></li></ul></div><p>
+                </p><div class="note" title="Notatka" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Notatka</h3><p>
+                        W przypadku wielu dokumentów wej&#347;ciowych, tylko metadane pierwszego z nich
+s&#261; brane pod uwag&#281;.
+                    </p></div></dd><dt><span class="term"><code class="option">--verbatim-metadata</code></span></dt><dd><p>
+                    Zachowaj oryginalne metadane bez zmian.
+                </p></dd><dt><span class="term"><code class="option">--no-outline</code></span></dt><dd><p>
+                    Nie wyodr&#281;bniaj konspektu dokumentu.
+                </p></dd><dt><span class="term"><code class="option">--hyperlinks=border-avis</code></span></dt><dd><p>
+                    Spraw, by ramki hiper&#322;&#261;czy by&#322;y zawsze widoczne.
+                </p><p>
+                    Domy&#347;lnie ramka hiper&#322;&#261;cza jest widoczna tylko gdy nad nim znajduje si&#281;
+kursor myszki.
+                </p></dd><dt><span class="term"><code class="option">--hyperlinks=#<em class="replaceable"><code>RRGGBB</code></em></code></span></dt><dd><p>
+                    Wymu&#347; okre&#347;lony kolor ramki hiper&#322;&#261;czy.
+                </p></dd><dt><span class="term"><code class="option">--no-hyperlinks</code>, </span><span class="term"><code class="option">--hyperlinks=none</code></span></dt><dd><p>
+                    Nie wyodr&#281;bniaj hiper&#322;&#261;czy.
+                </p></dd><dt><span class="term"><code class="option">--no-text</code></span></dt><dd><p>
+                    Nie wyodr&#281;bniaj tekstu.
+                </p></dd><dt><span class="term">
+            <code class="option">--words</code></span></dt><dd><p>
+                    Wyodr&#281;bniaj tekst. Zapisz po&#322;o&#380;enia ka&#380;dego s&#322;owa. Tak jest domy&#347;lnie.
+                </p></dd><dt><span class="term"><code class="option">--lines</code></span></dt><dd><p>
+                    Wyodr&#281;bniaj tekst. Zapisz po&#322;o&#380;enia ka&#380;dej linii, a nie ka&#380;dego s&#322;owa.
+                </p></dd><dt><span class="term"><code class="option">--crop-text</code></span></dt><dd><p>
+                    Nie wyodr&#281;bniaj tekstu, który znajduje si&#281; poza granicami strony.
+                </p></dd><dt><span class="term"><code class="option">--no-nfkc</code></span></dt><dd><p>
+                    Nie poddawaj tekstu normalizacji <a class="ulink" href="http://unicode.org/reports/tr15/" target="_top">NFKC</a>.
+                </p></dd><dt><span class="term"><code class="option">--filter-text=<em class="replaceable"><code>linia-polece&#324;</code></em></code></span></dt><dd><p>
+                    Przefiltruj tekst przez <em class="replaceable"><code>lini&#281;-polece&#324;</code></em>. Dany filtr
+musi zachowywa&#263; bia&#322;e znaki, znaki kontrole i cyfry dziesi&#281;tne.
+                </p><p> 
+                    Opcja ta implikuje <code class="option">--no-nfkc</code>.
+                </p></dd><dt><span class="term"><code class="option">-p</code>, </span><span class="term"><code class="option">--pages=<em class="replaceable"><code>zakres stron</code></em></code></span></dt><dd><p>
+                    Okre&#347;la strony przeznaczone do
+konwersji. <em class="replaceable"><code>zakres-stron</code></em> jest oddzielan&#261;
+przecinkami list&#261; podzakresów. Ka&#380;dy podzakres to albo pojedyncza strona
+(np. <code class="literal">17</code>), albo ci&#261;g&#322;y zakres stron
+(np. <code class="literal">37-42</code>). Strony numerowane s&#261; od 1.
+                </p><p>
+                    Domy&#347;lnie konwertowane s&#261; wszystkie strony.
+                </p></dd></dl></div></div><div class="refsection" title="Wydajno&#347;&#263;"><a name="idp2940664"></a><h3>Wydajno&#347;&#263;</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-j</code>, </span><span class="term"><code class="option">--jobs=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    U&#380;yj <em class="replaceable"><code>n</code></em> w&#261;tków do przeprowadzenia
+konwersji. Domy&#347;lnie u&#380;ywany jest jeden w&#261;tek.
+                </p></dd><dt><span class="term"><code class="option">-j0</code>, </span><span class="term"><code class="option">--jobs=0</code></span></dt><dd><p>
+                    Okre&#347;l liczb&#281; w&#261;tków u&#380;ywanych do przeprowadzenia konwersji automatycznie.
+                </p></dd></dl></div></div><div class="refsection" title="Gadatliwo&#347;&#263;, pomoc"><a name="idp1654272"></a><h3>Gadatliwo&#347;&#263;, pomoc</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-v</code>, </span><span class="term"><code class="option">--verbose</code></span></dt><dd><p>
+                    Wy&#347;wietlaj wi&#281;cej komunikatów informacyjnych podczas konwersji pliku.
+                </p></dd><dt><span class="term"><code class="option">-q</code>, </span><span class="term"><code class="option">--quiet</code></span></dt><dd><p>
+                    Nie wy&#347;wietlaj komunikatów informacyjnych podczas konwersji pliku.
+                </p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><p>Wy&#347;wietl informacj&#281; o wersji i wyjd&#378;.</p></dd><dt><span class="term"><code class="option">-h</code>, </span><span class="term"><code class="option">--help</code></span></dt><dd><p>Wy&#347;wietl pomoc i wyjd&#378;.</p></dd></dl></div></div></div><div class="refsection" title="&#346;rodowisko"><a name="idp2602288"></a><h2>&#346;rodowisko</h2><p>
+        Nast&#281;puj&#261;ce zmienne &#347;rodowiskowe maj&#261; wp&#322;yw na dzia&#322;anie
+<span class="command"><strong>pdf2djvu</strong></span> w systemach uniksowych: </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">OMP_<em class="replaceable"><code>*</code></em></code></span></dt><dd><p>
+                Zachowanie programu pod wzgl&#281;dem wspó&#322;bie&#380;no&#347;ci mo&#380;na kontrolowa&#263; za pomoc&#261;
+kilku zmiennych &#347;rodowiskowych. Szczegó&#322;y opisane s&#261; w <a class="ulink" href="http://openmp.org/wp/openmp-specifications/" target="_top">specyfikacji API
+OpenMP</a>.
+            </p></dd><dt><span class="term"><code class="varname">TMPDIR</code></span></dt><dd><p>
+                    <span class="command"><strong>pdf2djvu</strong></span> intensywnie u&#380;ywa plików tymczasowych. S&#261; one
+sk&#322;adowane w katalogu okre&#347;lonym przez t&#281; zmienn&#261;. Domy&#347;ln&#261; warto&#347;ci&#261;
+jest<code class="filename">/tmp</code>.
+                </p></dd></dl></div><p>
+    </p></div><div class="refsection" title="J&#281;zyk szablonów"><a name="template-language"></a><h2>J&#281;zyk szablonów</h2><div class="refsection" title="Sk&#322;adnia szablonów"><a name="idp2759672"></a><h3>Sk&#322;adnia szablonów</h3><p>
+            J&#281;zyk szablonów jest z grubsza wzorowany na <a class="ulink" href="http://docs.python.org/library/string.html#format-string-syntax" target="_top">sk&#322;adni
+formatowania napisów w j&#281;zyku Python</a>.
+        </p><p>
+            Szablon to kawa&#322;ek tekstu zawieraj&#261;cy <em class="firstterm">pola</em>, otoczone
+klamrami <code class="literal">{</code><code class="literal">}</code>. Kiedy szablon jest
+wyliczany, pola zast&#281;powane s&#261; odpowiednio sformatowanymi
+warto&#347;ciami. Ponadto ci&#261;g <code class="literal">{{</code> jest zast&#281;powany pojedynczym
+<code class="literal">{</code> a ci&#261;g <code class="literal">}}</code> &#8212; pojedynczym
+<code class="literal">}</code>.
+        </p></div><div class="refsection" title="Sk&#322;adnia pól"><a name="idp3565232"></a><h3>Sk&#322;adnia pól</h3><p>
+            Ka&#380;de pole sk&#322;ada si&#281; z nazwy zmiennej, po której opcjonalnie nast&#281;puje
+przesuni&#281;cie, po którym opcjonalnie nast&#281;puje specyfikacja formatu.
+        </p><p>
+            Przesuni&#281;cie jest liczb&#261; ca&#322;kowit&#261; ze znakiem (tj. zaczynaj&#261;c&#261; si&#281; znakiem
+<code class="literal">+</code> lub <code class="literal">-</code>).
+        </p><p>
+            Specyfikacja formatu sk&#322;ada si&#281; z dwukropka, po którym nast&#281;puje
+specyfikacja szeroko&#347;ci.
+        </p><p>
+            Specyfikacja szeroko&#347;ci jest liczb&#261; ca&#322;kowit&#261; definiuj&#261;c&#261; minimaln&#261;
+szeroko&#347;&#263; pola. W przypadku braku definicji, szeroko&#347;&#263; zostanie okre&#347;lona na
+podstawie tre&#347;ci. Poprzedzenie specyfikacji szeroko&#347;ci zerem
+(<code class="literal">0</code>) powoduje dope&#322;nianie zerami.
+        </p><p>
+            Po specyfikacji szeroko&#347;ci mo&#380;e opcjonalne nast&#261;pi&#263; znak gwiazdki
+(<code class="literal">*</code>), który zwi&#281;ksza minimaln&#261; szeroko&#347;&#263; pola do
+najwi&#281;kszej mo&#380;liwej d&#322;ugo&#347;ci zawarto&#347;ci zmiennej.
+        </p></div><div class="refsection" title="Dost&#281;pne zmienne"><a name="idp3388880"></a><h3>Dost&#281;pne zmienne</h3><div class="variablelist"><dl><dt><span class="term"><code class="varname">page</code>, </span><span class="term"><code class="varname">spage</code></span></dt><dd><p>Numer strony w dokumencie PDF.</p></dd><dt><span class="term"><code class="varname">dpage</code></span></dt><dd><p>Numer strony w dokumencie DjVu.</p></dd></dl></div></div></div><div class="refsection" title="Szczegó&#322;y implementacji"><a name="idp2790744"></a><h2>Szczegó&#322;y implementacji</h2><div class="refsection" title="Algorytm separacji warstw"><a name="idp3633064"></a><h3>Algorytm separacji warstw</h3><p>
+            Je&#380;eli nie u&#380;yto opcji <code class="option">--monochrome</code>, pdf2djvu u&#380;ywa
+nast&#281;puj&#261;cego naiwnego algorytmu separacji warstw: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                        Dla ka&#380;dej strony wykonaj co nast&#281;puje: </p><div class="orderedlist"><ol class="orderedlist" type="a"><li class="listitem"><p>
+                                    Zrastruj stron&#281; do mapy pikseli w zwyk&#322;y sposób.
+                                </p></li><li class="listitem"><p>
+                                    Zrastruj stron&#281; do innej mapy pikseli, z pomini&#281;ciem nast&#281;puj&#261;cych elementów
+strony:
+                                    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>tekst,</p></li><li class="listitem"><p>obrazy rastrowe o g&#322;&#281;boko&#347;ci 1 bit na piksel,</p></li><li class="listitem"><p>elementy wektorowe (oprócz wype&#322;nie&#324; o du&#380;ej powierzchni).</p></li></ul></div><p>
+                                </p></li><li class="listitem"><p>
+                                    Porównaj obie mapy pikseli, piksel po pikselu: </p><div class="orderedlist"><ol class="orderedlist" type="i"><li class="listitem"><p>
+                                                Je&#380;eli kolory si&#281; zgadzaj&#261;, zaklasyfikuj piksel jako cz&#281;&#347;&#263; warstwy t&#322;a.
+                                            </p></li><li class="listitem"><p>
+                                                W przeciwnym wypadku, zaklasyfikuj piksel jako cz&#281;&#347;&#263; pierwszego planu.
+                                            </p></li></ol></div><p>
+                                </p></li></ol></div><p>
+                    </p></li></ol></div><p>
+        </p></div></div><div class="refsection" title="Raporty o b&#322;&#281;dach"><a name="idp1393072"></a><h2>Raporty o b&#322;&#281;dach</h2><p>
+        B&#322;&#281;dy znalezione w pdf2djvu prosz&#281; zg&#322;asza&#263; w <a class="ulink" href="http://code.google.com/p/pdf2djvu/issues/" target="_top">systemie &#347;ledzenia
+problemów</a>.
+    </p></div><div class="refsection" title="Zobacz te&#380;"><a name="idp3118880"></a><h2>Zobacz te&#380;</h2><p>
+        <span class="citerefentry"><span class="refentrytitle">djvu</span>(1)</span>, <span class="citerefentry"><span class="refentrytitle">djvudigital</span>(1)</span>, <span class="citerefentry"><span class="refentrytitle">csepdjvu</span>(1)</span>
+    </p></div></div></body></html>

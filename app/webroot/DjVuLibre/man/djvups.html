@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>DJVUPS</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>DJVUPS</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+Section: DjVuLibre-3.5 (1)<BR>Updated: 01/18/2003<BR><A HREF="#index">Index</A>
+<A HREF="../index.html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+djvups - Convert DjVu documents to PostScript.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>djvups  [</B><I>options</I><B>] [</B><I>djvufile</I><B>] [</B><I>outputfile</I><B>]</B>
+
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION         </H2>
+
+This program decodes DjVu file 
+<I>djvufile</I>,
+
+and generates a PostScript file named
+<I>outputfile</I>.
+
+The DjVu data is read from the standard input when argument 
+<I>djvufile</I>
+
+is not specified or when it is equal to a single dash.
+Similarly, the output data is written to the standard output
+when argument 
+<I>outputfile</I>
+
+is not specified or equal to a single dash.
+<P>
+PostScript printers have various capabilities.
+Investigate options 
+<B>-level</B>
+
+and
+<B>-gray</B>
+
+for obtaining the best results.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-help</B>
+
+<DD>
+Prints the list of recognized options.
+<DT><B>-verbose</B>
+
+<DD>
+Displays a progress bar.
+<DT><B>-page=</B><I>pagespec</I>
+
+<DD>
+Specify the document pages to be converted.
+The page specification
+<I>pagespec </I>
+
+contains one or more comma-separated page ranges.
+A page range is either a page number, 
+or two page numbers separated by a dash.
+Specification
+<B>1-10</B>,
+
+for instance, prints pages 1 to 10.
+Specification
+<B>1,3,99999-4</B>
+
+prints pages 1 and 3, followed by all the document
+pages in reverse order up to page 4.
+<DT><B>-format=ps</B>
+
+<DD>
+Produce a PostScript file. 
+This is the default.
+<DT><B>-format=eps</B>
+
+<DD>
+Produce an Encapsulated PostScript file.
+Encapsulated PostScript files are suitable for
+embedding images into other documents.
+Encapsulated PostScript file can only contain 
+a single page. Setting this option
+overrides the options
+<B>-copies</B>,
+
+<B>-orientation</B>,
+
+<B>-zoom</B>,
+
+<B>-cropmarks</B>,
+
+and
+<B>-booklet</B>.
+
+<DT><B>-copies=</B><I>n</I>
+
+<DD>
+Specify the number of copies to print.
+<DT><B>-orientation=</B><I>orient</I>
+
+<DD>
+Specify whether pages should be printed using
+the
+<B>auto</B>,
+
+<B>portrait</B>,
+
+or
+<B>landscape </B>
+
+orientation.
+<DT><B>-mode=</B><I>modespec</I>
+
+<DD>
+Specify how pages should be decoded.
+The default mode,
+<B>color</B>,
+
+renders all the layers of the DjVu documents.
+Mode 
+<B>black</B>
+
+only renders the foreground layer mask.  This mode does not work with
+DjVuPhoto images because these files have no foreground layer
+mask.
+Modes
+<B>foreground</B>
+
+and
+<B>background</B>
+
+only render the foreground layer or the background layer 
+of a DjVuDocument image.
+<DT><B>-zoom=</B><I>zoomspec</I>
+
+<DD>
+Specify a zoom factor
+<I>zoomspec</I>.
+
+The default zoom factor, 
+<B>auto</B>,
+
+scales the image to fit the page.
+Argument
+<I>zoomspec</I>
+
+also can be a number in range 
+<B>25</B>
+
+to
+<B>2400</B>
+
+representing a magnification percentage
+relative to the original size of the document.
+<DT><B>-frame=</B><I>yesno</I>
+
+<DD>
+Specifying 
+<B>yes</B>
+
+causes the generation of a thin gray border
+representing the boundaries of the document pages.
+The default is
+<B>no</B>.
+
+<DT><B>-cropmarks=</B><I>yesno</I>
+
+<DD>
+Specifying 
+<B>yes</B>
+
+causes the generation of crop marks
+indicating where pages should be cut.
+The default is
+<B>no</B>.
+
+<DT><B>-level=</B><I>languagelevel</I>
+
+<DD>
+Select the language level of the generated PostScript.
+<I>languagelevel</I>.
+
+Valid language levels are 
+<B>1</B>,
+
+<B>2</B>,
+
+and
+<B>3</B>.
+
+Level 
+<B>3 </B>
+
+produces the most compact and fast printing PostScript files.
+Some of these files however require a very modern printer.
+Level
+<B>2 </B>
+
+is the default value.
+The generated PostScript files are almost as compact
+and work with all but the oldest PostScript printers.
+Level
+<B>1</B>
+
+can be used as a last resort option.
+<DT><B>-color=</B><I>yesno</I>
+
+<DD>
+The default value,
+<B>yes</B>,
+
+generates a color PostScript file.
+Specifying value
+<B>no</B>
+
+converts the image to gray scale.
+The resulting PostScript file is smaller
+and marginally more portable.
+<DT><B>-gray</B>
+
+<DD>
+This option is equivalent to option
+<B>-color=no</B>
+
+and is provided for convenience.
+<DT><B>-colormatch=</B><I>yesno</I>
+
+<DD>
+The default value,
+<B>yes</B>,
+
+generates a PostScript file using
+device independent colors in compliance
+with the 
+<FONT SIZE="-1">sRGB</FONT>
+specification.
+Modern printers then produce colors that match
+the original as well as possible.  
+Specifying value
+<B>no</B>
+
+generates a PostScript file using device dependent colors.  
+This is sometimes useful with older printers.
+You can then use option
+<B>-gamma</B>
+
+to tune the output colors.
+<DT><B>-gamma=</B><I>gammaspec</I>
+
+<DD>
+Specify a gamma correction factor for the device dependent PostScript colors.
+Argument 
+<I>gammaspec</I>
+
+must be in range
+<B>0.3</B>
+
+to
+<B>5.0</B>.
+
+Gamma correction normally pertains to cathodic screens only.  
+It gets meaningful for printers because several models
+interpret device dependent RGB colors by emulating the color
+response of a cathodic tube.  
+<DT><B>-booklet=</B><I>opt</I>
+
+<DD>
+Turns the booklet printing mode on.
+The booklet mode prints two pages on each side
+in a way suitable for making a booklet by folding
+the sheets. Option
+<I>opt</I>
+
+can take values
+<B>no</B>
+
+for disabling the booklet mode,
+<B>yes</B>
+
+for enabling the recto/verso booklet mode, and
+<B>recto</B>
+
+or
+<B>verso</B>
+
+to print only one side of each sheet.
+<DT><B>-bookletmax=</B><I>max</I>
+
+<DD>
+Specifies the maximal number of pages per booklet.
+A single printout might then be composed of several 
+booklets. Argument
+<I>max</I>
+
+is rounded up to the next multiple of 4. 
+Specifying 
+<B>0</B>
+
+sets no maximal number of pages
+and ensures that the printout will produce
+a single booklet.  This is the default.
+<DT><B>-bookletalign=</B><I>align</I>
+
+<DD>
+Specifies a positive or negative offset 
+applied  to the verso of each sheet.  
+Argument 
+<I>align</I>
+
+is expressed in points 
+(one point is 1/72th of an inch, or 0.352 millimeter)
+This is useful with certain printers to ensure that 
+both recto and verso are properly aligned.  The default
+value is of course
+<B>0</B>.
+
+<DT><B>-bookletfold=</B><I>base[+incr]</I>
+
+<DD>
+Specifies the extra margin left  between both pages
+on a single sheet.  The base value
+<I>base</I>
+
+is expressed in points (one point is 1/72th of an inch, 
+or 0.352 millimeter). This margin is incremented for 
+each outer sheet by value
+<I>incr</I>
+
+expressed in millipoints. The default value is 
+<B>18+200</B>.
+
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>CREDITS</H2>
+
+This program was written by L'eon Bottou &lt;<A HREF="mailto:leonb@users.sourceforge.net">leonb@users.sourceforge.net</A>&gt;,
+Andrei Erofeev &lt;<A HREF="mailto:andrew_erofeev@yahoo.com">andrew_erofeev@yahoo.com</A>&gt;, and Florin Nicsa.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="djvu.html">djvu</A></B>(1),
+
+<B><A HREF="ddjvu.html">ddjvu</A></B>(1).
+
+<B><A HREF="man:djview">djview</A></B>(1)
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION         </A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">CREDITS</A><DD>
+<DT><A HREF="#lbAG">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="../index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 12:40:30 GMT, May 13, 2009
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>DJVUPS</h1></td></tr>
+</table>
+</BODY>
+</HTML>

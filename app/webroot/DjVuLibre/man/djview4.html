@@ -1,0 +1,964 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>DJVIEW4</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>DJVIEW4</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+Section: DjVuLibre (1)<BR>Updated: 10/11/2001<BR><A HREF="#index">Index</A>
+<A HREF="../index.html">Return to Main Contents</A><HR>
+
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+djview4 - Standalone DjVu viewer
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>djview4 [</B><I>options</I><B>] [</B><I>argument</I><B>]</B>
+
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+Standalone viewer for DjVu files.  
+Features include navigating documents,
+zooming and panning page images, 
+producing and displaying thumbnails,
+displaying document outlines,
+searching documents for particular words in the hidden text layer,
+copying hidden text to the clipboard,
+saving pages and documents
+as bundled or indirect multi-page files, 
+and printing page and documents.
+The viewer can simultaneously display several pages
+using a side-by-side or a continuous layout.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>COMMAND LINE ARGUMENT AND OPTIONS</H2>
+
+This program
+can run as a standalone program or 
+as a slave process for the DjVu browser plugin
+<B>nsdejavu</B>.
+
+When running as a standalone program,
+the command line argument
+<I>argument</I>
+
+can be:
+<DL COMPACT>
+<DT>*<DD>
+The filename of a valid DjVu document.
+<DT>*<DD>
+A local DjVu document 
+<FONT SIZE="-1">URL</FONT>
+of the form:
+<DT><DD>
+<B><A HREF="file:///">file:///</A></B><I>path</I><B>/</B><I>name.djvu</I><B>[?djvuopts&amp;</B><I>keyword</I><B>=</B><I>value</I><B>&amp;...]</B>
+
+<DT><DD>
+The square brackets delimit the optional components of the 
+<FONT SIZE="-1">URL.</FONT>
+Various options can be specified using a syntax
+similar to that of
+<FONT SIZE="-1">CGI</FONT>
+arguments.
+Specifying options in this manner is very useful 
+for a browser plugin because there are no 
+command line arguments.
+In the case of a standalone viewer,
+all options can be specified as command line arguments.
+<DT>*<DD>
+An remote DjVu document 
+<FONT SIZE="-1">URL</FONT>
+of the form:
+<DT><DD>
+<B>http://</B><I>host</I><B>/</B><I>path</I><B>/</B><I>name.djvu</I><B>[?djvuopts&amp;</B><I>keyword</I><B>=</B><I>value</I><B>&amp;...]</B>
+
+<DT><DD>
+Browsing remote DjVu documents with the standalone viewer
+is less efficient than using the browser plugin.
+The standalone viewer does not benefit from the browser
+caching strategies and proxy settings.
+Proxy settings for the standalone viewer can be set
+independently with the preferences dialog.
+</DL>
+<P>
+
+<P>
+An extensive list of options are recognized.
+Most options can be specified as command line argument starting
+with the customary dash character
+<B></B>(<B>-</B>)
+
+or using the syntax of
+<FONT SIZE="-1">CGI</FONT>
+arguments in the document 
+<FONT SIZE="-1">URL.</FONT>
+Some options however are only meaningful 
+as command line arguments.
+Other options are only recognized when
+running the 
+<FONT SIZE="-1">X11</FONT>
+version of the 
+<B>djview4</B>
+
+program.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>COMMAND LINE OPTIONS</H2>
+
+The following options are only meaningful
+when specified on the command line.
+<P>
+<DL COMPACT>
+<DT><B>-help</B>
+
+<DD>
+Display a brief help message.
+<P>
+<DT><B>-verbose</B>
+
+<DD>
+Prints informational messages on the console.
+This option is very useful because it displays
+messages about the unrecognized constructs
+in the DjVu annotation and hyperlink layers.
+<P>
+<DT><B>-fullscreen, -fs </B>
+
+<DD>
+Start 
+<B>djview4 </B>
+
+in full screen mode.
+Use the key
+<B>F11</B>
+
+to exit the full screen mode.
+<P>
+<DT><B>-style=</B><I>stylename</I>
+
+<DD>
+Specify the graphical user interface style.
+The recognized values for
+<I>stylename</I>
+
+depend on the installed version of the Qt toolkit.
+Common style names include
+<B>cde</B>,
+
+<B>motif</B>,
+
+<B>plastique</B>,
+
+<B>platinum</B>,
+
+and
+<B>windows</B>.
+
+<P>
+<P>
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H2>X11 OPTIONS</H2>
+
+The following command line options are recognized by the
+<FONT SIZE="-1">X11</FONT>
+version of the 
+<B>djview4</B>
+
+program.
+Unlike most 
+<B>djview4 options, </B>
+
+X11 options that demand an argument
+do not use the equal character 
+to introduce their argument.
+<DL COMPACT>
+<DT><B>-display </B><I>displayname</I>
+
+<DD>
+Specify that the 
+<B>djview4</B>
+
+windows should appear on the X11 display 
+<I>displayname</I>.
+
+<P>
+<DT><B>-geometry </B><I>W</I><B>x</B><I>H</I><B>+</B><I>X</I><B>+</B><I>Y</I>
+
+<DD>
+Specify the initial size and position of the first window
+using the traditional X11 geometry specification syntax.
+The numerical arguments 
+<I>W</I> and <I>H</I>
+
+represent the initial window width and height.
+The numerical arguments 
+<I>X</I> and <I>Y</I>
+
+indicate the window position relative to the 
+top left corner of the screen.
+<P>
+<DT><B>-name </B><I>name</I>
+
+<DD>
+Set the application name.
+<P>
+<DT><B>-title </B><I>title</I>
+
+<DD>
+Set the title of the first window.
+<P>
+<DT><B>-fn </B><I>fontname</I><B>, -font </B><I>fontname</I>
+
+<DD>
+Specify the name of the default font 
+used for buttons and menus.
+The font should be specified using 
+a X logical font description string.
+<DT><B>-bg </B><I>color</I><B>, -background </B><I>color</I>
+
+<DD>
+Specify the default background color for 
+graphical user interface elements.
+The color should be given as a standard X11 color name.
+<P>
+<DT><B>-fg </B><I>color</I><B>, -foreground </B><I>color</I>
+
+<DD>
+Specify the default foreground color for 
+graphical user interface elements.
+The color should be given as a standard X11 color name.
+<P>
+<DT><B>-btn </B><I>color</I>
+
+<DD>
+Specify the default button color.
+The color should be given as a standard X11 color name.
+<P>
+<DT><B>-ncols </B><I>count</I>
+
+<DD>
+Limit the number of colors allocated on a 8 bit display. 
+The default color cube contains 216 distinct colors.
+<DT><B>-cmap</B>
+
+<DD>
+Force the allocation of a private color map on a 8-bit display.
+This might increase the color quality but cause flashing
+when the viewer window gets activated.
+<P>
+</DL>
+<A NAME="lbAH">&nbsp;</A>
+<H2>GENERAL OPTIONS</H2>
+
+The following options can be specified as command line options
+or can be passed by augmenting the document 
+<FONT SIZE="-1">URL</FONT>
+using a syntax similar to that of
+<FONT SIZE="-1">CGI</FONT>
+arguments
+<DL COMPACT>
+<DT><DD>
+<B><A HREF="http://.../file.djvu?djvuopts">http://.../file.djvu?djvuopts</A>&amp;</B><I>key=value</I><B>&amp;</B><I>key=value</I><B>&amp;</B><I>...</I>
+
+</DL>
+<P>
+
+In order to separate real
+<FONT SIZE="-1">CGI </FONT>
+arguments from these options,
+the viewer only recognizes keywords 
+that appear after the word
+<B>djvuopts</B>.
+
+The keywords
+<I>key</I>
+
+are derived from the option names 
+by removing the initial dashes. 
+<P>
+<DL COMPACT>
+<DT><B>-page=</B><I>pagename</I>
+
+<DD>
+Display a specific document page.
+The viewer first searches a page 
+whose identifier matches the argument
+<I>pagename</I>.
+
+Otherwise, if 
+<I>pagename</I>
+
+if a number preceded by character 
+<B>+</B> or <B>-</B>,
+
+the viewer performs a displacement relative to the current page.
+Otherwise, starting from the current page
+and wrapping around, it searches for a page
+whose title matches the argument
+<I>pagename</I>.
+
+Otherwise, if 
+<I>pagename</I>
+
+is numerical, it is interpreted as 
+an ordinal page number.
+Otherwise, and finally, the viewer searches a page
+whose name matches
+<I>pagename</I>.
+
+<DT><B>-pageno=</B><I>pagenumber</I>
+
+<DD>
+The page searching algorithm for option
+<B>page</B>
+
+can cause ambiguities when page titles can
+be interpreted as numbers.
+The argument of option
+<B>pageno</B>
+
+is always interpreted as an ordinal page number.
+This option is less portable than
+<B>page</B>
+
+because it is not recognized by earlier 
+versions of the djvu plugin. 
+When using this option is necessary,
+it is advisable to use both the
+<B>page </B>
+
+and 
+<B>pageno</B>
+
+options.
+<DT><B>-zoom=</B><I>zoomfactor</I>
+
+<DD>
+Specify the initial zoom factor.
+Unless the toolbar, pop-up menu and keyboard are disabled,
+the user will be able to change the zoom factor.
+Legal values for
+<I>zoomfactor</I>
+
+are shown in the below:
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><I>number</I></TD><TD>Magnification factor in range 10% to 999%.<BR></TD></TR>
+<TR VALIGN=top><TD><B>one2one</B></TD><TD>Select the &quot;one-to-one&quot; mode.<BR></TD></TR>
+<TR VALIGN=top><TD><B>width</B></TD><TD>Select the &quot;fit width&quot; mode.<BR></TD></TR>
+<TR VALIGN=top><TD><B>page</B></TD><TD>Select the &quot;fit page&quot; mode.<BR></TD></TR>
+<TR VALIGN=top><TD><B>stretch</B></TD><TD>Stretch the image to the plugin window size.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+</DL>
+<P>
+
+<P>
+<DL COMPACT>
+<DT><B>-showposition=</B><I>px</I><B>,</B><I>py</I>
+
+<DD>
+Specify a point in the current page that should be
+as close as possible to the center of the window.
+The horizontal and vertical positions 
+<I>px</I><B>,</B><I>py</I>
+
+in the current page are given as fractions in range 0 to 1. 
+For instance,
+<B>0,0</B>
+
+designates the upper left corner of the page,
+<B>0.5,0.5</B>
+
+is the center, and 
+<B>1,1 </B>
+
+is the lower right corner.
+<P>
+<DT><B>-mode=</B><I>modespec</I>
+
+<DD>
+Specify the initial display mode.
+Unless the toolbar and pop-up menu are disabled,
+the user will be able to change it.
+Legal values for
+<I>modespec</I>
+
+are shown in the below:
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>color</B></TD><TD>Display the color image.<BR></TD></TR>
+<TR VALIGN=top><TD><B>bw</B></TD><TD>Display the foreground mask only.<BR></TD></TR>
+<TR VALIGN=top><TD><B>fore</B></TD><TD>Display the foreground only.<BR></TD></TR>
+<TR VALIGN=top><TD><B>back</B></TD><TD>Display the background only.<BR></TD></TR>
+<TR VALIGN=top><TD><B>text</B></TD><TD>Overlay the hidden text over the color image.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+</DL>
+<P>
+
+<P>
+<DL COMPACT>
+<DT><B>-hor_align=</B><I>keyword</I><B>, -halign=</B><I>keyword</I>
+
+<DD>
+Specify the horizontal position of the page in the viewer window.
+(This does not specify what part of the page will be shown, but rather
+how margins will be laid out around the page in the plugin window.)
+Argument
+<I>keyword</I>
+
+must be
+<B>left</B>,
+
+<B>center</B>,
+
+or
+<B>right</B>.
+
+<P>
+<DT><B>-ver_align=</B><I>keyword</I><B>, -valign=</B><I>keyword</I>
+
+<DD>
+Specify the vertical position of the page in the viewer window.
+(This does not specify what part of the page will be shown, but rather
+how margins will be laid out around the page in the plugin window.)
+Argument
+<I>keyword</I>
+
+must be
+<B>top</B>,
+
+<B>center</B>,
+
+or
+<B>bottom</B>.
+
+<P>
+<DT><B>-cache=(yes|no)</B>
+
+<DD>
+Enable or disable the caching of fully decoded pages of the document.
+Caching is on by default.  
+Caching of documents whose
+<FONT SIZE="-1">URL</FONT>
+does not contain an extension
+<B>.djvu</B> or <B>.djv</B>
+
+is off by default.
+<P>
+<DT><B>-continuous=(yes|no)</B>
+
+<DD>
+Enable or disable the continuous layout of
+multipage documents.
+<P>
+<DT><B>-sidebyside=(yes|no), -side_by_side=(yes|no)</B>
+
+<DD>
+Enable or disable the side-by-side layout of
+multipage documents.
+<P>
+<DT><B>-coverpage=(yes|no)</B>
+
+<DD>
+Specify whether the cover page must be displayed alone
+when multipage documents are shown in side-by-side layout.
+<P>
+<DT><B>-righttoleft=(yes|no)</B>
+
+<DD>
+Specify whether pages should be arranged right-to-left
+when multipage documents are shown in side-by-side layout.
+<P>
+<DT><B>-layout=</B><I>keyword</I><B>{,</B><I>keyword</I><B>}</B>
+
+<DD>
+Specify the layout settings using a single list
+of comma-separated keywords.
+The following keywords are recognized:
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>single</B></TD><TD>Disable both the side-by-side and continuous modes<BR></TD></TR>
+<TR VALIGN=top><TD><B>double</B></TD><TD>Enable the side-by-side mode.<BR></TD></TR>
+<TR VALIGN=top><TD><B>continuous</B></TD><TD>Enable the continuous mode.<BR></TD></TR>
+<TR VALIGN=top><TD><B>cover, nocover</B></TD><TD>Specify whether the cover page should be left alone.<BR></TD></TR>
+<TR VALIGN=top><TD><B>ltor, rtol</B></TD><TD>Specify the left-to-right or right-to-left layout.<BR></TD></TR>
+<TR VALIGN=top><TD><B>gap, nogap</B></TD><TD>Specify whether there is a gap between pages.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+<P>
+<DT><B>-scrollbars=(yes|no)</B>
+
+<DD>
+Enable or disable the presence of scroll bars when the full
+image size exceeds the plugin window size. 
+The default is yes.
+<P>
+<DT><B>-frame=(yes|no)</B>
+
+<DD>
+Enable or disable the display of a thin frame 
+and shadow around the DjVu images.
+Frames are enabled by default.
+<P>
+<DT><B>-background=</B><I>color</I>
+
+<DD>
+Specify the color of the background border
+displayed around the document. The color
+<I>color</I>
+
+must be given in hexadecimal
+<FONT SIZE="-1">RRGGBB</FONT>
+or
+<FONT SIZE="-1">#RRGGBB</FONT>
+format.
+<P>
+<DT><B>-toolbar=</B><I>keyword</I><B>{(,|+|-)</B><I>keyword</I><B>}</B>
+
+<DD>
+Controls the appearance and the contents of the toolbar.
+The argument of option
+<B>toolbar</B>
+
+is composed of a number of keywords separated
+by characters comma, plus or minus.
+The appearance of the toolbar is controlled by keywords
+placed before the first occurrence of a character plus
+or minus. The following keywords are recognized in
+this context:
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>no</B></TD><TD>Disable toolbar.<BR></TD></TR>
+<TR VALIGN=top><TD><B>always</B></TD><TD>Displays the toolbar.<BR></TD></TR>
+<TR VALIGN=top><TD><B>auto</B></TD><TD>Enable toolbar &quot;autohide&quot; mode (not implemented).<BR></TD></TR>
+<TR VALIGN=top><TD><B>top</B></TD><TD>Place toolbar along the top edge.<BR></TD></TR>
+<TR VALIGN=top><TD><B>bottom</B></TD><TD>Place toolbar along the bottom edge.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+<DT><DD>
+The contents of the toolbar is controlled by keywords
+placed after the first occurrence of a
+character plus or minus.
+Each keyword adds (after a plus) or removes (after a minus)
+a particular toolbar button or group of buttons.
+The initial content of the toolbar is determined
+by the first occurrence of a character plus or minus.
+When this is a plus,
+the toolbar is initially empty.
+When this is a minus,
+the toolbar initially contains 
+the default selection of buttons.
+<P>
+The following keywords are recognized:
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>modecombo</B></TD><TD>for the display mode selection tool.<BR></TD></TR>
+<TR VALIGN=top><TD><B>zoomcombo</B></TD><TD>for the zoom selection tool.<BR></TD></TR>
+<TR VALIGN=top><TD><B>zoom</B></TD><TD>for the zoom buttons.<BR></TD></TR>
+<TR VALIGN=top><TD><B>select</B></TD><TD>for the selection button.<BR></TD></TR>
+<TR VALIGN=top><TD><B>rotate</B></TD><TD>for the image rotation buttons.<BR></TD></TR>
+<TR VALIGN=top><TD><B>find</B></TD><TD>for the text search button.<BR></TD></TR>
+<TR VALIGN=top><TD><B>new</B></TD><TD>for the new window button.<BR></TD></TR>
+<TR VALIGN=top><TD><B>open</B></TD><TD>for the open new document button.<BR></TD></TR>
+<TR VALIGN=top><TD><B>save</B></TD><TD>for the save button.<BR></TD></TR>
+<TR VALIGN=top><TD><B>print</B></TD><TD>for the print button.<BR></TD></TR>
+<TR VALIGN=top><TD><B>layout</B></TD><TD>for the page layout buttons.<BR></TD></TR>
+<TR VALIGN=top><TD><B>pagecombo</B></TD><TD>for the page selection tool.<BR></TD></TR>
+<TR VALIGN=top><TD><B>firstlast</B></TD><TD>for the first-page and last-page buttons.<BR></TD></TR>
+<TR VALIGN=top><TD><B>prevnext</B></TD><TD>for the previous- and next-page buttons.<BR></TD></TR>
+<TR VALIGN=top><TD>backforw</TD></TR>
+<TR VALIGN=top><TD>help</TD></TR>
+</TABLE></TABLE></CENTER>
+
+</DL>
+<P>
+
+For the sake of backward compatibility,
+the keywords
+<B>fore</B>,
+
+<B>fore_button</B>,
+
+<B>back</B>,
+
+<B>back_button</B>,
+
+<B>bw</B>,
+
+<B>bw_button</B>,
+
+<B>color</B>,
+
+and
+<B>color_button</B>
+
+are interpreted like keyword
+<B>modecombo</B>;
+
+the keyword
+<B>rescombo</B>
+
+is a synonym of 
+<B>zoomcombo</B>;
+
+the keywords
+<B>pan</B>,
+
+<B>zoomsel</B>,
+
+and
+<B>textsel</B>
+
+are interpreted like keyword
+<B>select</B>;
+
+and the keyword 
+<B>doublepage</B>
+
+is interpreted like keyword
+<B>layout</B>.
+
+All other keywords are ignored.
+<P>
+
+<P>
+<DL COMPACT>
+<DT><B>-menubar=(yes|no)</B>
+
+<DD>
+Enable or disable the presence of the menu bar
+located on top of the window.
+<P>
+<DT><B>-statusbar=(yes|no)</B>
+
+<DD>
+Enable or disable the presence of the status bar
+located at the bottom of the window.
+<P>
+<DT><B>-sidebar=</B><I>keyword</I><B>{,</B><I>keyword</I><B>}</B>
+
+<DD>
+Control the dockable panels.
+The argument is a comma separated list of keywords.
+A first group of keywords selects which panels are affected.
+Omitting these keywords selects all panels.
+A second group of keywords then controls the visibility and 
+the position of the selected panels.
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>thumbnails</B></TD><TD>specify the thumbnail panel.<BR></TD></TR>
+<TR VALIGN=top><TD><B>outline,bookmarks</B></TD><TD>specify the outline panel.<BR></TD></TR>
+<TR VALIGN=top><TD><B>search,find</B></TD><TD>specify the search panel.<BR></TD></TR>
+<TR VALIGN=top><TD COLSPAN=2><HR><HR></TD></TR>
+<TR VALIGN=top><TD><B>yes,true</B></TD><TD>show the specified panels (default).<BR></TD></TR>
+<TR VALIGN=top><TD><B>no,false</B></TD><TD>hide the specified panels.<BR></TD></TR>
+<TR VALIGN=top><TD><B>left</B></TD><TD>dock specified panels on the left side.<BR></TD></TR>
+<TR VALIGN=top><TD><B>right</B></TD><TD>dock specified panels on the right side.<BR></TD></TR>
+<TR VALIGN=top><TD><B>top</B></TD><TD>dock specified panels on the top side.<BR></TD></TR>
+<TR VALIGN=top><TD><B>bottom</B></TD><TD>dock specified panels on the bottom side.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+</DL>
+<P>
+
+<DL COMPACT>
+<DT><B>-thumbnails=</B><I>keyword</I><B>{,</B><I>keyword</I><B>}</B>
+
+<DD>
+Compatibility alias for 
+<B>-sidebar=thumbnails,</B><I>keyword</I><B>{,</B><I>keyword</I><B>}.</B>
+
+<P>
+<DT><B>-outline=</B><I>keyword</I><B>{,</B><I>keyword</I><B>}</B>
+
+<DD>
+Compatibility alias for 
+<B>-sidebar=outline,</B><I>keyword</I><B>{,</B><I>keyword</I><B>}.</B>
+
+<P>
+<DT><B>-menu=(yes|no)</B>
+
+<DD>
+Enable or disable the pop-up menu.
+<P>
+<DT><B>-keyboard=(yes|no)</B>
+
+<DD>
+Enable or disable the DjVu plugin keyboard shortcuts.
+The default is yes (enabled).
+<P>
+<DT><B>-mouse=(yes|no)</B>
+
+<DD>
+Enable or disable mouse interaction for panning and selecting.
+The default is yes (enabled).
+<P>
+<DT><B>-links=(yes|no)</B>
+
+<DD>
+Enable or disable hyper-links in the DjVu image.
+Hyper-links are enabled by default.
+<P>
+<DT><B>-highlight=</B><I>x</I><B>,</B><I>y</I><B>,</B><I>w</I><B>,</B><I>h</I><B>[,</B><I>color</I><B>]</B>
+
+<DD>
+Display a highlighted rectangle at the specified coordinates in
+the current page and with the specified color.  Coordinates
+<I>x</I>, <I>y</I>, <I>w</I>, and <I>h</I>
+
+are measured in document image coordinates (not screen coordinates).
+The origin is set at the bottom left corner of the image.  The color
+<I>color</I>
+
+must be given in hexadecimal
+<FONT SIZE="-1">RRGGBB</FONT>
+or
+<FONT SIZE="-1">#RRGGBB</FONT>
+format.
+Multiple highlighted zone can be specified 
+and can be interspersed with multiple
+<B>-page=</B><I>pagename</I>
+
+options. 
+<DT><B>-find=</B><I>text</I>
+
+<DD>
+Highlight occurrences of the given string 
+<I>text</I>.
+
+This option works when the document contains a hidden
+text layer. It can be used in conjunction with
+<B>-sidebar=find</B>
+
+to display the text searching interface.
+<P>
+String 
+<I>text</I>
+
+can be terminated by slash
+<B></B>(<B>/</B>)
+
+followed by letters specifying search options.
+The following letters are recognized
+<BR>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>c</B></TD><TD>Case-sensitive search.<BR></TD></TR>
+<TR VALIGN=top><TD><B>C</B></TD><TD>Case-insensitive search (default).<BR></TD></TR>
+<TR VALIGN=top><TD><B>w</B></TD><TD>Search hits start on word boundaries (default).<BR></TD></TR>
+<TR VALIGN=top><TD><B>W</B></TD><TD>Ignore word boundaries.<BR></TD></TR>
+<TR VALIGN=top><TD><B>r</B></TD><TD>Regular expression search.<BR></TD></TR>
+<TR VALIGN=top><TD><B>R</B></TD><TD>String search (default).<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+</DL>
+<P>
+
+<P>
+<DL COMPACT>
+<DT><B>-rotate=(0|90|180|270)</B>
+
+<DD>
+Rotate the djvu image by the specified angle expressed
+in degrees counter-clockwise.
+<P>
+<DT><B>-print=(yes|no)</B>
+
+<DD>
+Enable or disable printing the DjVu document.
+Printing is enabled by default.
+<P>
+<DT><B>-save=(yes|no)</B>
+
+<DD>
+Enable or disable saving the DjVu document.
+Saving is enabled by default.
+<P>
+<DT><B>-passive</B>
+
+<DD>
+Cause the DjVu image to be displayed in a manner similar 
+to an ordinary web image.
+The default zoom factor is changed to 
+<B>page</B>.
+
+The toolbar, the status bar, the scrollbars, 
+the menus, and the keyboard shortcuts are disabled.
+<P>
+<DT><B>-passivestretch</B>
+
+<DD>
+Cause the DjVu image to be displayed in a manner similar 
+to an ordinary web image.
+The default zoom factor is changed to 
+<B>stretch</B>.
+
+The toolbar, the status bar, the scrollbars, 
+the menus, and the keyboard shortcuts are disabled.
+<P>
+<DT><B>-nomenu, -notoolbar, -noscrollbars</B>
+
+<DD>
+These options were recognized by some versions
+of the DjVu viewers and are honored for the sake
+of backward compatibility. 
+A warning message is printed
+when option 
+<B>-verbose</B>
+
+is active.
+<P>
+<DT><B>-logo, -textsel, -search</B>
+
+<DD>
+These options were recognized by some versions
+of the DjVu viewers but are currently 
+not implemented by
+<B>djview4</B>.
+
+A warning message is printed
+when option 
+<B>-verbose</B>
+
+is active.
+<P>
+<P>
+</DL>
+<A NAME="lbAI">&nbsp;</A>
+<H2>USAGE</H2>
+
+<P>
+Most features can be accessed using the menus, 
+the toolbar, the side bar or the pop-up menu
+shown when the right mouse button is depressed over a DjVu image.  
+Detailled help can be accessed by clicking the contextual 
+help icon from the toolbar and then clicking on various 
+section of the djview user interface.
+<P>
+The following table lists some useful key combinations
+recognized when the djvu document is active:
+<P>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>Key</B></TD><TD><B>Action</B><BR></TD></TR>
+<TR VALIGN=top><TD COLSPAN=2><HR><HR></TD></TR>
+<TR VALIGN=top><TD>SHIFT+F1</TD><TD>Activate the contextual help.<BR></TD></TR>
+<TR VALIGN=top><TD>1,2, and 3</TD><TD>Change zoom to to 100%, 200% and 300%.<BR></TD></TR>
+<TR VALIGN=top><TD>Up, Down, Left, Right</TD><TD>Scroll the image in the given direction.<BR></TD></TR>
+<TR VALIGN=top><TD>Home</TD><TD>Display top left corner of the image.<BR></TD></TR>
+<TR VALIGN=top><TD>End</TD><TD>Display bottom right corner of the image.<BR></TD></TR>
+<TR VALIGN=top><TD>Control+Home</TD><TD>Go to the beginning of the multi-page document.<BR></TD></TR>
+<TR VALIGN=top><TD>Control+End</TD><TD>Go to the end of the multi-page document.<BR></TD></TR>
+<TR VALIGN=top><TD>Space, Return</TD><TD>Scroll down or go to next page.<BR></TD></TR>
+<TR VALIGN=top><TD>Backspace</TD><TD>Scroll up or go to previous page.<BR></TD></TR>
+<TR VALIGN=top><TD>Page Down</TD><TD>Go to the next page.<BR></TD></TR>
+<TR VALIGN=top><TD>Page Up</TD><TD>Go to the previous page.<BR></TD></TR>
+<TR VALIGN=top><TD>+, -</TD><TD>Zoom in and out.<BR></TD></TR>
+<TR VALIGN=top><TD>[, ]</TD><TD>Rotate image.<BR></TD></TR>
+<TR VALIGN=top><TD>W</TD><TD>Select the &quot;Fit Width&quot; zooming mode.<BR></TD></TR>
+<TR VALIGN=top><TD>P</TD><TD>Select the &quot;Fit Page&quot; zooming mode.<BR></TD></TR>
+<TR VALIGN=top><TD>CTRL+F, F3</TD><TD>Search the hidden text layer.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+<P>
+
+Handy effects can be achieved by holding modifier keys.
+Although these keys are configurable from the preference dialog,
+the following table lists the default assignments
+<P>
+
+<CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD><B>Key</B></TD><TD><B>Action</B><BR></TD></TR>
+<TR VALIGN=top><TD COLSPAN=2><HR><HR></TD></TR>
+<TR VALIGN=top><TD>CTRL+SHIFT</TD><TD>Hold these keys to show the magnification lens.<BR></TD></TR>
+<TR VALIGN=top><TD>CTRL</TD><TD>Hold this key to select an area with the mouse.<BR></TD></TR>
+<TR VALIGN=top><TD>SHIFT</TD><TD>Hold this key to display all hyperlinks.<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+
+<P>
+
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H2>CREDITS</H2>
+
+This program was written by L'eon Bottou &lt;<A HREF="mailto:leonb@users.sf.net">leonb@users.sf.net</A>&gt;
+and is distributed under the GNU General Public License.
+This program includes code derived from program
+<B>tiff2pdf</B>,
+
+written by Ross Finlayson and 
+released under a BSD license.
+<P>
+<P>
+<A NAME="lbAK">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="djvu.html">djvu</A></B>(1),
+
+<B><A HREF="ddjvu.html">ddjvu</A></B>(1),
+
+<B><A HREF="nsdejavu.html">nsdejavu</A></B>(1),
+
+<B><A HREF="djview3.html">djview3</A></B>(1),
+
+<B><A HREF="man:tiff2pdf">tiff2pdf</A></B>(1)
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">COMMAND LINE ARGUMENT AND OPTIONS</A><DD>
+<DT><A HREF="#lbAF">COMMAND LINE OPTIONS</A><DD>
+<DT><A HREF="#lbAG">X11 OPTIONS</A><DD>
+<DT><A HREF="#lbAH">GENERAL OPTIONS</A><DD>
+<DT><A HREF="#lbAI">USAGE</A><DD>
+<DT><A HREF="#lbAJ">CREDITS</A><DD>
+<DT><A HREF="#lbAK">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="../index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 12:40:30 GMT, May 13, 2009
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>DJVIEW4</h1></td></tr>
+</table>
+</BODY>
+</HTML>

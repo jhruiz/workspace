@@ -1,0 +1,1272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>DJVUSED</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>DJVUSED</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+Section: DjVuLibre-3.5 (1)<BR>Updated: 5/22/2005<BR><A HREF="#index">Index</A>
+<A HREF="../index.html">Return to Main Contents</A><HR>
+
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+djvused - Multi-purpose DjVu document editor.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>djvused [</B><I>options</I><B>] </B><I>djvufile</I>
+
+<P>
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+Program
+<B>djvused </B>
+
+is a powerful command line tool for manipulating multi-page documents,
+creating or editing annotation chunks, creating or editing hidden text layers, 
+pre-computing thumbnail images, and more.  
+The program first reads the DjVu document
+<I>djvufile</I>
+
+and executes a number of djvused commands.
+<P>
+Djvused commands can be read from a specific file (when option
+<B>-f</B>
+
+is specified), read from the command line (when option
+<B>-e</B>
+
+is specified), or read from the standard input (the default).
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-v</B>
+
+<DD>
+Cause 
+<B>djvused </B>
+
+to print a command line prompt before reading commands
+and a brief message describing how each command was executed.
+This option is very useful for debugging djvused scripts
+and also for interactively entering djvused commands on
+the standard input.
+<DT><B>-f </B><I>scriptfile</I>
+
+<DD>
+Cause
+<B>djvused</B>
+
+to read commands from file
+<I>scriptfile</I>.
+
+<DT><B>-e </B><I>command</I>
+
+<DD>
+Cause
+<B>djvused</B>
+
+to execute the commands specified by the option argument
+<I>commands</I>.
+
+It is advisable to surround the djvused commands by single
+quotes in order to prevent unwanted shell expansion.
+<DT><B>-s</B>
+
+<DD>
+Cause 
+<B>djvused</B>
+
+to save the file 
+<I>djvufile</I>
+
+after executing the specified commands.
+This is similar to executing command
+<B>save</B>
+
+immediately before terminating the program.
+<DT><B>-n</B>
+
+<DD>
+Cause 
+<B>djvused </B>
+
+to disregard save commands.
+This is useful for debugging djvused scripts
+without overwriting files on your disk.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>DJVUSED EXAMPLES</H2>
+
+There are many ways to use program
+<B>djvused</B>.
+
+The following examples illustrate 
+some common uses of this program.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H3>Obtaining the size of a page</H3>
+
+Command 
+<B>size </B>
+
+outputs the width and height of the selected pages
+using a
+<FONT SIZE="-1">HTML</FONT>
+friendly syntax. 
+For instance, the following command prints the size 
+of page
+<I>3</I>
+
+of document
+<I>myfile.djvu</I>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'select 3; size'</B>
+
+</DL>
+<P>
+
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<H3>Extracting the hidden text</H3>
+
+Command
+<B>print-pure-txt</B>
+
+outputs the text associated with a page or a document.
+For instance, the following shell command outputs the text
+for the entire document.  Lines and pages are delimited
+by the usual control characters.
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'print-pure-txt'</B>
+
+</DL>
+<P>
+
+Command
+<B>print-txt</B>
+
+produces a more extensive output describing the structure
+and the location of the text components.  The syntax of this
+output is described later in this man page.  For instance, 
+the following shell command outputs extended text information
+for page 
+<I>3 </I>
+
+of document
+<I>myfile.djvu</I>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'select 3; print-txt'</B>
+
+</DL>
+<P>
+
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<H3>Extracting the annotations</H3>
+
+Annotation data can be extracted using command 
+<B>print-ant</B>.
+
+The syntax of the annotation data is described later in this man page.
+For instance, the following shell command outputs the annotation data
+for the first page of document
+<B>myfile.djvu</B>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'select 1; print-ant'</B>
+
+</DL>
+<P>
+
+Command 
+<B>print-ant</B>
+
+only prints the annotations stored in the selected component file.
+Command
+<B>print-merged-ant</B>
+
+also retrieves annotations from all the component files 
+referenced by the current page (using 
+<FONT SIZE="-1">INCL</FONT>
+chunks) and prints the merged information.
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H3>Dumping/restoring annotations and text</H3>
+
+Three commands,
+<B>output-txt</B>, <B>output-ant</B>, and <B>output-all</B>,
+
+produce djvused scripts.  For instance, the following shell command
+produces a djvused script,
+<I>myfile.dsed</I>,
+
+that recreates all the text and annotation data
+in document
+<I>myfile.djvu</I>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'output-all' &gt; </B><I>myfile.dsed</I>
+
+</DL>
+<P>
+
+Script
+<I>myfile.dsed</I>
+
+is a text file that can be easily edited.  The following shell command
+then recreates the text and annotation information in file
+<I>myfile.djvu</I>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -f </B><I>myfile.dsed</I><B> -s</B>
+
+<P>
+</DL>
+<A NAME="lbAK">&nbsp;</A>
+<H3>Extracting a page</H3>
+
+Both commands
+<B>save-page</B>
+
+and
+<B>save-page-with</B>
+
+create a DjVu file representing the selected component file of a
+document.  The following shell command, for instance, creates a file
+<I>p05.djvu</I>
+
+containing page
+<I>5</I>
+
+of document
+<I>myfile.djvu</I>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'select 5; save-page </B><I>p05.djvu</I><B>'</B>
+
+</DL>
+<P>
+
+Each page of a document might import data from 
+another component file using the so-called inclusion (
+<FONT SIZE="-1">INCL</FONT>
+) chunks.  Command
+<B>save-page</B>
+
+then produces a file with unresolved references to imported data.  
+Such a file should then be made part of a multi-page document
+containing the required data in other component files.
+On the other hand, command 
+<B>save-page-with</B>
+
+copies all the imported data into the output file.
+This file is directly usable. Yet collecting several
+such files into a multi-page document might lead
+to useless data replication.
+<P>
+<A NAME="lbAL">&nbsp;</A>
+<H3>Pre-computing thumbnails</H3>
+
+Commands 
+<B>set-thumbnails</B>
+
+constructs thumbnails that can be later displayed by
+DjVu viewers.  The following shell command, for instance,
+computes thumbnails of size 
+<I>64</I>x<I>64</I>
+
+pixels for all pages of file
+<I>myfile.djvu</I>.
+
+<DL COMPACT>
+<DT><DD>
+<B>djvused </B><I>myfile.djvu</I><B> -e 'set-thumbnails 64' -s</B>
+
+<P>
+</DL>
+<A NAME="lbAM">&nbsp;</A>
+<H2>DJVUSED COMMANDS</H2>
+
+Command lines might contain zero, one, or more djvused commands and an
+optional comment.  Multiple djvused commands must be separated by a
+semicolon character ';'.  Comments are introduced by the '#' character
+and extend until the end of the command line.
+<P>
+<A NAME="lbAN">&nbsp;</A>
+<H3>Selection commands</H3>
+
+Multi-page DjVu documents are composed of a number of component files.
+Most component files describe a specific page of a document.  Some
+component files contain information shared by several pages such as
+shared image data, shared annotations or thumbnails.  Many djvused
+commands operate on selected component files.  All component files are
+initially selected.  The following commands are useful for changing
+the selection.
+<DL COMPACT>
+<DT><B>n</B>
+
+<DD>
+Print the total number of pages in the document.
+<DT><B>ls</B>
+
+<DD>
+List all component files in the document.  Each line contains an
+optional page number, a letter describing the component file type, the
+size of the component file, and identifier of the component file.
+Component file type letters
+<B>P</B>, <B>I</B>, <B>A</B>, and <B>T</B>
+
+respectively stand for page data, shared image data, shared annotation
+data, and thumbnail data.  Page numbers are only listed for component
+files containing page data.  
+When it is set, the optional page title (see command
+<B>set-page-title</B>
+
+below) is displayed after the component file identifier.
+<DT><B>select [</B><I>fileid</I><B>]</B>
+
+<DD>
+Select the component file identified by argument
+<I>fileid</I>.
+
+Argument 
+<I>fileid</I>
+
+must be either a page number or a component file identifier.
+The
+<B>select</B>
+
+command selects all component files
+when the argument
+<I>fileid</I>
+
+is omitted.
+<DT><B>select-shared-ant</B>
+
+<DD>
+Select a component file containing shared annotations.  
+Only one such component file is supported by the current DjVu software. 
+This component file usually contains annotations pertaining to the 
+whole document as opposed to specific pages.  An error message 
+is displayed if there is no such component file.
+<DT><B>create-shared-ant</B>
+
+<DD>
+Create and select a component file containing shared annotations.
+This command only selects the shared annotation component file if such
+a component file already exists.  Otherwise it creates a new shared
+annotation component file and makes sure that it is imported by all
+pages in the document.
+<P>
+</DL>
+<A NAME="lbAO">&nbsp;</A>
+<H3>Text and annotation commands</H3>
+
+<DL COMPACT>
+<DT><B>print-pure-txt</B>
+
+<DD>
+Print the text stored in the hidden text layer of the selected pages.
+A similar capability is offered by program
+<B>djvutxt</B>.
+
+Structural information is sometimes represented by control characters.
+Text from different pages is delimited by form feed characters
+(&quot;\f&quot;).  Lines are delimited by newline characters (&quot;\n&quot;).  Columns,
+regions, and paragraphs are sometimes delimited by vertical tab
+(&quot;\013&quot;), group separators (&quot;\035&quot;) and unit separators (&quot;\037&quot;)
+respectively.
+<DT><B>print-txt</B>
+
+<DD>
+Prints extensive hidden text information for the selected pages.
+This information describes the structure of the text on the 
+document page and locates the structural elements in the page image.
+The syntax of this output is described later in this man page.
+<DT><B>remove-txt</B>
+
+<DD>
+Remove the hidden text information from the selected component files.
+For instance, executing commands
+<B>select</B> and <B>remove-txt</B>
+
+removes all hidden text information from the DjVu document.
+<DT><B>set-txt [</B><I>djvusedtxtfile</I><B>]</B>
+
+<DD>
+Insert hidden text information into the selected pages.
+The optional argument
+<I>djvusedtxtfile</I>
+
+names a file containing the hidden text information.
+This file must contain data similar to what is produced
+by command
+<B>print-txt</B>.
+
+When the optional argument is omitted, the
+program reads the hidden text information from the djvused script
+until reaching an end-of-file or a line containing a single period.
+<DT><B>output-txt</B>
+
+<DD>
+Prints a djvused script that reconstructs the hidden text
+information for the selected pages.  This script can later
+be edited and executed by invoking program
+<B>djvused</B>
+
+with option
+<B>-f</B>.
+
+<DT><B>print-ant</B>
+
+<DD>
+Prints the annotations of the selected component file.
+The annotation data is represented using a simple syntax
+described later in this document.
+<DT><B>print-merged-ant</B>
+
+<DD>
+Merge the annotations stored in the selected component files
+with the annotations imported from other component files such
+as the shared annotation component file..
+The annotation data is represented using a simple syntax
+described later in this document.
+<DT><B>remove-ant</B>
+
+<DD>
+Remove the annotation information from the selected component files.
+For instance, executing commands
+<B>select</B> and <B>remove-ant</B>
+
+removes all annotation information from the DjVu document.
+<DT><B>set-ant [</B><I>djvusedantfile</I><B>]</B>
+
+<DD>
+Insert annotations into the selected component file.
+The optional argument
+<I>djvusedantfile</I>
+
+names a file containing the annotation data.
+This file must contain data similar to what is produced
+by command
+<B>print-ant</B>.
+
+When the optional argument is omitted, the
+program reads the annotation data from the djvused script itself
+until reaching an end-of-file or a line containing a single period.
+<DT><B>output-ant</B>
+
+<DD>
+Print a djvused script that reconstructs the annotation
+information for the selected pages.  This script can later
+be edited and executed by invoking program
+<B>djvused</B>
+
+with option
+<B>-f</B>.
+
+<DT><B>print-meta</B>
+
+<DD>
+Print the meta-data part of the annotations for the selected component file.
+This command displays a subset of the information printed by command
+<B>print-ant</B>
+
+using a different syntax.  Meta-data are organized as key-value pairs.
+Each printed line contains the key name such as
+<B>author</B>, <B>title</B>,etc.,
+
+followed by a tab character (&quot;\t&quot;) and
+a double-quoted string representing the 
+<FONT SIZE="-1">UTF-8</FONT>
+encoded meta-data value.
+<DT><B>set-meta [</B><I>djvusedmetafile</I><B>]</B>
+
+<DD>
+Set the meta-data part of the annotations of the selected component file.
+The remaining part of the annotations is left unchanged.
+The optional argument
+<I>djvusedmetafile</I>
+
+names a file containing the meta-data.
+This file must contain data similar to what is produced
+by command
+<B>print-meta</B>.
+
+When the optional argument is omitted, the
+program reads the annotation data from the djvused script itself
+until reaching an end-of-file or a line containing a single period.
+<DT><B>output-all</B>
+
+<DD>
+Print a djvused script that reconstructs both the hidden text and the
+annotation information for the selected pages.  This script can later
+be edited and executed by invoking program
+<B>djvused</B>
+
+with option
+<B>-f</B>.
+
+</DL>
+<P>
+
+<A NAME="lbAP">&nbsp;</A>
+<H3>Outline/bookmarks commands</H3>
+
+<DL COMPACT>
+<DT><B>print-outline</B>
+
+<DD>
+Print the outline of the document.
+Nothing is printed if the document contains no outline.
+<DT><B>set-outline [</B><I>djvusedoutlinefile</I><B>]</B>
+
+<DD>
+Insert outline information into the document.
+The optional argument
+<I>djvusedoutlinefile</I>
+
+names a file containing the outline information.
+This file must contain data similar to what is produced
+by command
+<B>print-outline</B>.
+
+When the optional argument is omitted, the
+program reads the hidden text information from the djvused script
+until reaching an end-of-file or a line containing a single period.
+</DL>
+<P>
+
+<A NAME="lbAQ">&nbsp;</A>
+<H3>Thumbnail commands</H3>
+
+<DL COMPACT>
+<DT><B>set-thumbnails </B><I>sz</I>
+
+<DD>
+Compute thumbnails of size
+<I>sz</I>x<I>sz</I>
+
+pixels and insert them into the document.
+DjVu viewers can later display these thumbnails very
+efficiently without need to download the data for
+each page.  Typical thumbnail size range 
+from 48 to 128 pixels.
+<DT><B>remove-thumbnails</B>
+
+<DD>
+Remove the pre-computed thumbnails from the DjVu document.
+New thumbnails can then be computed using command
+<B>set-thumbnails</B>.
+
+<P>
+</DL>
+<A NAME="lbAR">&nbsp;</A>
+<H3>Save commands</H3>
+
+The above commands only modify the memory image of the DjVu document.
+The following commands provide means to save the modified data
+into the file system.
+<DL COMPACT>
+<DT><B>save</B>
+
+<DD>
+Save the modified DjVu document back into the input file
+<I>djvufile</I>
+
+specified by the arguments of the program 
+<B>djvused</B>.
+
+Nothing is done if the DjVu file was not modified.
+Passing option
+<B>-s</B>
+
+program
+<B>djvused </B>
+
+is equivalent to executing command
+<B>save</B>
+
+before exiting the program.
+<DT><B>save-bundled </B><I>filename</I>
+
+<DD>
+Save the current DjVu document as a bundled 
+multi-page DjVu document named 
+<I>filename</I>.
+
+A similar capability is offered by program
+<B>djvmcvt</B>.
+
+<DT><B>save-indirect </B><I>filename</I>
+
+<DD>
+Save the current DjVu document as an indirect
+multi-page DjVu document.  The index file of the
+indirect document will be named 
+<B>filename</B>.
+
+All other files composing the indirect document
+will be saved into the same directory as the
+index file.
+A similar capability is offered by program
+<B>djvmcvt</B>.
+
+<DT><B>save-page </B><I>filename</I>
+
+<DD>
+Save the selected component file into DjVu file
+<I>filename</I>.
+
+The selected component file might import data from 
+another component file using the so-called inclusion (
+<FONT SIZE="-1">INCL</FONT>
+) chunks.  This command then produces a file with unresolved
+references to imported data.  Such a file should then be made part of
+a multi-page document containing the required data in other component
+files.
+<DT><B>save-page-with </B><I>filename</I>
+
+<DD>
+Save the selected component file into DjVu file
+<I>filename</I>.
+
+All data imported from other component files is copied into the output
+file as well.  This command always produces a usable DjVu file.  On
+the other hand, collecting several such files into a multi-page
+document might lead to useless data replication.
+<P>
+</DL>
+<A NAME="lbAS">&nbsp;</A>
+<H3>Miscellaneous commands</H3>
+
+<DL COMPACT>
+<DT><B>help</B>
+
+<DD>
+Display a help message listing all commands supported by
+<B>djvused</B>.
+
+<DT><B>dump</B>
+
+<DD>
+Display the 
+<FONT SIZE="-1">EA IFF 85</FONT>
+structure of the document or of the selected component file.
+A similar capability is offered by program
+<B>djvudump</B>.
+
+<DT><B>size</B>
+
+<DD>
+Display the width and the height of the selected pages.  The
+dimensions of each page are displayed using a syntax suitable for
+direct insertion into the
+<FONT SIZE="-1">&lt;EMBED...&gt;&lt;/EMBED&gt;</FONT>
+tags.
+<DT><B>set-page-title </B><I>title</I>
+
+<DD>
+Sets a page title for the selected page.
+When page titles are available, recent versions 
+of the DjVuLibre viewers display these page
+titles instead of page numbers and also 
+accept them in page selection options.
+Command
+<B>ls</B>
+
+can be used to see both the page titles and page identifiers.
+To unset a page title, simply make it equal to the page identifier.
+<P>
+</DL>
+<A NAME="lbAT">&nbsp;</A>
+<H2>DJVUSED FILE FORMATS</H2>
+
+<P>
+Djvused uses a simple parenthesized syntax to represent
+both annotations and hidden text.
+<DL COMPACT>
+<DT>*<DD>
+This syntax is the native syntax used by DjVu for storing annotations.
+Program
+<B>djvused</B>
+
+simply compresses the annotation data using the
+<B><A HREF="bzz.html">bzz</A></B>(1)
+
+algorithm.
+<DT>*<DD>
+This syntax differs from the native syntax used by DjVu for
+storing the hidden text.  Program 
+<B>djvused</B>
+
+performs the translations between the compact binary representation
+used by DjVu and the easily modifiable parenthesized syntax.
+</DL>
+<P>
+
+<P>
+<A NAME="lbAU">&nbsp;</A>
+<H3>General syntax</H3>
+
+Djvused files are
+<FONT SIZE="-1">ASCII</FONT>
+text files.  The legal characters in djvused files are 
+the printable 
+<FONT SIZE="-1">ASCII </FONT>
+characters and the space, tab, cr, and nl characters.
+Using other characters has undefined results.
+<P>
+Djvused files are composed of a sequence of expressions separated by
+blank characters (space, tab, cr, or nl).  There are four kind of
+expressions, namely integers, symbols, strings and lists.
+<DL COMPACT>
+<DT>Integers:<DD>
+Integer numbers are represented by one or more digits,
+with the usual interpretation.
+<DT>Symbols:<DD>
+Symbols, or identifiers, are sequences of printable ascii characters
+representing a name or a keyword.  Acceptable characters are the alpha-numeric
+characters, the underscore &quot;_&quot;, the minus character &quot;-&quot;, and the hash
+character &quot;#&quot;.  Names should not begin with a digit or a minus character.
+<DT>Strings:<DD>
+Strings denote an arbitrary sequence of bytes,
+usually interpreted as a sequence of 
+<FONT SIZE="-1">UTF-8</FONT>
+encoded characters.  Strings in djvused files are similar to strings in the C
+language.  They are surrounded by double quote characters.  Certain sequences
+of characters starting with a backslash (&quot;\&quot;) have a special meaning.  
+A backslash followed by letter
+&quot;a&quot;, &quot;b&quot;, &quot;t&quot;, &quot;n&quot;, &quot;v&quot;, &quot;f&quot;, &quot;r&quot;, &quot;\&quot;, and stands for the ascii character BEL(007), BS(008), HT(009),
+LF(010), VT(011), FF(012), CR(013), BACKSLASH(134) 
+and DOUBLEQUOTE(042) respectively.
+A backslash followed by one to three digits stands for the byte 
+whose octal code is expressed by the digits.  
+All other backslash sequences are illegal.
+All non printable ascii characters must be escaped.
+<DT>Lists:<DD>
+Lists are sequence of expressions separated by blanks and surrounded by
+parentheses.  All expressions types are acceptable within a list, including
+sub-lists.
+<P>
+</DL>
+<A NAME="lbAV">&nbsp;</A>
+<H3>Hidden text syntax</H3>
+
+The building blocks of the hidden text syntax are lists
+representing each structural component of the hidden text.
+Structural components have the following form:
+<DL COMPACT>
+<DT><DD>
+<B>(</B><I>type</I><B> </B><I>xmin</I><B> </B><I>ymin</I><B> </B><I>xmax</I><B> </B><I>ymax</I><B> ... )</B>
+
+</DL>
+<P>
+
+<P>
+The symbol
+<I>type</I>
+
+must be one of 
+<B>page</B>, <B>column</B>, <B>region</B>, <B>para</B>, <B>line</B>, <B>word</B>, or <B>char</B>,
+
+listed here by decreasing order of importance.  
+The integers
+<I>xmin</I>, <I>ymin</I>, <I>xmax</I>, and <I>ymax</I>
+
+represent the coordinates of a rectangle indicating the position of the
+structural component in the page.  Coordinates are measured in pixels and have
+their origin at the bottom left corner of the page.  The remaining expressions
+in the list either is a single string representing the encoded text associated
+with this structural component, or is a sequence of structural components with
+a lesser type.
+<P>
+
+The hidden text for each page is simply represented by
+a single structural element of type
+<B>page</B>.
+
+Various level of structural information are acceptable.  For instance, the
+page level component might only specify a page level string, or might only
+provide a list of lines, or might provide a full hierarchy down to the
+individual characters.
+<P>
+<A NAME="lbAW">&nbsp;</A>
+<H3>Outline/Bookmark syntax</H3>
+
+The outline syntax is a single list of the form
+<DL COMPACT>
+<DT><DD>
+<B>(bookmarks ...)</B>
+
+</DL>
+<P>
+
+The first element of the list is symbol
+<B>bookmarks</B>.
+
+The subsequent elements are lists representing
+the toplevel outline entries.
+Each outline entry is represented by
+a list with the following form:
+<DL COMPACT>
+<DT><DD>
+<B>(</B><I>title</I><B> </B><I>url</I><B> ... )</B>
+
+</DL>
+<P>
+
+The string 
+<I>title</I>
+
+is the title of the outline entry.
+The destination string
+<I>url</I>
+
+can be an arbitrary
+<FONT SIZE="-1">URL</FONT>
+or can be composed of the hash character (&quot;#&quot;)
+followed by either the component file identifier
+or the page number corresponding to the outline entry.
+The remaining expressions describe subentries of 
+this outline entry.
+<P>
+<A NAME="lbAX">&nbsp;</A>
+<H3>Annotation syntax</H3>
+
+Annotations are represented by a sequence of annotation expressions.
+The following annotation expressions are recognized:
+<DL COMPACT>
+<DT><B>(background </B><I>color</I><B>)</B>
+
+<DD>
+Specify the color of the viewer area surrounding the DjVu image.
+Colors are represented with the X11 hexadecimal syntax
+<B>#RRGGBB</B>.
+
+For instance, 
+<B>#000000</B>
+
+is black and
+<B>#FFFFFF</B>
+
+is white.
+<DT><B>(zoom </B><I>zoomvalue</I><B>)</B>
+
+<DD>
+Specify the initial zoom factor of the image.
+Argument
+<I>zoomvalue</I>
+
+can be one of
+<B>stretch</B>, <B>one2one</B>, <B>width</B>, <B>page</B>, 
+
+or composed of the letter
+<B>d</B>
+
+followed by a number in range 1 to 999 representing a zoom factor
+(such as in
+<B>d300</B> or <B>d150</B>
+
+for instance.)
+<DT><B>(mode </B><I>modevalue</I><B>)</B>
+
+<DD>
+Specify the initial display mode of the image.
+Argument
+<I>modevalue</I>
+
+is one of
+<B>color</B>, <B>bw</B>, <B>fore</B>, or <B>back</B>.
+
+<DT><B>(align </B><I>horzalign</I><B> </B><I>vertalign</I><B>)</B>
+
+<DD>
+Specify how the image should be aligned on the viewer surface.
+By default the image is located in the center.  
+Argument 
+<I>horzalign</I>
+
+can be one of
+<B>left</B>, <B>center</B>, or <B>right</B>.
+
+Argument 
+<I>vertalign</I>
+
+can be one of
+<B>top</B>, <B>center</B>, or <B>bottom</B>.
+
+<DT><B>(maparea </B><I>url</I><B> </B><I>comment</I><B> </B><I>area</I><B> ...)</B>
+
+<DD>
+Define an hyper-link for the specified destination.
+<DL COMPACT><DT><DD>
+<P>
+
+Argument
+<I>url</I>
+
+can have one of the following forms:
+<DL COMPACT>
+<DT><DD>
+<I>href</I>
+
+<BR>
+
+<B>(url </B><I>href</I><B> </B><I>target</I><B>)</B>
+
+<BR>
+
+</DL>
+<P>
+
+where 
+<I>href</I>
+
+is a string representing the destination and 
+<I>target </I>
+
+is a string representing the target frame for the hyper-link,
+as defined by the 
+<FONT SIZE="-1">HTML</FONT>
+anchor tag
+<FONT SIZE="-1">&lt;A&gt;.</FONT>
+The destination string
+<I>href</I>
+
+can be an arbitrary
+<FONT SIZE="-1">URL</FONT>
+or can be composed of the hash character (&quot;#&quot;)
+followed by either a component file identifier
+or a page number.  Page numbers may be prefixed
+with an optional sign to represent a page displacement.  
+For instance the strings
+<B>#-1 </B>
+
+and 
+<B>#+1</B>
+
+can be used to access the previous page and 
+the next page.
+<P>
+Argument 
+<I>comment </I>
+
+is a string that might be displayed by the viewer 
+when the user moves the mouse over the hyper-link.
+<P>
+Argument
+<I>area</I>
+
+defines the shape and the location of the hyperlink.
+The following forms are recognized:
+<DL COMPACT>
+<DT><DD>
+<B>(rect </B><I>xmin</I><B> </B><I>ymin</I><B> </B><I>width</I><B> </B><I>height</I><B>)</B>
+
+<BR>
+
+<B>(oval </B><I>xmin</I><B> </B><I>ymin</I><B> </B><I>width</I><B> </B><I>height</I><B>)</B>
+
+<BR>
+
+<B>(poly </B><I>x0</I><B> </B><I>y0</I><B> </B><I>x1</I><B> </B><I>y1</I><B> ... )</B>
+
+<BR>
+
+<B>(text </B><I>xmin</I><B> </B><I>ymin</I><B> </B><I>width</I><B> </B><I>height</I><B>)</B>
+
+<BR>
+
+<B>(line </B><I>x0</I><B> </B><I>y0</I><B> </B><I>x1</I><B> </B><I>y1</I><B>)</B>
+
+</DL>
+<P>
+
+All parameters are numbers representing coordinates.  
+Coordinates are measured in pixels and have their origin 
+at the bottom left corner of the page.
+<P>
+The remaining expressions in the
+<B>maparea</B>
+
+list represent the visual effect associated with
+the hyper-link. 
+<P>
+A first set of options defines how borders
+are drawn for 
+<B>rect</B>, <B>oval</B>, <B>polygon</B>, or <B>text</B>
+
+hyperlink areas.
+<DL COMPACT>
+<DT><DD>
+<B>(none)</B>
+
+<BR>
+
+<B>(xor)</B>
+
+<BR>
+
+<B>(border </B><I>color</I><B>)</B>
+
+<BR>
+
+<B>(shadow_in [</B><I>thickness</I><B>])</B>
+
+<BR>
+
+<B>(shadow_out [</B><I>thickness</I><B>])</B>
+
+<BR>
+
+<B>(shadow_ein [</B><I>thickness</I><B>])</B>
+
+<BR>
+
+<B>(shadow_eout [</B><I>thickness</I><B>])</B>
+
+</DL>
+<P>
+
+where parameter 
+<I>color</I>
+
+has syntax
+<B>#RRGGBB</B>
+
+as described above,
+and parameter thickness is an integer in range 1 to 32.
+The last four border options are only supported for 
+<B>rect</B>
+
+hyperlink areas. 
+The default border is a simple black line.
+Border options do not apply to 
+<B>line </B>
+
+areas.
+<P>
+When a border option is specified, the border 
+becomes visible when the user moves the mouse 
+over the hyperlink. The border may be made
+always visible by using the following option:
+<DL COMPACT>
+<DT><DD>
+<B>(border_avis)</B>
+
+</DL>
+<P>
+
+The following two options may be used with 
+<B>rect</B>
+
+hyperlink areas.
+The complete area will be highlighted using the 
+specified color at the specified opacity (0-100, default 50).
+<DL COMPACT>
+<DT><DD>
+<B>(hilite </B><I>color</I><B>)</B>
+
+<BR>
+
+<B>(opacity </B><I>op</I><B>)</B>
+
+</DL>
+<P>
+
+This is often used with an empty 
+<FONT SIZE="-1">URL </FONT>
+for simply emphasizing a specific
+segment of an image.
+<P>
+
+The following three options may be used with line areas to 
+specify an optional ending arrow, the line width and color.
+The default is a black line with width 1 and without arrow.
+<DL COMPACT>
+<DT><DD>
+<B>(arrow)</B>
+
+<BR>
+
+<B>(width </B><I>w</I><B>)</B>
+
+<BR>
+
+<B>(lineclr </B><I>color</I><B>)</B>
+
+</DL>
+<P>
+
+Finally the following three options can be used with text areas.
+The default background color is transparent. 
+The default text color is black.
+The 
+<B>pushpin</B>
+
+option indicates that the text is symbolized by a small pushpin icon.
+Clicking the icon reveals the text.
+<DL COMPACT>
+<DT><DD>
+<B>(backclr </B><I>bkcolor</I><B>)</B>
+
+<BR>
+
+<B>(textclr </B><I>txtcolor</I><B>)</B>
+
+<BR>
+
+<B>(pushpin)</B>
+
+</DL>
+<P>
+
+<P>
+</DL>
+
+<DT><B>(metadata ... (</B><I>key</I><B> </B><I>value</I><B>) ... )</B>
+
+<DD>
+Define meta-data entries.
+Each entry is identified by a symbol
+<I>key</I>
+
+representing the nature of the meta data entry.
+The string
+<I>value</I>
+
+represents
+the value associated with the corresponding key.
+Two sets of keys are noteworthy:
+keys borrowed from the BibTex bibliography system,
+and keys borrowed from the PDF DocInfo metadata.
+BibTex keys are always expressed in lowercase, such as
+<B>year</B>, <B>booktitle</B>, <B>editor</B>, <B>author</B>, etc..
+
+DocInfo keys start with an uppercase letter, such as
+<B>Title</B>, <B>Author</B>, <B>Subject</B>, <B>Creator</B>, 
+
+<B>Produced</B>, <B>Trapped</B>, 
+
+<B>CreationDate</B>, and <B>ModDate</B>.
+
+The values associated with the last two keys
+should be dates expressed according to RFC 3339.
+<P>
+</DL>
+<A NAME="lbAY">&nbsp;</A>
+<H2>LIMITATIONS</H2>
+
+The current version of program 
+<B>djvused</B>
+
+only supports selecting one component file
+or all component files.  There is no way to
+select only a few component files.
+<P>
+<A NAME="lbAZ">&nbsp;</A>
+<H2>CREDITS</H2>
+
+This program was initially written by L'eon Bottou
+&lt;<A HREF="mailto:leonb@users.sourceforge.net">leonb@users.sourceforge.net</A>&gt; and was improved by Yann Le Cun
+&lt;<A HREF="mailto:profshadoko@users.sourceforge.net">profshadoko@users.sourceforge.net</A>&gt;, Florin Nicsa, Bill Riemers
+&lt;<A HREF="mailto:docbill@sourceforge.net">docbill@sourceforge.net</A>&gt; and many others.
+<P>
+<A NAME="lbBA">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="djvu.html">djvu</A></B>(1),
+
+<B><A HREF="djvutxt.html">djvutxt</A></B>(1),
+
+<B><A HREF="djvmcvt.html">djvmcvt</A></B>(1),
+
+<B><A HREF="djvudump.html">djvudump</A></B>(1),
+
+<B><A HREF="bzz.html">bzz</A></B>(1)
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">DJVUSED EXAMPLES</A><DD>
+<DL>
+<DT><A HREF="#lbAG">Obtaining the size of a page</A><DD>
+<DT><A HREF="#lbAH">Extracting the hidden text</A><DD>
+<DT><A HREF="#lbAI">Extracting the annotations</A><DD>
+<DT><A HREF="#lbAJ">Dumping/restoring annotations and text</A><DD>
+<DT><A HREF="#lbAK">Extracting a page</A><DD>
+<DT><A HREF="#lbAL">Pre-computing thumbnails</A><DD>
+</DL>
+<DT><A HREF="#lbAM">DJVUSED COMMANDS</A><DD>
+<DL>
+<DT><A HREF="#lbAN">Selection commands</A><DD>
+<DT><A HREF="#lbAO">Text and annotation commands</A><DD>
+<DT><A HREF="#lbAP">Outline/bookmarks commands</A><DD>
+<DT><A HREF="#lbAQ">Thumbnail commands</A><DD>
+<DT><A HREF="#lbAR">Save commands</A><DD>
+<DT><A HREF="#lbAS">Miscellaneous commands</A><DD>
+</DL>
+<DT><A HREF="#lbAT">DJVUSED FILE FORMATS</A><DD>
+<DL>
+<DT><A HREF="#lbAU">General syntax</A><DD>
+<DT><A HREF="#lbAV">Hidden text syntax</A><DD>
+<DT><A HREF="#lbAW">Outline/Bookmark syntax</A><DD>
+<DT><A HREF="#lbAX">Annotation syntax</A><DD>
+</DL>
+<DT><A HREF="#lbAY">LIMITATIONS</A><DD>
+<DT><A HREF="#lbAZ">CREDITS</A><DD>
+<DT><A HREF="#lbBA">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="../index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 12:40:30 GMT, May 13, 2009
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>DJVUSED</h1></td></tr>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>CSEPDJVU</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>CSEPDJVU</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+Section: DjVuLibre-3.5 (1)<BR>Updated: 10/11/2001<BR><A HREF="#index">Index</A>
+<A HREF="../index.html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+csepdjvu - DjVu encoder for separated data files.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>csepdjvu  [</B><I>options</I><B>] [</B><I>sepfiles</I><B>]... </B><I>outputdjvufile</I>
+
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<P>
+This program creates a DjVuDocument file
+<I>outputdjvufile</I>
+
+from separated data files 
+<I>sepfiles</I>.
+
+It can read separated data from the standard input when given 
+a single dash instead of the separated data file names.  
+This feature is intended for pre-processing programs that
+push separated data into
+<B>csepdjvu</B>
+
+via a pipe.
+<P>
+Each separated data file represents one or more page images.  When the program
+arguments specify multiple pages, all the pages are encoded and saved as a
+bundled multi-page document.  When the program arguments specify a single
+page, the page is encoded and saved as a single page file.
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-d </B><I>n</I>
+
+<DD>
+Specify the resolution information encoded into the output file expressed in
+dots per inch. The resolution information encoded in DjVu files determine how
+the decoder scales the image on a particular display.  Meaningful resolutions
+range from 25 to 6000.  The default value is 300 dpi.
+<DT><B>-q </B><I>n</I><B>,...,</B><I>n</I>
+
+<DD>
+<DT><B>-q </B><I>n</I><B>+...+</B><I>n</I>
+
+<DD>
+Specify the encoding quality of the IW44 encoded background layer.  
+The option argument contain several integers (one per chunk) separated by
+either commas or pluses.  This option is similar to option
+<B>-slice</B>
+
+of program
+<B>c44</B>.
+
+Please refer to the 
+<B><A HREF="c44.html">c44</A></B>(1)
+
+man page for additional details.
+The default quality specification is
+<B>-q 72,83,93,103</B>.
+
+<P>
+This option does not apply to uniformly white background that were not specified
+by the separated data but are called for by the DjVu specification.  Such 
+background images always come at the lowest possible resolution and with a
+standard quality setting that ensures the color uniformity.
+<DT><B>-t</B>
+
+<DD>
+Program 
+<B>csepdjvu</B>
+
+interprets certain comments in the separated file to
+construct a hidden text layer in the DjVu file. This layer
+records the location of each word for hiliting purposes. 
+This option reduces the file size by simply recording the
+location of each line.
+<DT><B>-v</B>
+
+<DD>
+Display a brief message describing each page.
+<DT><B>-vv</B>
+
+<DD>
+Display extensive informational messages during encoding.
+<P>
+</DL>
+<A NAME="lbAF">&nbsp;</A>
+<H2>SEPARATED DATA FILE FORMAT</H2>
+
+<P>
+Each separated data file contains a concatenation of one or more separated
+page images.  Each page is logically represented by a foreground image with a
+transparent color and by a background image visible through the transparent
+pixels.  The data for each separated page image is the concatenation of the
+following data blocks:
+<DL COMPACT>
+<DT>*<DD>
+A foreground image encoded using either 
+the &quot;Color RLE format&quot; or the &quot;Bitonal RLE format&quot;.
+These formats are described later in this section.
+<DT>*<DD>
+An optional background image encoded as a &quot;Portable Pixmap&quot; (
+<FONT SIZE="-1">PPM</FONT>
+).  This well known format is summarized later in this section.  The absence
+of a background image simply indicates that a uniformly white background
+should be assumed.
+<DT>*<DD>
+An arbitrary number of comment lines starting with character &quot;#&quot; and
+terminated by a linefeed character. Comment lines whose first word starts
+with a capital letter have special meanings documented later in this document.
+</DL>
+<P>
+
+The dimensions (width and height) of the background image must be obtained by
+rounding up the quotient of the foreground image dimensions by an integer
+reduction factor ranging from 1 to 12.  Assume, for instance, that the width
+of the foreground is 2507 and the reduction factor is 3.  The width of the
+background image will be the integer ratio (2507+2)/3.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H3>Color RLE format</H3>
+
+<P>
+The Color RLE format is a simple run-length encoding scheme for color images
+with a limited number of distinct colors.  The data always begin with a text
+header composed of the two characters &quot;R6&quot;, the number of columns, the number
+of rows, and the number of color palette entries.  All numbers are expressed
+in decimal
+<FONT SIZE="-1">ASCII.</FONT>
+These four items are separated by blank characters (space, tab, carriage
+return, or linefeed) or by comment lines introduced by character &quot;#&quot;.  The
+last number is followed by exactly one character which usually is a linefeed
+character.
+<P>
+The header is followed by the color palette containing three bytes per color
+entry.  The bytes represent the red, green, and blue components of the color.
+<P>
+The palette is followed by a collection of four bytes integers (most
+significant bit first) representing runs of pixels with an identical color.
+The twelve upper bits of this integer indicate the index of the run color in
+the palette entry.  The twenty lower bits of the integer indicate the run
+length.  Color indices greater than 0xff0 are reserved.  Color index 0xfff is
+used for transparent runs.  Each row is represented by a sequence of runs
+whose lengths add up to the image width.  Rows are encoded starting with the
+top row and progressing toward the bottom row.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<H3>Bitonal RLE format</H3>
+
+<P>
+The Bitonal RLE format is a simple run-length encoding scheme for bitonal
+images.  The data always begin with a text header composed of the two
+characters &quot;R4&quot;, the number of columns, and the number of rows.  All numbers
+are expressed in decimal
+<FONT SIZE="-1">ASCII.</FONT>
+These three items are separated by blank characters (space, tab, carriage
+return, or linefeed) or by comment lines introduced by character &quot;#&quot;.  The
+last number is followed by exactly one character which usually is a linefeed
+character.
+<P>
+The rest of the file encodes a sequence of numbers representing the lengths of
+alternating runs of transparent and black pixels.  Lines are encoded starting
+with the top line and progressing toward the bottom line.  Each line starts
+with a white run. The decoder knows that a line is finished when the sum of
+the run lengths for that line is equal to the number of columns in the image.
+Numbers in range 0 to 191 are represented by a single byte in range 0x00 to
+0xbf.  Numbers in range 192 to 16383 are represented by a two byte sequence:
+the first byte, in range 0xc0 to 0xff, encodes the six most significant bits
+of the number, the second byte encodes the remaining eight bits of the
+number. This scheme allows for runs of length zero, which are useful when a
+line starts with a black pixel, and when a very long run (whose length exceeds
+16383) must be split into smaller runs.
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<H3>Portable Pixmap (PPM) format</H3>
+
+<P>
+The Portable Pixmap format is a well known format for representing color
+images.  Check the
+<B><A HREF="man:ppm">ppm</A></B>(1)
+
+man page for complete information.
+<P>
+The data always begin with a text header composed of the two characters &quot;P6&quot;,
+the number of columns, the number of rows, and the maximal value of
+a color component (usually 255).  All numbers are expressed in
+decimal
+<FONT SIZE="-1">ASCII.</FONT>
+These three items are separated by blank characters (space, tab, carriage
+return, or linefeed) or by comment lines introduced by character &quot;#&quot;.  The
+last number is followed by exactly one character which usually is a linefeed
+character.
+<P>
+The rest of the file encodes all the pixels.  Each pixel is represented by
+three bytes representing the red, green and blue component of the pixel.
+Pixels are ordered in left to right, top to bottom.
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H3>Comments in separated files</H3>
+
+<P>
+Each page is followed by an arbitrary number of comment lines 
+starting with character &quot;#&quot; and terminated by a linefeed character. 
+Comment lines whose first word starts with a capital letter have 
+special meanings. The following constructs are currently defined:
+<DL COMPACT>
+<DT>*<DD>
+<B># T </B><I>px</I><B>:</B><I>py</I><B> </B><I>dx</I><B>:</B><I>dy</I><B> </B><I>w</I><B>x</B><I>h</I><B>+</B><I>x</I><B>+</B><I>y</I><B> (</B><I>string</I><B>)</B>
+
+<BR>
+
+This constructs indicates that the piece of text
+<I>string</I>
+
+must be associated with an area of size
+<I>w</I>x<I>h</I>
+
+at position 
+<I>x</I>,<I>y</I>
+
+relative to the lower left corner of the page.
+The string is UTF-8 encoded. Special characters
+can be escaped as in PostScript using the backslash character.
+Integers
+<I>px</I>, and <I>py</I>
+
+represent the position of the current point on the text baseline
+before the text was drawn. The drawing operation then moves the
+current point by 
+<I>dx</I>, and <I>dy</I>
+
+pixels.
+When such comments are present, 
+<B>csepdjvu</B>
+
+produces a hidden text layer for the 
+corresponding pages.
+<DT>*<DD>
+<B># L </B><I>w</I><B>x</B><I>h</I><B>+</B><I>x</I><B>+</B><I>y</I><B> (</B><I>url</I><B>)</B>
+
+<BR>
+
+This construct indicates that an hyperlink to url
+<I>url</I>
+
+should be associated with area of size
+<I>w</I>x<I>h</I>
+
+at position 
+<I>x</I>,<I>y</I>.
+
+When such comments are present, 
+<B>csepdjvu</B>
+
+produces pages with an annotation chunk 
+containing the specified hyperlinks.
+<DT>*<DD>
+<B># B </B><I>count</I><B> (</B><I>string</I><B>) (#</B><I>pageno</I><B>)</B>
+
+<BR>
+
+This constructs provides outline information for the document.
+An outline entry entitled
+<I>string</I>
+
+is associated with page
+<I>pageno</I>.
+
+Integer 
+<I>count </I>
+
+indicates how many of the following outline entries must
+be attached to the current entry as subentries.
+When such comments are present in the first page
+<B>csepdjvu</B>
+
+produces an navigation chunk with 
+the specified outline.
+<P>
+</DL>
+<A NAME="lbAK">&nbsp;</A>
+<H2>CREDITS</H2>
+
+<P>
+This program was initially written by L'eon Bottou
+&lt;<A HREF="mailto:leonb@users.sourceforge.net">leonb@users.sourceforge.net</A>&gt; and was improved by Bill Riemers
+&lt;<A HREF="mailto:docbill@sourceforge.net">docbill@sourceforge.net</A>&gt; and many others.
+<P>
+<A NAME="lbAL">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="djvu.html">djvu</A></B>(1),
+
+<B><A HREF="man:ppm">ppm</A></B>(5),
+
+<B><A HREF="c44.html">c44</A></B>(1)
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DT><A HREF="#lbAF">SEPARATED DATA FILE FORMAT</A><DD>
+<DL>
+<DT><A HREF="#lbAG">Color RLE format</A><DD>
+<DT><A HREF="#lbAH">Bitonal RLE format</A><DD>
+<DT><A HREF="#lbAI">Portable Pixmap (PPM) format</A><DD>
+<DT><A HREF="#lbAJ">Comments in separated files</A><DD>
+</DL>
+<DT><A HREF="#lbAK">CREDITS</A><DD>
+<DT><A HREF="#lbAL">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="../index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 12:40:29 GMT, May 13, 2009
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>CSEPDJVU</h1></td></tr>
+</table>
+</BODY>
+</HTML>

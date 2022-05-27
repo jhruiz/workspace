@@ -1,0 +1,229 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>pdf2djvu</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div lang="de" class="refentry" title="pdf2djvu"><a name="idp98728"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>pdf2djvu &#8212; Erzeugt DjVu-Dateien aus PDF-Dateien</p></div><div class="refsynopsisdiv" title="Übersicht"><h2>Übersicht</h2><div class="cmdsynopsis"><p><code class="command">pdf2djvu</code>  [ { <code class="option">-o</code>  |   <code class="option">--output</code> }   <em class="replaceable"><code>Ausgabe-DjVu-Datei</code></em>  ] [<em class="replaceable"><code>Option</code></em>...]  <em class="replaceable"><code>PDF-Datei</code></em>... </p></div><div class="cmdsynopsis"><p><code class="command">pdf2djvu</code>    { <code class="option">-i</code>  |   <code class="option">--indirect</code> }   <em class="replaceable"><code>Index-DjVu-Datei</code></em>    [<em class="replaceable"><code>Option</code></em>...]  <em class="replaceable"><code>PDF-Datei</code></em>... </p></div><div class="cmdsynopsis"><p><code class="command">pdf2djvu</code>  { <code class="option">--version</code>  |   <code class="option">--help</code>  |   <code class="option">-h</code> }</p></div></div><div class="refsection" title="Beschreibung"><a name="idp2537976"></a><h2>Beschreibung</h2><p>
+        Dieses Programm erzeugt eine DjVu-Datei aus einer oder mehreren
+Portable-Document-Format-Dateien.
+    </p></div><div class="refsection" title="Optionen"><a name="idp2684192"></a><h2>Optionen</h2><p>
+        <span class="command"><strong>pdf2djvu</strong></span> akzeptiert die folgenden Optionen:
+    </p><div class="refsection" title="Dokumenttyp, Dateinamen"><a name="idp3528608"></a><h3>Dokumenttyp, Dateinamen</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-o</code>, </span><span class="term"><code class="option">--output=<code class="filename"><em class="replaceable"><code>Ausgabe-DjVu-Datei</code></em></code></code></span></dt><dd><p>
+                    generiert ein gebündeltes mehrseitiges Dokument; schreibt die Ausgabe in
+eine <code class="filename"><em class="replaceable"><code>Ausgabe-DjVu-Datei</code></em></code>
+anstatt auf die Standardausgabe
+                </p></dd><dt><span class="term"><code class="option">-i</code>, </span><span class="term"><code class="option">--indirect=<code class="filename"><em class="replaceable"><code>Index-DjVu-Datei</code></em></code></code></span></dt><dd><p>
+                    erstellt ein indirekt mehrseitiges Dokument; benutzt
+<code class="filename"><em class="replaceable"><code>Index-DjVu-Datei</code></em></code> als
+Indexdateinamen; legt die Komponentendateien im gleichen Verzeichnis ab. Das
+Verzeichnis muss existieren und beschreibbar sein.
+                </p></dd><dt><span class="term"><code class="option">--pageid-template=<em class="replaceable"><code>Schablone</code></em></code></span></dt><dd><p>
+                    gibt das Namesschema für Seitenbezeichner an. Lesen Sie den Abschnitt
+<span class="quote">&#8222;<span class="quote"><a class="link" href="#template-language" title="Schablonensprache">Schablonensprache</a></span>&#8220;</span> für die Sprachbeschreibung der
+Schablone.
+                </p><p>
+                    Die Vorgabeschablone ist <span class="quote">&#8222;<span class="quote"><code class="literal">p{page:04*}.djvu</code></span>&#8220;</span>.
+                </p><p>
+                    Aus Portierbarkeitsgründen gilt für Seitenbezeichner:
+                    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+                                Sie dürfen nur aus kleingeschriebenen ASCII-Buchstaben, Ziffern,
+<code class="literal">_</code>, <code class="literal">+</code>, <code class="literal">-</code> und Punkten
+bestehen,
+                            </p></li><li class="listitem"><p>
+                                sie dürfen nicht mit <code class="literal">+</code>, <code class="literal">-</code> oder einem
+Punkt beginnen,
+                            </p></li><li class="listitem"><p>
+                                sie dürfen keine zwei aufeinanderfolgenden Punkte enthalten,
+                            </p></li><li class="listitem"><p>
+                                sie müssen die Dateiendung <code class="literal">.djvu</code> oder
+<code class="literal">.djv</code> haben.
+                            </p></li></ul></div><p>
+                </p></dd><dt><span class="term"><code class="option">--pageid-prefix=<em class="replaceable"><code>Präfix</code></em></code></span></dt><dd><p>
+                    Entspricht
+<span class="quote">&#8222;<span class="quote"><code class="literal">--pageid-template=<em class="replaceable"><code>Präfix</code></em>{page:04*}.djvu</code></span>&#8220;</span>.
+                </p></dd><dt><span class="term"><code class="option">--page-title-template=<em class="replaceable"><code>Schablone</code></em></code></span></dt><dd><p>
+                    gibt die Schablone für Seitentitel an. Lesen Sie den Abschnitt <span class="quote">&#8222;<span class="quote"><a class="link" href="#template-language" title="Schablonensprache">Schablonensprache</a></span>&#8220;</span> für
+die Sprachbeschreibung der Schablone.
+                </p><p>
+                    Standardmäßig werden keine Seitentitel gesetzt.
+                </p></dd></dl></div></div><div class="refsection" title="Auflösung, Seitengröße"><a name="idp3081744"></a><h3>Auflösung, Seitengröße</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-d</code>, </span><span class="term"><code class="option">--dpi=<em class="replaceable"><code>Auflösung</code></em></code></span></dt><dd><p>
+                    gibt die gewünschte Auflösung in <em class="replaceable"><code>Auflösung</code></em>
+Punkten pro Zoll an. Die Vorgabe ist 300 dpi. Der erlaubte Bereich ist: 72 &#8804;
+<em class="replaceable"><code>Auflösung</code></em> &#8804; 6000.
+                </p></dd><dt><span class="term"><code class="option">--media-box</code></span></dt><dd><p>
+                    Benutzen Sie <em class="firstterm">MediaBox</em>, um die Seitengröße
+festzulegen. Standardmäßig wird <em class="firstterm">CropBox</em> benutzt.
+                </p></dd><dt><span class="term"><code class="option">--page-size=<em class="replaceable"><code>Breite</code></em>x<em class="replaceable"><code>Höhe</code></em></code></span></dt><dd><p>
+                    gibt die bevorzugte Seitengröße als <em class="replaceable"><code>Breite</code></em>
+Bildpunkte x <em class="replaceable"><code>Höhe</code></em> Bildpunkte an. Die tatsächliche
+Seitengröße könnte verändert werden, um das Seitenverhältnis und die
+DjVu-Einschränkungen für die Auflösung zu berücksichtigen. (Diese Option hat
+Vorrang gegenüber <code class="option">-d</code>/<code class="option">--dpi</code>.)
+                </p></dd><dt><span class="term"><code class="option">--guess-dpi</code></span></dt><dd><p>
+                    versucht die native Auflösung durch Untersuchen der eingebetteten Bilder
+abzuschätzen. Verwenden Sie dies mit Vorsicht.
+                </p></dd></dl></div></div><div class="refsection" title="Bildqualität"><a name="idp3215496"></a><h3>Bildqualität</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">--bg-slices=<em class="replaceable"><code>n</code></em>+<em class="replaceable"><code>&#8230;</code></em>+<em class="replaceable"><code>n</code></em></code>, </span><span class="term"><code class="option">--bg-slices=<em class="replaceable"><code>n</code></em>,<em class="replaceable"><code>&#8230;</code></em>,<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    gibt die Kodierungsqualität für die IW44-Hintergrundebene an. Diese Option
+ist der Option <code class="option">-slice</code> des Befehls <span class="command"><strong>c44</strong></span>
+ähnlich. Sehen Sie die Handbuchseite <span class="citerefentry"><span class="refentrytitle">c44</span>(1)</span>
+ein, um Einzelheiten zu erfahren. Die Vorgabe ist
+<code class="literal">72+11+10+10</code>.
+                </p></dd><dt><span class="term"><code class="option">--bg-subsample=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    gibt das Verhältnis der Hintergrund-Unterabtastung (subsampling) an. Vorgabe
+ist 3. Gültige Werte sind Ganzahlen von 1 bis einschließlich 12.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=default</code></span></dt><dd><p>
+                    versucht, alle Vordergrundebenenfarben zu bewahren. Dies ist die Vorgabe.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=web</code></span></dt><dd><p>
+                    reduziert Vordergrundebenenfarben auf die Web-Palette (216 Farben). Diese
+Option wird nicht empfohlen.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    benutzt GraphicsMagick, um die Anzahl verschiedener Farben in der
+Vordergrundebene auf <em class="replaceable"><code>n</code></em> zu reduzieren. Gültige
+Werte sind Ganzzahlen zwischen 1 und 4080. Diese Option wird nicht
+empfohlen.
+                </p></dd><dt><span class="term"><code class="option">--fg-colors=black</code></span></dt><dd><p>
+                    jede Farbinformation der Vordergrundebene verwerfen
+                </p></dd><dt><span class="term"><code class="option">--monochrome</code></span></dt><dd><p>
+                    Seiten als einfarbige Bitmaps berechnen und ausgeben. Mit dieser Option
+werden die Optionen <code class="option">--bg-<em class="replaceable"><code>&#8230;</code></em></code> und
+<code class="option">--fg-<em class="replaceable"><code>&#8230;</code></em></code> nicht berücksichtigt.
+                </p></dd><dt><span class="term"><code class="option">--loss-level=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    gibt die Aggressivität der verlustbehafteten Komprimierung an. Vorgabe ist 0
+(verlustfrei). Gültige Werte sind Ganzahlen von 0 bis einschließlich
+200. Diese Option ähnelt der Option <code class="option">-losslevel</code> von
+<span class="command"><strong>cjb2</strong></span>. Sehen Sie die Handbuchseite <span class="citerefentry"><span class="refentrytitle">cjb2</span>(1)</span>
+ein, um weitere Einzelheiten zu erfahren. Diese Option wird nur zusammen mit
+der Option <code class="option">--monochrome</code> berücksichtigt.
+                </p></dd><dt><span class="term"><code class="option">--lossy</code></span></dt><dd><p>
+                    Synonym für <code class="option">--loss-level=100</code>
+                </p></dd><dt><span class="term"><code class="option">--anti-alias</code></span></dt><dd><p>
+                    aktiviert Schrift- und Vektor-Kantenglättung. Diese Option wird nicht
+empfohlen.
+                </p></dd></dl></div></div><div class="refsection" title="Auszug"><a name="idp2734720"></a><h3>Auszug</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">--no-metadata</code></span></dt><dd><p>
+                    die Metadaten nicht herausziehen
+                </p><p>
+                    Standardmäßig:
+                    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>
+                                Die folgenden Einträge des Dokumentinformations-Wörterbuchs werden
+extrahiert: <code class="literal">Title</code>, <code class="literal">Author</code>,
+<code class="literal">Subject</code>, <code class="literal">Creator</code>,
+<code class="literal">Producer</code>, <code class="literal">CreationDate</code>,
+<code class="literal">ModDate</code>. Zeitstempel werden entspechend <a class="ulink" href="http://www.ietf.org/rfc/rfc3339" target="_top">RFC 3999</a> mit Datums- und
+Zeitbestandteilen, getrennt durch ein einzelnes Leerzeichen, formatiert.
+                            </p></li><li class="listitem"><p>
+                                Die XMP-Metadaten werden extrahiert (oder erzeugt) und dementsprechend
+aktualisiert.
+                            </p></li></ul></div><p>
+                </p><div class="note" title="Anmerkung" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Anmerkung</h3><p>
+                        Wenn mehrere Eingabedokumente ausgewählt wurden, werden nur Metadaten des
+ersten Dokumentes berücksichtigt.
+                    </p></div></dd><dt><span class="term"><code class="option">--verbatim-metadata</code></span></dt><dd><p>
+                    die Original-Metadaten intakt lassen
+                </p></dd><dt><span class="term"><code class="option">--no-outline</code></span></dt><dd><p>
+                    die Dokumentenübersicht nicht extrahieren
+                </p></dd><dt><span class="term"><code class="option">--hyperlinks=border-avis</code></span></dt><dd><p>
+                    Ränder von Querverweisen immer sichtbar machen
+                </p><p>
+                    Standardmäßig sind die Ränder eines Querverweises nur sichtbar, wenn die
+Maus darüber steht.
+                </p></dd><dt><span class="term"><code class="option">--hyperlinks=#<em class="replaceable"><code>RRGGBB</code></em></code></span></dt><dd><p>
+                    die angegebene Randfarbe für Querverweise erzwingen
+                </p></dd><dt><span class="term"><code class="option">--no-hyperlinks</code>, </span><span class="term"><code class="option">--hyperlinks=none</code></span></dt><dd><p>
+                    Querverweise nicht extrahieren
+                </p></dd><dt><span class="term"><code class="option">--no-text</code></span></dt><dd><p>
+                    den Text nicht extrahieren
+                </p></dd><dt><span class="term">
+            <code class="option">--words</code></span></dt><dd><p>
+                    den Text extrahieren; die Position jedes Wortes aufzeichnen. Dies ist die
+Vorgabe.
+                </p></dd><dt><span class="term"><code class="option">--lines</code></span></dt><dd><p>
+                    den Text extrahieren; die Position jeder Zeile statt jedes Wortes
+aufzeichnen
+                </p></dd><dt><span class="term"><code class="option">--crop-text</code></span></dt><dd><p>
+                    keinen Text außerhalb des Seitenrands extrahieren
+                </p></dd><dt><span class="term"><code class="option">--no-nfkc</code></span></dt><dd><p>
+                    den Text nicht entsprechend <a class="ulink" href="http://unicode.org/reports/tr15/" target="_top">NFKC</a> normalisieren.
+                </p></dd><dt><span class="term"><code class="option">--filter-text=<em class="replaceable"><code>Befehlszeile</code></em></code></span></dt><dd><p>
+                    den Text über die <em class="replaceable"><code>Befehlszeile</code></em> filtern. Der
+bereitgestellte Filter muss Leerräume, Steuerzeichen und dezimale Ziffern
+bewahren.
+                </p><p> 
+                    Diese Option impliziert <code class="option">--no-nfkc</code>.
+                </p></dd><dt><span class="term"><code class="option">-p</code>, </span><span class="term"><code class="option">--pages=<em class="replaceable"><code>Seitenbereich</code></em></code></span></dt><dd><p>
+                    gibt die Seiten an, die umgewandelt
+werden. <em class="replaceable"><code>Seitenbereich</code></em> ist eine durch Kommas
+getrennte Liste von Unterbereichen. Jeder Unterbereich ist entweder eine
+einzelne Seite (z.B. <code class="literal">17</code>) oder ein Bereich
+zusammenhängender Seiten (z.B. <code class="literal">37-42</code>). Seiten werde mit 1
+beginnend nummeriert.
+                </p><p>
+                    Standardmäßig werden alle Seiten umgewandelt.
+                </p></dd></dl></div></div><div class="refsection" title="Leistungsfähigkeit"><a name="idp3207624"></a><h3>Leistungsfähigkeit</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-j</code>, </span><span class="term"><code class="option">--jobs=<em class="replaceable"><code>n</code></em></code></span></dt><dd><p>
+                    benutzt <em class="replaceable"><code>n</code></em> Threads, um die Umwandlung
+durchzuführen. Standardmäßig wird ein Thread benutzt.
+                </p></dd><dt><span class="term"><code class="option">-j0</code>, </span><span class="term"><code class="option">--jobs=0</code></span></dt><dd><p>
+                    legt automatisch fest, wieviele Threads für die Umwandlung benutzt werden
+                </p></dd></dl></div></div><div class="refsection" title="Detailgrad, Hilfe"><a name="idp3453200"></a><h3>Detailgrad, Hilfe</h3><div class="variablelist"><dl><dt><span class="term"><code class="option">-v</code>, </span><span class="term"><code class="option">--verbose</code></span></dt><dd><p>
+                    während der Umwandlung der Datei weitere informative Nachrichten anzeigen
+                </p></dd><dt><span class="term"><code class="option">-q</code>, </span><span class="term"><code class="option">--quiet</code></span></dt><dd><p>
+                    während der Umwandlung der Datei keine informativen Nachrichten anzeigen
+                </p></dd><dt><span class="term"><code class="option">--version</code></span></dt><dd><p>die Versionsinformationen ausgeben und beenden</p></dd><dt><span class="term"><code class="option">-h</code>, </span><span class="term"><code class="option">--help</code></span></dt><dd><p>Hilfe anzeigen und beenden</p></dd></dl></div></div></div><div class="refsection" title="Umgebung"><a name="idp2190576"></a><h2>Umgebung</h2><p>
+        Die folgenden Umgebungsvariablen beeinflussen <span class="command"><strong>pdf2djvu</strong></span> auf
+Unix-Systemen: </p><div class="variablelist"><dl><dt><span class="term"><code class="varname">OMP_<em class="replaceable"><code>*</code></em></code></span></dt><dd><p>
+                Einzelheiten des Verhaltens zur Laufzeit, die Parallelisierung
+berücksichtigen, können durch mehrere Umgebungsvariablen gesteuert
+werden. Bitte sehen Sie in die <a class="ulink" href="http://openmp.org/wp/openmp-specifications/" target="_top">OpenMP-API-Spezifikation</a>,
+um Einzelheiten zu erfahren.
+            </p></dd><dt><span class="term"><code class="varname">TMPDIR</code></span></dt><dd><p>
+                    <span class="command"><strong>pdf2djvu</strong></span> macht stark von temporären Dateien Gebrauch. Es wird
+sie in dem durch diese Variable angegebenen Verzeichnis speichern. Vorgabe
+ist <code class="filename">/tmp</code>.
+                </p></dd></dl></div><p>
+    </p></div><div class="refsection" title="Schablonensprache"><a name="template-language"></a><h2>Schablonensprache</h2><div class="refsection" title="Schablonensyntax"><a name="idp2744024"></a><h3>Schablonensyntax</h3><p>
+            Die Schablonensprache ist ungefähr wie die <a class="ulink" href="http://docs.python.org/library/string.html#format-string-syntax" target="_top">Phyton-Zeichenkettenformatierungssyntax</a>
+aufgebaut.
+        </p><p>
+            Eine Schablone ist ein Textteil, der <em class="firstterm">Felder</em> enthält,
+die von geschweiften Klammern <code class="literal">{</code><code class="literal">}</code>
+eingeschlossen werden. Felder werden durch entsprechend formatierte Werte
+ersetzt, wenn die Schablone ausgewertet wird. Außerdem werden
+<code class="literal">{{</code> durch eine einzelne <code class="literal">{</code> und
+<code class="literal">}}</code> durch eine einzelne <code class="literal">}</code> ersetzt.
+        </p></div><div class="refsection" title="Feldsyntax"><a name="idp2280144"></a><h3>Feldsyntax</h3><p>
+            Jedes Feld besteht aus einem Variablennamen, wahlweise gefolgt von einer
+Verschiebung, der wiederum wahlweise eine Formatangabe folgt.
+        </p><p>
+            Die Verschiebung ist eine vorzeichenbehaftete (d.h. sie beginnt mit einem
+<code class="literal">+</code> oder <code class="literal">-</code>) Ganzzahl.
+        </p><p>
+            Die Formatangabe besteht aus einem Doppelpunkt gefolgt von einer
+Breitenangabe.
+        </p><p>
+            Die Breitenangabe ist eine dezimale Ganzzahl, die die Mindestbreite eines
+Feldes angibt. Falls sie nicht angegeben wird, wird die Feldbreite durch den
+Inhalt bestimmt. Wird der Breitenangabe eine Null (<code class="literal">0</code>)
+vorangestellt, wird Auffüllen mit Nullen aktiviert.
+        </p><p>
+            Der Breitenangabe folgt wahlweise ein Sternchen (<code class="literal">*</code>), das
+die Mindestbreite des Feldes auf die Breite des größtmöglichen Inhalts der
+Variable erhöht.
+        </p></div><div class="refsection" title="Verfügbare Variablen"><a name="idp3231960"></a><h3>Verfügbare Variablen</h3><div class="variablelist"><dl><dt><span class="term"><code class="varname">page</code>, </span><span class="term"><code class="varname">spage</code></span></dt><dd><p>Seitenzahl im PDF-Dokument</p></dd><dt><span class="term"><code class="varname">dpage</code></span></dt><dd><p>Seitenzahl im DjVu-Dokument</p></dd></dl></div></div></div><div class="refsection" title="Implementierungseinzelheiten"><a name="idp3616272"></a><h2>Implementierungseinzelheiten</h2><div class="refsection" title="Ebenen-Aufteilungsalgorithmus"><a name="idp2109152"></a><h3>Ebenen-Aufteilungsalgorithmus</h3><p>
+            Außer wenn die Option <code class="option">--monochrome</code> aktiviert ist, benutzt
+pdf2djvu den folgenden naiven Ebenen-Aufteilungsalgorithmus: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                        für jede Seite das Folgende tun: </p><div class="orderedlist"><ol class="orderedlist" type="a"><li class="listitem"><p>
+                                    die Seite auf die übliche Weise in eine Rastergrafik rastern
+                                </p></li><li class="listitem"><p>
+                                    die Seite in eine Rastergrafik rastern und die folgenden Seitenelemente
+weglassen:
+                                    </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Text</p></li><li class="listitem"><p>1 Bit-pro-Bildpunkt-Rasterbilder</p></li><li class="listitem"><p>Vektorelemente (außer Füllungen großer Bereiche)</p></li></ul></div><p>
+                                </p></li><li class="listitem"><p>
+                                    beide Rastergrafiken Bildpunkt für Bildpunkt vergleichen: </p><div class="orderedlist"><ol class="orderedlist" type="i"><li class="listitem"><p>
+                                                Falls ihre Farben passen, werden die Bildpunkte als Teil der
+Hintergrundebene eingestuft.
+                                            </p></li><li class="listitem"><p>
+                                                Andernfalls werden die Bildpunkte als Teil der Vordergrundebene eingestuft.
+                                            </p></li></ol></div><p>
+                                </p></li></ol></div><p>
+                    </p></li></ol></div><p>
+        </p></div></div><div class="refsection" title="Fehlerberichte"><a name="idp1393072"></a><h2>Fehlerberichte</h2><p>
+        Falls Sie einen Fehler in pdf2djvu finden, berichten Sie ihn bitte auf Englisch
+an <a class="ulink" href="http://code.google.com/p/pdf2djvu/issues/" target="_top">die
+Problemverfolgung</a>.
+    </p></div><div class="refsection" title="Siehe auch"><a name="idp3428496"></a><h2>Siehe auch</h2><p>
+        <span class="citerefentry"><span class="refentrytitle">djvu</span>(1)</span>, <span class="citerefentry"><span class="refentrytitle">djvudigital</span>(1)</span>, <span class="citerefentry"><span class="refentrytitle">csepdjvu</span>(1)</span>
+    </p></div></div></body></html>

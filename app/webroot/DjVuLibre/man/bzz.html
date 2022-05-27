@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>BZZ</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>BZZ</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+Section: DjVuLibre-3.5 (1)<BR>Updated: 10/11/2001<BR><A HREF="#index">Index</A>
+<A HREF="../index.html">Return to Main Contents</A><HR>
+
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+bzz - DjVu general purpose compression utility.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<A NAME="lbAD">&nbsp;</A>
+<H3>Encoding:</H3>
+
+<B>bzz -e</B><I>[blocksize]</I><B> </B><I>inputfile</I><B> </B><I>outputfile</I>
+
+<A NAME="lbAE">&nbsp;</A>
+<H3>Decoding:</H3>
+
+<B>bzz -d </B><I>inputfile</I><B> </B><I>outputfile</I>
+
+<P>
+
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+The first form of the command line (option 
+<B>-e</B>
+
+) compresses the data from file
+<I>inputfile </I>
+
+and writes the compressed data into 
+<I>outputfile</I>.
+
+The second form of the command line (option
+<B>-d</B>
+
+) decompressed file
+<I>inputfile</I>
+
+and writes the output to
+<I>outputfile</I>.
+
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<DL COMPACT>
+<DT><B>-d</B>
+
+<DD>
+Decoding mode.
+<DT><B>-e</B><I>[blocksize]</I>
+
+<DD>
+Encoding mode.
+The optional argument 
+<I>blocksize</I>
+
+specifies the size of the input file blocks processed by the Burrows-Wheeler
+transform expressed in kilobytes.  The default block sizes is 2048
+<FONT SIZE="-1">KB.</FONT>
+The maximal block size is 4096
+<FONT SIZE="-1">KB.</FONT>
+Specifying a larger block size usually produces higher compression ratios
+and increases the memory requirements of both the encoder and decoder.
+It is useless to specify a block size that is larger than the
+input file.
+<P>
+</DL>
+<A NAME="lbAH">&nbsp;</A>
+<H2>ALGORITHMS</H2>
+
+The Burrows-Wheeler transform is performed using a combination of the
+Karp-Miller-Rosenberg and the Bentley-Sedgewick algorithms. This is comparable
+to (Sadakane, DCC 98) with a slightly more flexible ranking scheme. Symbols
+are then ordered according to a running estimate of their occurrence
+frequencies.  The symbol ranks are then coded using a simple fixed tree and
+the ZP binary adaptive coder (Bottou, DCC 98).
+<P>
+The Burrows-Wheeler transform is also used in the well known compressor
+<B>bzip2</B>.
+
+The originality of 
+<B>bzz</B>
+
+is the use of the ZP adaptive coder.
+The adaptation noise can cost up to 5 percent in
+file size, but this penalty is usually offset by the benefits of
+adaptation.
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<H2>PERFORMANCE</H2>
+
+The following table shows comparative results (in bits per character) 
+on the Canterbury Corpus (
+<B><A HREF="http://corpus.canterbury.ac.nz">http://corpus.canterbury.ac.nz</A></B>
+
+). The very good 
+<B>bzz</B>
+
+performance on the spreadsheet file 
+<I>excl</I>
+
+puts the weighted average ahead of much more sophisticated
+compressors such as
+<B>fsmx</B>.
+
+<FONT SIZE="-2">
+<P>
+</FONT><CENTER><TABLE BORDER><TR><TD><TABLE>
+<TR VALIGN=top><TD ALIGN=center COLSPAN=14>Compression performance<BR></TD></TR>
+<TR VALIGN=top><TD></TD><TD ALIGN=center>text</TD><TD ALIGN=center>fax</TD><TD ALIGN=center>csrc</TD><TD ALIGN=center>excl</TD><TD ALIGN=center>sprc</TD><TD ALIGN=center>tech</TD><TD ALIGN=center>poem</TD><TD ALIGN=center>html</TD><TD ALIGN=center>lisp</TD><TD ALIGN=center>man</TD><TD ALIGN=center>play</TD><TD ALIGN=center>Weighted</TD><TD ALIGN=center>Average<BR></TD></TR>
+<TR VALIGN=top><TD COLSPAN=14><HR><HR></TD></TR>
+<TR VALIGN=top><TD>&nbsp;compress&nbsp;</TD><TD ALIGN=right>3.27&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>0.97&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.56&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.41&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>4.21&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.06&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.38&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.68&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.90&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>4.43&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.51&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.55&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.31&nbsp;&nbsp;&nbsp;&nbsp;<BR></TD></TR>
+<TR VALIGN=top><TD>&nbsp;gzip -9&nbsp;</TD><TD ALIGN=right>2.85&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>0.82&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.24&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>1.63&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.67&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.71&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.23&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.59&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.65&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.31&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.12&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.08&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.53&nbsp;&nbsp;&nbsp;&nbsp;<BR></TD></TR>
+<TR VALIGN=top><TD>&nbsp;bzip2 -9&nbsp;</TD><TD ALIGN=right>2.27&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>0.78&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.18&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>1.01&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.70&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.02&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.42&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.48&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.79&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.33&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.53&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>1.54&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.23&nbsp;&nbsp;&nbsp;&nbsp;<BR></TD></TR>
+<TR VALIGN=top><TD>&nbsp;ppmd&nbsp;</TD><TD ALIGN=right>2.31&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>0.99&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.11&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>1.08&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.68&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.19&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.48&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.38&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.43&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.00&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.53&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>1.65&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.20&nbsp;&nbsp;&nbsp;&nbsp;<BR></TD></TR>
+<TR VALIGN=top><TD>&nbsp;fsmx&nbsp;</TD><TD ALIGN=right><B>2.10&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right>0.79&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right><B>1.89&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right>1.48&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right><B>2.52&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right><B>1.84&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right><B>2.21&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right><B>2.24&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right><B>2.29&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right><B>2.91&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right><B>2.35&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right>1.63&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right><B>2.06&nbsp;&nbsp;&nbsp;&nbsp;</B><BR></TD></TR>
+<TR VALIGN=top><TD><B>&nbsp;bzz&nbsp;</B></TD><TD ALIGN=right>2.25&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right><B>0.76&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right>2.13&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right><B>0.78&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right>2.67&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.00&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.40&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.52&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.60&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>3.19&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right>2.52&nbsp;&nbsp;&nbsp;&nbsp;</TD><TD ALIGN=right><B>1.44&nbsp;&nbsp;&nbsp;&nbsp;</B></TD><TD ALIGN=right>2.16&nbsp;&nbsp;&nbsp;&nbsp;<BR></TD></TR>
+</TABLE></TABLE></CENTER>
+<FONT SIZE="-2">
+<P>
+<P>
+<P>
+
+Note that DjVu contributors have several 
+entries in this table.  Program
+<B>compress</B>
+
+was written some time ago by Joe Orost.
+Program
+<B>ppmd</B>
+
+is an improvement of the 
+</FONT><FONT SIZE="-3">PPM-C</FONT>
+method invented by Paul Howard.
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H2>CREDITS</H2>
+
+Program 
+<B>bzz </B>
+
+was written by L'eon Bottou &lt;<A HREF="mailto:leonb@users.sourceforge.net">leonb@users.sourceforge.net</A>&gt; and
+was then improved by Andrei Erofeev &lt;<A HREF="mailto:andrew_erofeev@yahoo.com">andrew_erofeev@yahoo.com</A>&gt;, Bill Riemers
+&lt;<A HREF="mailto:docbill@sourceforge.net">docbill@sourceforge.net</A>&gt; and many others.
+<P>
+<A NAME="lbAK">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="djvu.html">djvu</A></B>(1),
+
+<B><A HREF="man:compress">compress</A></B>(1),
+
+<B><A HREF="man:gzip">gzip</A></B>(1),
+
+<B><A HREF="man:bzip2">bzip2</A></B>(1)
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DL>
+<DT><A HREF="#lbAD">Encoding:</A><DD>
+<DT><A HREF="#lbAE">Decoding:</A><DD>
+</DL>
+<DT><A HREF="#lbAF">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAG">OPTIONS</A><DD>
+<DT><A HREF="#lbAH">ALGORITHMS</A><DD>
+<DT><A HREF="#lbAI">PERFORMANCE</A><DD>
+<DT><A HREF="#lbAJ">CREDITS</A><DD>
+<DT><A HREF="#lbAK">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="../index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 12:40:29 GMT, May 13, 2009
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>BZZ</h1></td></tr>
+</table>
+</BODY>
+</HTML>

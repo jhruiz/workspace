@@ -1,0 +1,366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>DJVUSERVE</TITLE>
+<style type="text/css">
+<!--
+  OL,UL,P,BODY,TD,TR,TH,FORM { 
+    font-family: verdana,arial,helvetica,sans-serif; font-size:small; 
+    color: #000000; }
+  H1 { font-size: x-large; font-family: verdana,arial,helvetica,sans-serif; }
+  H2 { font-size: large; font-family: verdana,arial,helvetica,sans-serif; }
+  H3 { font-size: medium; font-family: verdana,arial,helvetica,sans-serif; }
+  H4 { font-size: small; font-family: verdana,arial,helvetica,sans-serif; }
+  H5 { font-size: x-small; font-family: verdana,arial,helvetica,sans-serif; }
+  H6 { font-size: xx-small; font-family: verdana,arial,helvetica,sans-serif; }
+--></style>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=middle align=center><h1>DJVUSERVE</h1></td></tr>
+</table>
+<p>
+<div style="margin-left: 2cm">
+Section: DjVuLibre-3.5 (1)<BR>Updated: 01/22/2002<BR><A HREF="#index">Index</A>
+<A HREF="../index.html">Return to Main Contents</A><HR>
+
+<A NAME="lbAB">&nbsp;</A>
+<H2>NAME</H2>
+
+djvuserve - Generate indirect DjVu documents on the fly.
+<P>
+<A NAME="lbAC">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+Program 
+<B>djvuserve </B>
+
+is a 
+<FONT SIZE="-1">CGI</FONT>
+program that can be executed by a 
+<FONT SIZE="-1">HTTP </FONT>
+server for serving DjVu documents.
+This program is able to convert a bundled multi-page document
+into an indirect document on the fly.  
+<P>
+<A NAME="lbAD">&nbsp;</A>
+<H2>USING DJVUSERVE</H2>
+
+Program
+<B>djvuserve</B>
+
+must first be installed as a 
+<FONT SIZE="-1">CGI</FONT>
+program for your web server.
+There are several ways to achieve this.   The Apache web server, 
+for instance, often defines a specific directory for
+<FONT SIZE="-1">CGI </FONT>
+programs using the 
+<B>ScriptAlias</B>
+
+directive.
+Assume that the file
+<B>httpd.conf</B>
+
+contains the following line:
+<DL COMPACT>
+<DT><DD>
+<B>ScriptAlias /cgi-bin/ </B><I>/var/www/cgi-bin</I>
+
+</DL>
+<P>
+
+It is then sufficient to create a small executable shell script 
+<I>/var/www/cgi-bin/</I><B>djvuserve</B>
+
+containing the following lines:
+<DL COMPACT>
+<DT><DD>
+<B>#!/bin/sh</B>
+
+<BR>
+
+<B>exec </B><I>/full/path/to/</I><B>djvuserve</B>
+
+</DL>
+<P>
+
+Suppose that a large bundled multi-page DjVu document
+is available at the following
+<FONT SIZE="-1">URL.</FONT>
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server/dir/doc.djvu</I>
+
+</DL>
+<P>
+
+The
+<FONT SIZE="-1">CGI </FONT>
+program
+<B>djvuserve</B>
+
+lets you access this same document 
+as an indirect multi-page DjVu document
+using the following 
+<FONT SIZE="-1">URL.</FONT>
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>/index.djvu</B>
+
+</DL>
+<P>
+
+Serving indirect multi-page DjVu documents provides
+for efficiently browsing large document without
+transferring unnecessary pages over the network.
+See 
+<B><A HREF="djvu.html">djvu</A>(1)</B>
+
+for more information.
+<P>
+
+Furthermore 
+<B>djvuserve </B>
+
+searches certain keywords among the
+<FONT SIZE="-1">CGI </FONT>
+arguments of the 
+<FONT SIZE="-1">URL.</FONT>
+The keyword
+<B>bundled</B>
+
+forces serving a bundled document using
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>?bundled</B>
+
+</DL>
+<P>
+
+The keyword
+<B>download</B>
+
+inserts a content disposition 
+<FONT SIZE="-1">HTTP</FONT>
+header that suggests to display a save dialog
+instead of displaying the document.
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>?download</B>
+
+</DL>
+<P>
+
+<P>
+<A NAME="lbAE">&nbsp;</A>
+<H2>USING DJVUSERVE AS A HANDLER</H2>
+
+<P>
+The Apache web server provides a way to automatically execute
+<B>djvuserve</B>
+
+for all DjVu documents.
+This can be achieved using the following
+directives in either the Apache configuration file
+or the 
+<B>.htaccess</B>
+
+files.
+<DL COMPACT>
+<DT><DD>
+<B>Action djvu-server /cgi-bin/djvuserve/</B>
+
+<BR>
+
+<B>AddHandler djvu-server .djvu</B>
+
+</DL>
+<P>
+
+Apache then executes program
+<B>djvuserve</B>
+
+for serving all DjVu files. 
+Providing the 
+<FONT SIZE="-1">URL</FONT>
+of DjVu file serves this DjVu file as usual,
+except that bundled multipage documents are converted
+to indirect documents on the fly.
+This convenience comes at the expense
+of the computational cost of executing
+<B>djvuserve</B>
+
+whenever a DjVu file is requested.
+<P>
+<A NAME="lbAF">&nbsp;</A>
+<H2>TECHNICAL DETAILS</H2>
+
+<P>
+Program
+<B>djvuserve</B>
+
+provides a mean to directly access any component
+of a bundled multi-page DjVu document can be accessed using an extended 
+<FONT SIZE="-1">URL.</FONT>
+Suppose that the component file representing page 1
+is named
+<B>p0001.djvu</B>.
+
+The following 
+<FONT SIZE="-1">URL</FONT>
+provides a direct access to this page:
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>/p0001.djvu</B>
+
+</DL>
+<P>
+
+It is preferred however to access individual pages using the 
+<B>CGI</B>
+
+style arguments described in 
+<B><A HREF="nsdejavu.html">nsdejavu</A></B>(1),
+
+as in the following 
+<FONT SIZE="-1">URL.</FONT>
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>?djvuopts&amp;page=12</B>
+
+</DL>
+<P>
+
+The special component file name
+<B>index.djvu</B>
+
+is recognized as a request for the index of the corresponding
+indirect multi-page document.  In fact, when you access a bundled
+document using 
+<B>djvuserve</B>,
+
+the browser gets redirected to the following 
+<FONT SIZE="-1">URL:</FONT>
+<DL COMPACT>
+<DT><DD>
+<I>http</I><B></B><I>://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>/index.djvu</B>
+
+</DL>
+<P>
+
+and then behaves as if the bundled file was a directory containing 
+the various component files of an equivalent indirect document.
+<P>
+<A NAME="lbAG">&nbsp;</A>
+<H2>ACCESS CONTROL</H2>
+
+<P>
+Program
+<B>djvuserve</B>,
+
+like many
+<FONT SIZE="-1">CGI</FONT>
+programs, 
+bypasses a number of access protections established in a web server.
+Assume for instance that your web site contains DjVu files protected by a
+password.  
+Program
+<B>djvuserve</B>
+
+knows nothing about this protection and will happily serve
+any DjVu file associated with a valid
+<FONT SIZE="-1">URL.</FONT>
+<P>
+Access control with 
+<B>djvuserve </B>
+
+can be implemented by first remembering that the web server 
+always executes program 
+<B>djvuserve</B>
+
+via shell script
+<I>/var/www/cgi-bin/</I><B>djvuserve.</B>
+
+<P>
+This script can decide to execute the real program
+<B>djvuserve</B>
+
+on the basis of the target filename available in 
+the environment variable
+<FONT SIZE="-1">PATH_TRANSLATED.  </FONT>
+<P>
+There can be several such scripts providing access to various 
+collections of DjVu files.  Each of these scripts can be 
+password protected using the usual methods supported by
+your web server.
+<P>
+<A NAME="lbAH">&nbsp;</A>
+<H2>KNOWN BUGS</H2>
+
+<P>
+Hyperlinks specified using a relative 
+<FONT SIZE="-1">URL </FONT>
+may not work with 
+<B>djvuserve.</B>
+
+These 
+<FONT SIZE="-1">URLs </FONT>
+are relative to the 
+<FONT SIZE="-1">URL </FONT>
+of the DjVu document. Yet 
+<B>djvuserve</B>
+
+changes the apparent document 
+<FONT SIZE="-1">URL</FONT>
+<I>http://server/dir/doc.djvu</I>
+
+into the more complicated 
+<FONT SIZE="-1">URL</FONT>
+<I>http://server</I><B>/cgi-bin/djvuserve/</B><I>dir/doc.djvu</I><B>/index.djvu.</B>
+
+The extra components change the interpretation of relative 
+<FONT SIZE="-1">URLs.</FONT>
+<P>
+<A NAME="lbAI">&nbsp;</A>
+<H2>CREDITS</H2>
+
+This program was written by Leon Bottou &lt;<A HREF="mailto:leonb@users.sourceforge.com">leonb@users.sourceforge.com</A>&gt;.
+<P>
+<A NAME="lbAJ">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="djvu.html">djvu</A></B>(1),
+
+<B><A HREF="djvmcvt.html">djvmcvt</A></B>(1),
+
+<B><A HREF="nsdejavu.html">nsdejavu</A></B>(1)
+
+<P>
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAD">USING DJVUSERVE</A><DD>
+<DT><A HREF="#lbAE">USING DJVUSERVE AS A HANDLER</A><DD>
+<DT><A HREF="#lbAF">TECHNICAL DETAILS</A><DD>
+<DT><A HREF="#lbAG">ACCESS CONTROL</A><DD>
+<DT><A HREF="#lbAH">KNOWN BUGS</A><DD>
+<DT><A HREF="#lbAI">CREDITS</A><DD>
+<DT><A HREF="#lbAJ">SEE ALSO</A><DD>
+</DL>
+<HR>
+This document was created by
+<A HREF="../index.html">man2html</A>,
+using the manual pages.<BR>
+Time: 12:40:30 GMT, May 13, 2009
+
+
+</div>
+<p>
+<table width=100% bgcolor="#C0C0E0" border=0 cellspacing=0 cellpadding=3>
+<tr><td valign=middle align=center><h1>DJVUSERVE</h1></td></tr>
+</table>
+</BODY>
+</HTML>

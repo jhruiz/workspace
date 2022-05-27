@@ -1,0 +1,219 @@
+body,h1,h2,h3,p,quote,small,form,input,ul,li,ol,label{
+	/* Simple page reset */
+	margin:0px;
+	padding:0px;
+}
+
+body{
+	/* Setting default text color, background and a font stack */
+	/*color:#cccccc;*/
+	/*font-size:13px;*/
+	/*background: #302b23;*/
+	/*font-family:Arial, Helvetica, sans-serif;*/
+}
+/*#menu_vert
+{
+    position: relative;
+    margin:auto -50px auto;
+}*/
+ul{
+	margin:0;
+	padding:0;
+}
+/*
+ul.container{
+	width:240px;
+	margin:0 auto;
+	padding:50px;
+        position: relative;
+}
+*/
+li{
+	list-style:none;
+	text-align:left;
+}
+
+li.menu{
+	/* The main list elements */
+	padding:5px 0;
+	width:100%;
+}
+
+li.button a{
+	/* The section titles */
+	display:block;
+        font: normal 12px Trebuchet MS;
+	height:34px;
+	overflow:hidden;
+	padding:10px 20px 0;
+	position:relative;
+	width:200px;
+}
+
+li.button a:hover{
+	/* Removing the inherited underline from the titles */
+	text-decoration:none;
+}
+
+li.button a span{
+	/* This span acts as the right part of the section's background */
+	height:44px;
+	position:absolute;
+	right:0;
+	top:0;
+	width:4px;
+	display:block;
+}
+
+/* Setting up different styles for each section color */
+
+li.button a.blue{background:url(../img/menu/main-bg.png) repeat-x top left; color:#e5e5e5;}
+li.button a.blue span{ background:url(../img/menu/main-bg.png) repeat-x top right;}
+
+li.button a.green{background:url(img/green.png) repeat-x top left; color:#436800;}
+li.button a.green span{ background:url(img/green.png) repeat-x top right;}
+
+li.button a.orange{background:url(img/orange.png) repeat-x top left; color:#882e02;}
+li.button a.orange span{ background:url(img/orange.png) repeat-x top right;}
+
+li.button a.red{background:url(img/red.png) repeat-x top left; color:#641603;}
+li.button a.red span{ background:url(img/red.png) repeat-x top right;}
+
+/* The hover effects */
+
+li.button a:hover{ background-position:bottom left;}
+li.button a:hover span{ background-position:bottom right;}
+
+.dropdown{
+	/* The expandable lists */
+	display:none;
+	padding-top:5px;
+	width:100%;
+}
+
+.dropdown li{
+	/* Each element in the expandable list */
+	background-color:#fff;
+	border:1px solid #40392C;
+/*	color:#CCCCCC;*/
+	margin:5px 0;
+	padding:4px 18px;
+}
+
+.clear{
+	clear:both;
+}
+
+#main{
+	/* The main container */
+	margin:15px auto;
+	text-align:center;
+	width:920px;
+	position:relative;
+}
+
+a, a:visited {
+	color:#941B7C;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+p{
+	/* The tut info on the bottom of the page */
+	padding:10px;
+	text-align:center;
+}
+
+/* INICIO Menú bandejas */
+
+section#izquierda {
+    top: 50px;
+    left: -140px;
+    width: 150px;
+    height: 180px;
+    margin: 0;
+    text-align: center;
+    overflow: visible;
+    font-size: 12px;
+    position: fixed;
+    -webkit-transition: left 0.3s; /* Safari */
+    transition: left 0.3s;
+    z-index: 1;
+}
+
+section#izquierda:hover {
+    left: 0px;
+    -webkit-transition: left 0.3s; /* Safari */
+    transition: left 0.3s;
+}
+
+#menu_vert li {
+    float: left;
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    background-color:rgba(148, 27, 124, 0.8);
+    text-align: center;
+}
+#menu_vert li a {	
+    display: block;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+#menu_vert .active{
+    background-color: #3099c1;
+    color: #fff;
+}
+
+#menu_vert li:hover {
+    background-color:rgba(148, 27, 124,1);
+    color: #fff;
+    float: none;
+}
+/* FIN Menú bandejas */
+
+/* INICIO Menú filtros */
+
+#divConfigPaquete {
+    top: 50px;
+    width: 300px;
+    height: 550px;
+    margin: 0 0 0 10px;
+    text-align: center;
+    overflow: visible;
+    font-size: 12px;
+    position: fixed;
+    background-color:rgba(221, 221, 221, 0.8);
+    padding: 20px 40px;
+    float: right;
+}
+
+#pestana_filtro {
+    top: 50px;
+    right: -380px;
+    width: 390px;
+    height: 180px;
+    margin: 0;
+    overflow: visible;
+    position: fixed;
+    background-color:rgba(148, 27, 124, 0.8);
+    -webkit-transition: right 0.3s; /* Safari */
+    transition: right 0.3s;
+    -webkit-transition: background-color 0.3s; /* Safari */
+    transition: background-color 0.3s;
+}
+
+#pestana_filtro:hover {
+    right: 0;
+    -webkit-transition: right 0.3s; /* Safari */
+    transition: right 0.3s;
+    background-color: transparent;
+}
+/* FIN Menú foltros */
