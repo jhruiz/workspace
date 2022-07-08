@@ -3,7 +3,7 @@
 	<legend><h2><?php echo __('Motivos de Rechazo'); ?></h2></legend>
 	<table class="CSSTable">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion'); ?></th>
+			<th><?php echo ('Descripcion'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($motivosrechazos as $motivosrechazo): ?>

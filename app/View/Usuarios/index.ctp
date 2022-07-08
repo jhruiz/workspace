@@ -48,12 +48,12 @@
         </div>      
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('username','Login'); ?></th>
-			<th><?php echo $this->Paginator->sort('perfile_id','Perfil'); ?></th>
-			<th><?php echo $this->Paginator->sort('correoelectronico'); ?></th>
-                        <th><?php echo $this->Paginator->sort('identificacion'); ?></th>
-			<th><?php echo $this->Paginator->sort('estadoregistro_id', 'Estado'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Login'); ?></th>
+			<th><?php echo ('Perfil'); ?></th>
+			<th><?php echo ('Correo Electrónico'); ?></th>
+            <th><?php echo ('Identificación'); ?></th>
+			<th><?php echo ('Estado'); ?></th>
 			
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
@@ -67,19 +67,25 @@
 		<td><?php echo h($usuario['Usuario']['correoelectronico']); ?>&nbsp;</td>
 		<td><?php echo h($usuario['Usuario']['identificacion']); ?>&nbsp;</td>
 		<td><?php echo h($usuario['Estadoregistro']['descripcion']); ?></td>                               
-		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $usuario['Usuario']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $usuario['Usuario']['id'])); ?>
-                        <?php 
-                            if($usuario['Estadoregistro']['id']==1){
-                                echo $this->Form->postLink(__('Inactivar'), array('action' => 'inactivar', $usuario['Usuario']['id']), null, __('Está seguro que desea inactivar el Usuario %s?', $usuario['Usuario']['nombre'])); 
-                            }else{
-                                echo $this->Form->postLink(__('Activar'), array('action' => 'activar', $usuario['Usuario']['id']), null, __('Está seguro que desea activar el Usuario %s?', $usuario['Usuario']['nombre']));                             
-                            }                            
-                        ?> 
-                        <?php echo $this->Html->link(__('Oficina+'), array('action'=>'relacionoficinausuario', $usuario['Usuario']['id'])); ?>
-                        <?php echo $this->Html->link(__('Oficina-'), array('controller'=> 'OficinasUsuarios', 'action'=>'index', $usuario['Usuario']['id'])); ?>                    
-                </td>
+
+        <td class="actions">
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $usuario['Usuario']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $usuario['Usuario']['id']), array('escape' => false)) ?>
+
+            <?php 
+                if($usuario['Estadoregistro']['id']==1){
+                    echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-down fa-lg')). "", array('action' => 'inactivar', $usuario['Usuario']['id']),
+                    array('escape'=>false), __('Está seguro que desea inactivar el Usuario %s?', $usuario['Usuario']['nombre']), array('class' => 'btn btn-mini'));
+
+                }else{
+                    echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up fa-lg')). "", array('action' => 'inactivar', $usuario['Usuario']['id']),
+                    array('escape'=>false), __('Está seguro que desea activar el Usuario %s?', $usuario['Usuario']['nombre']), array('class' => 'btn btn-mini'));
+                }                            
+            ?> 
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-plus-circle fa-lg')), array('action' => 'relacionoficinausuario', $usuario['Usuario']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-minus-circle fa-lg')), array('controller'=> 'OficinasUsuarios', 'action'=>'index', $usuario['Usuario']['id']), array('escape' => false)) ?>
+
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

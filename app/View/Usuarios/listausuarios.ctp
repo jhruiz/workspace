@@ -15,7 +15,7 @@
 	<tr>
 		<td><?php echo h($usuario['Usuario']['nombre']); ?>&nbsp;</td>    
                 <td><?php echo h($usuario['Usuario']['identificacion']); ?>&nbsp;</td> 
-                <td><?php echo $this->Html->link(__('Ver'), array('controller' => 'paquetesusuarios', 'action' => 'listasolicitudes', $usuario['Usuario']['id'])); ?></td>
+				<td><?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('controller' => 'paquetesusuarios', 'action' => 'listasolicitudes', $usuario['Usuario']['id']), array('escape' => false)) ?></td>
 	</tr>
 <?php endforeach; ?>
 	</table>

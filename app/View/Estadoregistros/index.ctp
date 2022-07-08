@@ -20,7 +20,7 @@
         <legend><h2><?php echo __('Estado Registro'); ?></h2></legend>        
 	<table class="CSSTable">
 	<tr>
-			<th><?php echo $this->Paginator->sort('Nombre'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($estadoregistros as $estadoregistro): ?>

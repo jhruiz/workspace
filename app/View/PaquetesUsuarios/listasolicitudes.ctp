@@ -32,7 +32,11 @@
 				<td><?php echo h($solicitud['PQ']['fechacreacion']); ?>&nbsp;</td> 
                 <td><?php echo h($solicitud['TZ']['created']); ?>&nbsp;</td>   				
                 <td><?php echo h($solicitud['TZ']['dias']); ?>&nbsp;</td>   
-                <td><?php echo $this->Html->link(__('Ver Detalle'), array('action' => 'infopaquete', $solicitud['PaquetesUsuario']['paquete_id'] , $solicitud['PaquetesUsuario']['usuario_id'])); ?></td>
+
+                <td>
+                    <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'infopaquete', $solicitud['PaquetesUsuario']['paquete_id'], $solicitud['PaquetesUsuario']['usuario_id']), array('escape' => false)) ?>
+                </td>
+                
                 <?php if(isset($permisoTraslado['PrivilegiosUsuario']) && $permisoTraslado['PrivilegiosUsuario']['privilegio_id'] == '4'){?>
                     <?php if($solicitud['EST']['trasladopaquete'] == '1'){?>                
                     <td><div class="chkObtenerUsr"><input type="checkbox" id="<?php echo $solicitud['PaquetesUsuario']['paquete_id']?>" value="<?php echo $solicitud['PaquetesUsuario']['paquete_id']?>" onclick="obtenerUsuarioTraslado();"/></div></td>

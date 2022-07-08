@@ -13,8 +13,8 @@ echo $this->Html->script('serieDocs/seriedocumentales.js');
     </div>      
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('codigo', 'Código'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Código'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($series as $series): ?>
@@ -22,10 +22,12 @@ echo $this->Html->script('serieDocs/seriedocumentales.js');
 		<td><?php echo h($series['Series']['descripcion']); ?>&nbsp;</td>
 		<td><?php echo h($series['Series']['codigo']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $series['Series']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $series['Series']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $series['Series']['id']), null, __('Esta seguro que desea eliminar la serie?', $series['Series']['descripcion'])); ?>
-		</td>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $series['Series']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $series['Series']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $series['Series']['id']),
+                                            array('escape'=>false), __('Esta seguro que desea eliminar la serie %s?', $series['Series']['descripcion']), array('class' => 'btn btn-mini')); ?>
+        
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

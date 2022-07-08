@@ -3,8 +3,8 @@
 	<h2><?php echo __('Solicitudreportes'); ?></h2>
 	<table cellpadding="0" cellspacing="0" class="CSSTable">
 	<tr>
-			<th><?php echo $this->Paginator->sort('fechainicial', 'Fecha Inicial'); ?></th>
-			<th><?php echo $this->Paginator->sort('fechafinal', 'Fecha Final'); ?></th>
+			<th><?php echo ('Fecha Inicial'); ?></th>
+			<th><?php echo ('Fecha Final'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($solicitudreportes as $solicitudreporte): ?>

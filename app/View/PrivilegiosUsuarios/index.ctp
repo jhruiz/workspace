@@ -14,8 +14,8 @@ echo $this->Html->script('privilegioUsuario/privilegioUsuario.js');
         </div>      
         <table class="table table-striped">
 	<tr>
-            <th><?php echo $this->Paginator->sort('privilegio_id'); ?></th>
-            <th><?php echo $this->Paginator->sort('usuario_id'); ?></th>
+            <th><?php echo ('Privilegio'); ?></th>
+            <th><?php echo ('Usuario'); ?></th>
             <th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($privilegiosUsuarios as $privilegiosUsuario): ?>
@@ -27,10 +27,12 @@ echo $this->Html->script('privilegioUsuario/privilegioUsuario.js');
 			<?php echo $this->Html->link($privilegiosUsuario['Usuario']['nombre'], array('controller' => 'usuarios', 'action' => 'view', $privilegiosUsuario['Usuario']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $privilegiosUsuario['PrivilegiosUsuario']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $privilegiosUsuario['PrivilegiosUsuario']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $privilegiosUsuario['PrivilegiosUsuario']['id']), null, __('Are you sure you want to delete # %s?', $privilegiosUsuario['PrivilegiosUsuario']['id'])); ?>
-		</td>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $privilegiosUsuario['PrivilegiosUsuario']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $privilegiosUsuario['PrivilegiosUsuario']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $privilegiosUsuario['PrivilegiosUsuario']['id']),
+                                            array('escape'=>false), __('Are you sure you want to delete # %s?', $privilegiosUsuario['PrivilegiosUsuario']['id']), array('class' => 'btn btn-mini')); ?>
+        
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

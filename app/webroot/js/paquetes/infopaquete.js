@@ -106,3 +106,17 @@ function cambiarEstadoOficio(paquete,paqueteUsuario,estado_id){
     }
 }
 
+var cambiarDocumentoVisor = function(){
+    var dir = $('#selDocPaq').find(':selected').data('dir');
+    var urlDocs = $('#urlDocs').val();
+
+    var visor = "<object data=" + urlDocs + dir + " type='application/pdf' width='100%' height='100%'></object>";
+
+    $('#portapdf').html(visor);
+    
+}
+
+$(function() {
+    $('#selDocPaq').change(cambiarDocumentoVisor);
+});
+

@@ -6,6 +6,7 @@
     echo $this->Html->script('trazabilidades/trazabilidad.js');
     echo $this->Html->script('paquetes/gestionpaquete.js');
     echo $this->Html->script('bandeja/gestionBandejas.js');
+    echo $this->Html->script('ubicaciones/ubicacionpaquete.js');
     
 ?>
 <style type="text/css">
@@ -51,6 +52,7 @@
     <input type="hidden" name="numCredencial" id="numCredencial" value='<?php echo $numeroCredencial; ?>' >     
     <textarea name="obsDevOfi" id="obsDevOfi" style="display:none;"></textarea>
     <input type="hidden" name="motivorechazo" id="motivorechazo" value=''> 
+    <input type="hidden" name="urlDocs" id="urlDocs" value='<?php echo ($urlDocs); ?>'> 
     <div id="acordion1">
         <h4><?php echo __('Detalles'); ?></h4>
         <div>
@@ -77,15 +79,22 @@
                 <td><?php echo $ultimaTraza['Usuario']['nombre']; ?></td>                
                 <?php } ?>
             </tr>
+            <tr>
+                <td colspan="6" id="trUbicacion"></td>
+            </tr>
         </table>
         <button type="button" name="butVerTraza" id="butVerTraza" class="btn btn-info" onclick="mostrarTrazabilidad(<?php echo $paqueteId; ?>,'<?php echo __($estado); ?>','div_trazabilidad');">Trazabilidad</button>
+        
+        <?php if($infoEstado['Estado']['estadofinal'] == '1') { ?>
+            <button type="button" id="butVerUbic" class="btn btn-info" onclick="mostrarUbicacion(<?php echo $paqueteId; ?>,'div_ubicacion');">Ubicación</button>
+        <?php } ?>
         </div>
     </div>
     <br/>
     <br/>
     <fieldset>
         <legend><h4>Documento</h4></legend>
-        
+            
             <?php    
             if(count($documentosPaq)==0){
             ?>
@@ -93,20 +102,26 @@
             <div id="error" class="alert alert-success" style="text-align: center">
                 <b>No hay documentos adjuntos para este paquete</b>
             </div>
-            
-            <?php if($estadoId == '2'){?>
-                <br><button type="button" name="butCargueDoc" id="butCargueDoc" class="btn btn-info" onclick="cargarDocumentos(<?php echo $paqueteId; ?>);">Cargar Documentos</button><br> 
-            <?php }?>
-                            
+                        
             <?php
             }else{                 
-            ?>                
+            ?>   
+                <div>
+                    <select name="documentosPaquete" id="selDocPaq">
+                        <?php foreach ($documentoGestion as $dosc) { ?>
+                            <option data-dir="<?php echo($dosc['Documentospaquete']['url_fisica']); ?>" value="<?php echo ($dosc['Documentospaquete']['id']); ?>"><?php echo ($tipoDocs[$dosc['Documentospaquete']['documento_id']] . ' - ' . $dosc['Documentospaquete']['created']); ?></option> 
+                        <?php } ?>
+                    </select>
+                </div>  
+                 
                 <div id="portapdf"> 
                     <object data="<?php echo $urlDocs . $documentoGestion['0']['Documentospaquete']['url_fisica']; ?>" type="application/pdf" width="100%" height="100%"></object> 
                 </div>
             <?php    
             }                 
             ?>
+
+            <!--<br><button type="button" name="butCargueDoc" id="butCargueDoc" class="btn btn-info" onclick="cargarDocumentos(<?php //echo $paqueteId; ?>);">Cargar Documentos</button><br> -->
                 
     </fieldset><br><br>
     <table width="100%">
@@ -144,4 +159,5 @@
 </form>
 </div>
 <div id="div_trazabilidad"></div>
+<div id="div_ubicacion"></div>
 <div id="div_obsDevOficio"></div>

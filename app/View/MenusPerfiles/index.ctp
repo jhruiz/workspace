@@ -52,8 +52,8 @@ echo $this->Html->script('menusPerfiles/menusPerfiles.js');
 
         <table class="table table-striped">
 	<tr>
-            <th><?php echo $this->Paginator->sort('menu_id', 'Menú'); ?></th>
-            <th><?php echo $this->Paginator->sort('perfile_id', 'Perfil'); ?></th>
+            <th><?php echo ('Menú'); ?></th>
+            <th><?php echo ('Perfil'); ?></th>
             <th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($menusPerfiles as $menusPerfile): ?>
@@ -64,11 +64,12 @@ echo $this->Html->script('menusPerfiles/menusPerfiles.js');
 		<td>
 			<?php echo $this->Html->link($menusPerfile['Perfile']['descripcion'], array('controller' => 'perfiles', 'action' => 'view', $menusPerfile['Perfile']['id'])); ?>
 		</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $menusPerfile['MenusPerfile']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $menusPerfile['MenusPerfile']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $menusPerfile['MenusPerfile']['id']), null, __('Está seguro que desea eliminar la relación Menú - Perfil?')); ?>
-		</td>
+        <td class="actions">
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $menusPerfile['MenusPerfile']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $menusPerfile['MenusPerfile']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $menusPerfile['MenusPerfile']['id']),
+                                            array('escape'=>false), __('Está seguro que desea eliminar la relación Menú - Perfil?'), array('class' => 'btn btn-mini')); ?>
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

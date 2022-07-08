@@ -31,16 +31,18 @@
         ?>
                 <table class="table table-striped">
                 <tr>
-                    <th><?php echo $this->Paginator->sort('nombre'); ?></th>
+                    <th><?php echo ('nombre'); ?></th>
                     <th class="actions"><?php echo __('Acciones'); ?></th>
                 </tr>
                 <?php foreach ($perfiles as $perfile): ?>
                 <tr>
                     <td><?php echo h($perfile['Perfile']['descripcion']); ?>&nbsp;</td>
+
                     <td class="actions">
-                            <?php echo $this->Html->link(__('Ver'), array('action' => 'view', $perfile['Perfile']['id'])); ?>
-                            <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $perfile['Perfile']['id'])); ?>
-                            <?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $perfile['Perfile']['id']), null, __('Está seguro que desea eliminar el Perfil %s?', $perfile['Perfile']['descripcion'])); ?>
+                        <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $perfile['Perfile']['id']), array('escape' => false)) ?>
+                        <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $perfile['Perfile']['id']), array('escape' => false)) ?>
+                        <?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $perfile['Perfile']['id']),
+                                                        array('escape'=>false), __('Está seguro que desea eliminar el Perfil %s?', $perfile['Perfile']['descripcion']), array('class' => 'btn btn-mini')); ?> 
                     </td>
                 </tr>
         <?php endforeach; ?>

@@ -193,8 +193,8 @@ class CiudadesController extends AppController {
                 
                 if($this->Ciudade->updateAll(
                         
-                        array('estadoregistro_id' => $newEst),
-                        array('id' => $id)                       
+                        array('Ciudade.estadoregistro_id' => $newEst),
+                        array('Ciudade.id' => $id)                       
                 )){                    
                     $this->Session->setFlash(__('Se ha cambiado el estado de la Ciudad a '.$mensaje));
                     return $this->redirect(array('action' => 'index'));               

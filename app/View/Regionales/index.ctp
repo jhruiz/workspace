@@ -37,8 +37,8 @@ echo $this->Html->script('regionales/regionales.js');
         ?>
                 <table class="table table-striped">
                 <tr>
-                                <th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-                                <th><?php echo $this->Paginator->sort('estadoregistro_id','Estado'); ?></th>
+                                <th><?php echo ('Nombre'); ?></th>
+                                <th><?php echo ('Estado'); ?></th>
                                 <th class="actions"><?php echo __('Acciones'); ?></th>
                 </tr>
                 <?php foreach ($regionales as $regionale): ?>
@@ -47,15 +47,22 @@ echo $this->Html->script('regionales/regionales.js');
                         <td>
                                 <?php echo h($regionale['Estadoregistro']['descripcion']); ?>
                         </td>
+
                         <td class="actions">
-                                <?php echo $this->Html->link(__('Ver'), array('action' => 'view', $regionale['Regionale']['id'])); ?>
-                                <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $regionale['Regionale']['id'])); ?>
-                                <?php if($regionale['Estadoregistro']['id']==1){
-                                        echo $this->Form->postLink(__('Inactivar'), array('action' => 'inactivar', $regionale['Regionale']['id']), null, __('Está seguro que desea inactivar la Regional %s?', $regionale['Regionale']['descripcion'])); 
+                            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $regionale['Regionale']['id']), array('escape' => false)) ?>
+                            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $regionale['Regionale']['id']), array('escape' => false)) ?>
+                            
+                            <?php if($regionale['Estadoregistro']['id']==1){
+                                        echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-down fa-lg')). "", array('action' => 'inactivar', $regionale['Regionale']['id']),
+                                        array('escape'=>false), __('Está seguro que desea inactivar la Regional %s?', $regionale['Regionale']['descripcion']), array('class' => 'btn btn-mini'));
                                     }else{
-                                        echo $this->Form->postLink(__('Activar'), array('action' => 'inactivar', $regionale['Regionale']['id']), null, __('Está seguro que desea activar la Regional %s?', $regionale['Regionale']['descripcion']));                             
+                                        echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up fa-lg')). "", array('action' => 'inactivar', $regionale['Regionale']['id']),
+                                        array('escape'=>false), __('Está seguro que desea activar la Regional %s?', $regionale['Regionale']['descripcion']), array('class' => 'btn btn-mini'));
+    
                                     }
-                                ?>
+                            ?>
+                            
+
                         </td>
                 </tr>
         <?php endforeach; ?>

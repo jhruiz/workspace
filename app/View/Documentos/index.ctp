@@ -43,8 +43,8 @@
         </div>      
 	<table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('tipodocumento_id', 'Tipo Documental'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Tipo Documental'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($documentos as $documento): ?>
@@ -53,11 +53,13 @@
 		<td>
 			<?php echo $this->Html->link($documento['Tipodocumento']['descripcion'], array('controller' => 'tipodocumentos', 'action' => 'view', $documento['Tipodocumento']['id'])); ?>
 		</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $documento['Documento']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $documento['Documento']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $documento['Documento']['id']), null, __('Esta seguro que quiere eliminar el documento:  # %s?', $documento['Documento']['descripcion'])); ?>
-		</td>
+        <td class="actions">
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $documento['Documento']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $documento['Documento']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $documento['Documento']['id']),
+                                            array('escape'=>false), __('Esta seguro que quiere eliminar el documento:  %s?', $documento['Documento']['descripcion']), array('class' => 'btn btn-mini')); ?>
+        
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

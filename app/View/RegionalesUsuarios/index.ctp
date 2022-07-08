@@ -3,8 +3,8 @@
 	<h2><?php echo __('Regionales Usuarios'); ?></h2>
         <table cellpadding="0" cellspacing="0" class="CSSTable">
 	<tr>
-			<th><?php echo $this->Paginator->sort('regionale_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('usuario_id'); ?></th>
+			<th><?php echo ('Regional'); ?></th>
+			<th><?php echo ('Usuario'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($regionalesUsuarios as $regionalesUsuario): ?>

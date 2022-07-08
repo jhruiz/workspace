@@ -31,9 +31,9 @@
         </legend>
 	<table class="table table-striped">
 	<tr>			
-			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('username','Login'); ?></th>
-                        <th><?php echo $this->Paginator->sort('numero_identificacion','Identificacion'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Login'); ?></th>
+            <th><?php echo ('Identificacion'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($usuarios as $usuario): ?>

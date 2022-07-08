@@ -155,11 +155,13 @@ eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 
 
 function generarMenu(perfil){
-    
+
+    var userId = $("#user-id").val();
+
     $.ajax({
         type: 'POST',
         url: $('#url-menu').val() + 'usuarios/generarMenuDinamico',
-        data: {perfil: perfil},
+        data: {perfil: perfil, userId: userId},
         success: function(data) {
             $("#menuHorizontal").html(data);            
         }

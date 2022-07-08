@@ -34,9 +34,9 @@ $parametrosDetalle=json_encode($paquetesUsuarios);
             <?php  if(!empty($paquetesUsuarios)){ ?>
                     <table class="CSSTable">
                         <tr>
-                                 <th><?php echo $this->Paginator->sort('Número de Oficio'); ?></th>
-                                <th><?php echo $this->Paginator->sort('Usuario Asignado'); ?></th>
-                                <th><?php echo $this->Paginator->sort('fecha_asignacion'); ?></th>
+                                 <th><?php echo ('Número de Oficio'); ?></th>
+                                <th><?php echo ('Usuario Asignado'); ?></th>
+                                <th><?php echo ('fecha_asignacion'); ?></th>
                                 <th class="actions"><?php echo __('Acciones'); ?></th>
                         </tr>
                         <?php foreach ($paquetesUsuarios as $paquetesUsuario): ?>

@@ -56,7 +56,7 @@ class Eliminarmulti extends AppModel {
             $eliminarMulti=new Eliminarmulti();                        
             
             $data['paquete_id'] = $paqueteId;
-            $data['estado'] = 't';
+            $data['estado'] = '1';
             
             if($eliminarMulti->save($data)){
                 return true;

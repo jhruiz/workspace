@@ -112,7 +112,7 @@ class DocumentosPaquete extends AppModel {
         $documentosPaquete = $this->find("all", array(
             'conditions' => array('AND' => array(
                 'paquete_id' => $paqueteId,
-                'revisado' => 't'
+                'revisado' => '1'
             )),
             'order' => array('Documentospaquete.id' => 'ASC'),
             'recursive' => -1
@@ -156,5 +156,6 @@ class DocumentosPaquete extends AppModel {
             'recursive' => -1
         ));
         return $documentosPaquete;
-    }      
+    }  
+    
 }

@@ -91,9 +91,80 @@ class Documento extends AppModel {
 		)
 	);
         
-        public function obtenerDocumentos(){
-            $arrDocumentos = $this->find('list');
-            return $arrDocumentos;
-        }
+	public function obtenerDocumentos(){
+		$arrDocumentos = $this->find('list');
+		return $arrDocumentos;
+	}
+
+	/**
+	 * Obtiene las retenciones por documentos
+	 */
+	public function obtenerRetencionesDocs() {
+		$arr_join = array(); 
+            
+		array_push($arr_join, array(
+			'table' => 'tipodocumentos', 
+			'alias' => 'TD', 
+			'type' => 'INNER',
+			'conditions' => array(
+				'AND' => array(
+					'TD.id=Documento.tipodocumento_id')
+			)
+		));
+            
+		array_push($arr_join, array(
+			'table' => 'series', 
+			'alias' => 'S', 
+			'type' => 'INNER',
+			'conditions' => array(
+				'AND' => array(
+					'S.id=TD.serie_id')
+			)
+		));
+            
+		array_push($arr_join, array(
+			'table' => 'retenciones_series', 
+			'alias' => 'RS', 
+			'type' => 'INNER',
+			'conditions' => array(
+				'AND' => array(
+					'RS.serie_id=S.id')
+			)
+		));
+            
+		array_push($arr_join, array(
+			'table' => 'unidadesmedidas', 
+			'alias' => 'UM', 
+			'type' => 'INNER',
+			'conditions' => array(
+				'AND' => array(
+					'UM.id=RS.unidadesmedida_id')
+			)
+		));
+            
+		array_push($arr_join, array(
+			'table' => 'acciondisposiciones', 
+			'alias' => 'AD', 
+			'type' => 'INNER',
+			'conditions' => array(
+				'AND' => array(
+					'AD.id=RS.acciondisposicione_id')
+			)
+		));
+
+		$resp = $this->find('all', array(
+			'joins' => $arr_join,   
+			'fields' => array(
+				'Documento.*',
+				'RS.*',
+				'UM.*',
+				'AD.*'
+			),
+			'paramType' => 'querystring',
+			'recursive' => -1
+			)); 
+
+		return $resp;
+	}
 
 }

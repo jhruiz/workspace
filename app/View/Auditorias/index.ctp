@@ -36,10 +36,10 @@
 	<h2><?php echo __('Auditorías'); ?></h2>
 	<table class="table table-striped">
 	<tr>			
-            <th><?php echo $this->Paginator->sort('usuario_id','Usuario'); ?></th>
-            <th><?php echo $this->Paginator->sort('descripcion', 'Descripción'); ?></th>
-            <th><?php echo $this->Paginator->sort('accion', 'Acción'); ?></th>
-            <th><?php echo $this->Paginator->sort('created','Fecha'); ?></th>
+            <th><?php echo ('Usuario'); ?></th>
+            <th><?php echo ('Descripción'); ?></th>
+            <th><?php echo ('Acción'); ?></th>
+            <th><?php echo ('Fecha'); ?></th>
 	</tr>
 	<?php foreach ($auditorias as $auditoria): ?>
 	<tr>		

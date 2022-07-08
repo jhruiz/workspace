@@ -30,12 +30,12 @@ echo $this->Html->script('estados/estados.js');
         </div>  
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('estadoinicial', 'Estado Inicial'); ?></th>
-			<th><?php echo $this->Paginator->sort('estadofinal', 'Estado Final'); ?></th>
-			<th><?php echo $this->Paginator->sort('estadoanulado', 'Estado Anulado'); ?></th>
-			<th><?php echo $this->Paginator->sort('adjuntararchivos', 'Adjuntar Archivos'); ?></th>
-                        <th><?php echo $this->Paginator->sort('transferencia', 'Permite Transferencia'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Estado Inicial'); ?></th>
+			<th><?php echo ('Estado Final'); ?></th>
+			<th><?php echo ('Estado Anulado'); ?></th>
+			<th><?php echo ('Adjuntar Archivos'); ?></th>
+            <th><?php echo ('Permite Transferencia'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($estados as $estado): ?>
@@ -82,11 +82,12 @@ echo $this->Html->script('estados/estados.js');
                     ?>&nbsp;
                 </td>                
 		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $estado['Estado']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $estado['Estado']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $estado['Estado']['id']), null, __('Está seguro que desea eliminar el estado %s?', $estado['Estado']['descripcion'])); ?>
-		</td>
-	</tr>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $estado['Estado']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $estado['Estado']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $estado['Estado']['id']),
+                                            array('escape'=>false), __('Está seguro que desea eliminar el estado %s?', $estado['Estado']['descripcion']), array('class' => 'btn btn-mini')); ?>
+        </td>
+    </tr>
 <?php endforeach; ?>
 	</table>
 	<div class="paging">

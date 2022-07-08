@@ -184,6 +184,8 @@ var dialogObservacionDevOf;
     function validaEstadoRechazo(valueBandSel){
 
         var valido=false;
+
+        console.log(estadoId);
         
         $.ajax({
             url: $('#url-proyecto').val() + "estados/validaestadorechazo",
@@ -193,6 +195,7 @@ var dialogObservacionDevOf;
             async: false,
             success:function(data){
                 var datos = eval(data);
+                console.log(datos);
                 if(!datos.valido){
                     valido=false;
                 }else{

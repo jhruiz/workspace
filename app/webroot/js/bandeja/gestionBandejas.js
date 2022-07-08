@@ -9,7 +9,6 @@ var nombrePaciente; //Se captura el nombre del paciente para el nombre del archi
 
 //con el onReady se le aplica el datapicker a los campos de tipo feha
 $(function() {
-
     var MaxInputs = 15; //Número Maximo de Campos
     var contenedor = $("#contenedor"); //ID del contenedor
     var AddButton = $("#agregarCampo"); //ID del Botón Agregar
@@ -44,7 +43,7 @@ $(function() {
         return false;
     });
 
-
+    $('#selDocPaq').change(cambiarDocumentoVisor);
 
     var estado = $('#estadoProcesoActual').val();
     if (estado == 10) {
@@ -170,7 +169,7 @@ function validarDatosCargue(Archivo) {
             }
             
             if(ext != 'pdf' && ext != 'PDF'){
-                mensaje += '- Archivo inv�ldio: ' + name + '. Solo se permiten archivos con extension .pdf <br>' ;
+                mensaje += '- Archivo invaldio: ' + name + '. Solo se permiten archivos con extension .pdf <br>' ;
             }
         });        
     }
@@ -185,4 +184,14 @@ function validacionReporte(form){
 	}else{
 		form.submit(); 
 	}        
+}
+
+var cambiarDocumentoVisor = function(){
+    var dir = $('#selDocPaq').find(':selected').data('dir');
+    var urlDocs = $('#urlDocs').val();
+
+    var visor = "<object data=" + urlDocs + dir + " type='application/pdf' width='100%' height='100%'></object>";
+
+    $('#portapdf').html(visor);
+    
 }

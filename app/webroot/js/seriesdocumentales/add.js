@@ -43,7 +43,6 @@ var countUsedIndex = function (value) {
         if ($(this).val() === value) 
             result++;        
     });
-    console.log('countUsedIndex', result);
     return result;
 };
 

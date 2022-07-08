@@ -139,6 +139,7 @@ class PaquetesUsuariosController extends AppController {
             $this->loadModel('PaquetesUsuario');   
             $this->loadModel('Privilegio');
             $this->loadModel('PrivilegiosUsuario');
+            $this->loadModel('Documento');
                     
 
             /*Se obtiene la informacion completa del paquete*/
@@ -176,9 +177,12 @@ class PaquetesUsuariosController extends AppController {
             $permisoTraslado = $this->PrivilegiosUsuario->obtenerPrivilegiosPorUsuario($usrLogin['id'], $privilegioTraslado);            
             
             //Se valida si el usuario que está realizando la gestión tiene permisos para cambiar la asignacion de usuario - paquete
-            $permisoCambioUsr = $this->PrivilegiosUsuario->obtenerPrivilegiosPorUsuario($usrLogin['id'], $privilegioCambiarUsr);             
+            $permisoCambioUsr = $this->PrivilegiosUsuario->obtenerPrivilegiosPorUsuario($usrLogin['id'], $privilegioCambiarUsr);     
+            
+            /**se obtiene el listado de documentos parametrizados en la aplicación */
+            $tipoDocs = $this->Documento->obtenerDocumentos();
 
-            $this->set(compact('arrInfoPaquete','arrPaqUsr','documentosPaq', 'observacion', 'urlDocs', 'arrOficina', 'arrUbicacion','usrLogin', 'permisoTraslado', 'permisoCambioUsr'));       
+            $this->set(compact('arrInfoPaquete','arrPaqUsr','documentosPaq', 'observacion', 'urlDocs', 'arrOficina', 'arrUbicacion','usrLogin', 'permisoTraslado', 'permisoCambioUsr', 'tipoDocs'));       
     }   
     
     /**
@@ -343,7 +347,7 @@ class PaquetesUsuariosController extends AppController {
             //Se obtiene el id del privilegio que se desea obtener del usuario que realiza la gestión
             $permisoDesc = "CambiarUsr";
             $permisoId = $this->Privilegio->obtenerIdPrivilegio($permisoDesc);
-            
+
             //Se valida si el usuario que está realizando la gestión tiene permisos para trasladar archivos
             $permisoTraslado = $this->PrivilegiosUsuario->obtenerPrivilegiosPorUsuario($userAuth, $permisoId);
 

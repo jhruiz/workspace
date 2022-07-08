@@ -147,319 +147,320 @@ class Paquete extends AppModel {
 		)
 	);
         
-        public function obtenerListadoPaquetes($estadoId, $usaurioId, $arrOficinas, $permisoUsuarioBandeja){
-            
-            $this->Behaviors->load('Containable');
-            
-            $arr_join = array(); 
-            if($permisoUsuarioBandeja == 1){
-                array_push($arr_join, array(
-                    'table' => 'paquetes_usuarios', 
-                    'alias' => 'PU', 
-                    'type' => 'INNER',
-                    'conditions' => array(
-                        'AND' => array(
-                            'PU.paquete_id=Paquete.id',
-                            'PU.usuario_id' => $usaurioId,
-                            'PU.asignado IS TRUE')
-                        )
-                    ));
-            }
-            
-            $listadoPaquetes = array(
-                'joins' => $arr_join,               
+    public function obtenerListadoPaquetes($estadoId, $usaurioId, $arrOficinas, $permisoUsuarioBandeja, $paginate){
+        
+        $this->Behaviors->load('Containable');
+        
+        $arr_join = array(); 
+        if($permisoUsuarioBandeja == 1){
+            array_push($arr_join, array(
+                'table' => 'paquetes_usuarios', 
+                'alias' => 'PU', 
+                'type' => 'INNER',
                 'conditions' => array(
-                    'Paquete.estado_id' => $estadoId,
-                    'Paquete.oficina_id' => $arrOficinas,
-                    ),               
-                'order' => array('Paquete.fecha_creacion' => 'ASC'),
-                'limit' => 10,
-                'paramType' => 'querystring',
-                'recursive' => 0
-                );                                 
+                    'AND' => array(
+                        'PU.paquete_id=Paquete.id',
+                        'PU.usuario_id' => $usaurioId,
+                        'PU.asignado IS TRUE')
+                    )
+                ));
+        }
+        
+        $listadoPaquetes = array(
+            'joins' => $arr_join,               
+            'conditions' => array(
+                'Paquete.estado_id' => $estadoId,
+                'Paquete.oficina_id' => $arrOficinas,
+                ),               
+            'order' => array('Paquete.fecha_creacion' => 'ASC'),
+            'limit' => 10,
+            'paramType' => 'querystring',
+            'recursive' => 0
+            );                                 
 
-            return $listadoPaquetes;            
-        }
+        return $listadoPaquetes;            
+    }
         
-        public static function actualizarDatosPaquete($paqueteId, $nuevoNumeroOficio, $nuevoEstadoId){
-            $datosPaquete['id'] = $paqueteId;
-            $datosPaquete['numero_oficio'] = $nuevoNumeroOficio;
-            $datosPaquete['estado_id'] = $nuevoEstadoId;
+    public static function actualizarDatosPaquete($paqueteId, $nuevoNumeroOficio, $nuevoEstadoId){
+        $datosPaquete['id'] = $paqueteId;
+        $datosPaquete['numero_oficio'] = $nuevoNumeroOficio;
+        $datosPaquete['estado_id'] = $nuevoEstadoId;
 
-            $objPaquete = new Paquete();
-            if ($objPaquete->save($datosPaquete)) {                
-                $salida = true;
-            } else {
-                $salida = false;
-            }            
-        }
-        
-        public static function actualizarFechaRecepcionOficio($paqueteId, $fechaRecepcion){
-            $datosPaquete['id'] = $paqueteId;
-            $datosPaquete['fecha_recepcion_embargo'] = $fechaRecepcion;
-
-            $objPaquete = new Paquete();
-            if ($objPaquete->save($datosPaquete)) {                
-                $salida = true;
-            } else {
-                $salida = false;
-            }            
-        }
-        
-        public function obtenerInfoPaquete($paqueteId){
-            $arrPaquete = $this->find('first', array('conditions' => array('Paquete.id' => $paqueteId), 'recursive' => 0));
-            return $arrPaquete;
-        }
-        
-        public static function actualizarOficioPorAdmin($paqueteId, $nuevoNumeroOficio){
-            
+        $objPaquete = new Paquete();
+        if ($objPaquete->save($datosPaquete)) {                
+            $salida = true;
+        } else {
             $salida = false;
-            
-            $datosPaquete['id'] = $paqueteId;
-            $datosPaquete['numero_oficio'] = $nuevoNumeroOficio;
-
-            $objPaquete = new Paquete();
-            if ($objPaquete->save($datosPaquete)) {                
-                $salida = true;
-            } else {
-                $salida = false;
-            }   
-            
-            return $salida;
-        }    
+        }            
+    }
         
-        public static function actualizarEstadoPaqueteAdmin($paqueteId, $nuevoEstadoId){
-            $datosPaquete['id'] = $paqueteId;
-            $datosPaquete['estado_id'] = $nuevoEstadoId;
+    public static function actualizarFechaRecepcionOficio($paqueteId, $fechaRecepcion){
+        $datosPaquete['id'] = $paqueteId;
+        $datosPaquete['fecha_recepcion_embargo'] = $fechaRecepcion;
 
-            $objPaquete = new Paquete();
-            if ($objPaquete->save($datosPaquete)) {                
-                $salida = true;
-            } else {
-                $salida = false;
-            }            
+        $objPaquete = new Paquete();
+        if ($objPaquete->save($datosPaquete)) {                
+            $salida = true;
+        } else {
+            $salida = false;
+        }            
+    }
+        
+    public function obtenerInfoPaquete($paqueteId){
+        $arrPaquete = $this->find('first', array('conditions' => array('Paquete.id' => $paqueteId), 'recursive' => 0));
+        return $arrPaquete;
+    }
+        
+    public static function actualizarOficioPorAdmin($paqueteId, $nuevoNumeroOficio){
+        
+        $salida = false;
+        
+        $datosPaquete['id'] = $paqueteId;
+        $datosPaquete['numero_oficio'] = $nuevoNumeroOficio;
+
+        $objPaquete = new Paquete();
+        if ($objPaquete->save($datosPaquete)) {                
+            $salida = true;
+        } else {
+            $salida = false;
         }   
         
-        public function obtenerPaqueteCargueArchivos($numOficio, $oficinaId){
-            $arrPaquetes = $this->find('all', array('conditions' => array('Paquete.numero_oficio' => $numOficio, 'Paquete.oficina_id' => $oficinaId), 'recursive' => 0));
-            return $arrPaquetes;
-        }          
+        return $salida;
+    }    
         
-        public function obtenerSolicitudesCargue($credencial, $usuarioId){   
-            $arr_join = array(); 
-            
-            array_push($arr_join, array(
-                'table' => 'paquetes_usuarios', 
-                'alias' => 'PU', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'PU.paquete_id=Paquete.id'
-                    )
-                ));
-            
-            array_push($arr_join, array(
-                'table' => 'estados', 
-                'alias' => 'E', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'E.id=Paquete.estado_id'
-                    )
-                )); 
-            
-            array_push($arr_join, array(
-                'table' => 'oficinas', 
-                'alias' => 'O', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'O.id=Paquete.oficina_id'
-                    )
-                )); 
-            
-            array_push($arr_join, array(
-                'table' => 'ciudades', 
-                'alias' => 'C', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'C.id=O.ciudade_id'
-                    )
-                ));     
-            
-            array_push($arr_join, array(
-                'table' => 'regionales', 
-                'alias' => 'R', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'R.id=C.regionale_id'
-                    )
-                ));            
-            
-            $arrPaquetes = $this->find('all', array(
-                'joins' => $arr_join,   
-                'fields' => array(
-                    'Paquete.*',
-                    'E.descripcion',
-                    'O.id',
-                    'O.descripcion',
-                    'C.id',
-                    'C.descripcion',
-                    'R.id',
-                    'R.descripcion'
-                    ),                
-                'conditions' => array(
-                    'Paquete.numerocredencial' => $credencial,
-                    'PU.asignado' => '1',
-                    'PU.usuario_id' => $usuarioId,
-                    'E.estadofinal' => '0',
-                    'E.adjuntararchivos' => '1'
-                    ),
-                'recursive' => '-1'                
-                ));            
-            
-            return $arrPaquetes;
-        }
-        
-        public static function crearPaquete($numeroCredencial, $oficinaId, $estadoId){
-            $datosPaquete['numerocredencial'] = $numeroCredencial;
-            $datosPaquete['fechacreacion'] = date('Y-m-d H:i:s');
-            $datosPaquete['oficina_id'] = $oficinaId;
-            $datosPaquete['estado_id'] = $estadoId;            
-            
-            $objPaquete = new Paquete();
-            if($objPaquete->save($datosPaquete)){
-                return $objPaquete->id;
-            }else{
-                return 0;
-            }            
-        }
-        
-        public function actualizarCredencial($paqueteId, $credencial){
-            $datosPaquete['id'] = $paqueteId;
-            $datosPaquete['numerocredencial'] = $credencial;
+    public static function actualizarEstadoPaqueteAdmin($paqueteId, $nuevoEstadoId){
+        $datosPaquete['id'] = $paqueteId;
+        $datosPaquete['estado_id'] = $nuevoEstadoId;
 
-            $objPaquete = new Paquete();
-            if ($objPaquete->save($datosPaquete)) {                
-                $salida = true;
-            } else {
-                $salida = false;
-            } 
-            return $salida;
-        }
+        $objPaquete = new Paquete();
+        if ($objPaquete->save($datosPaquete)) {                
+            $salida = true;
+        } else {
+            $salida = false;
+        }            
+    }   
         
-        public function obtenerPaquetesEstadoPaquetes($arr_condiciones){
-            
-            $arr_join = array(); 
-            
-            array_push($arr_join, array(
-                'table' => 'paquetes_usuarios', 
-                'alias' => 'PU', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'PU.paquete_id=Paquete.id'
-                    )
-                ));            
-            
-            array_push($arr_join, array(
-                'table' => 'estados', 
-                'alias' => 'E', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'E.id=Paquete.estado_id'
-                    )
-                )); 
-            
-            array_push($arr_join, array(
-                'table' => 'oficinas', 
-                'alias' => 'O', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'O.id=Paquete.oficina_id'
-                    )
-                ));     
-            
-            array_push($arr_join, array(
-                'table' => 'ciudades', 
-                'alias' => 'C', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'C.id=O.ciudade_id'
-                    )
-                ));   
-
-            array_push($arr_join, array(
-                'table' => 'regionales', 
-                'alias' => 'R', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'R.id=C.regionale_id'
-                    )
-                ));   
-            
-            array_push($arr_join, array(
-                'table' => 'usuarios', 
-                'alias' => 'U', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'U.id=PU.usuario_id'
-                    )
-                ));              
-            
-            $arrPaquetes = $this->find('all', array(
-                'joins' => $arr_join,   
-                'fields' => array(
-                    'Paquete.*',
-                    'E.descripcion',
-                    'O.id',
-                    'O.descripcion',
-                    'U.nombre',
-                    'C.id',
-                    'C.descripcion',
-                    'R.id',
-                    'R.descripcion'
-                    ),                
-                'conditions' => array(
-                    $arr_condiciones,
-                    'PU.asignado' => '1'
-                    ),
-                'recursive' => '-1'                
-                ));            
-            
-            return $arrPaquetes;            
-        }
-
-        public function obtenerRutaPaqueteId($paqueteId){
-            $arr_join = array(); 
+public function obtenerPaqueteCargueArchivos($numOficio, $oficinaId){
+    $arrPaquetes = $this->find('all', array('conditions' => array('Paquete.numero_oficio' => $numOficio, 'Paquete.oficina_id' => $oficinaId), 'recursive' => 0));
+    return $arrPaquetes;
+}          
+    
+    public function obtenerSolicitudesCargue($credencial, $usuarioId){   
+        $arr_join = array(); 
         
-            array_push($arr_join, array(
-                'table' => 'oficinas', 
-                'alias' => 'O', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'Paquete.oficina_id=O.id'
-                    )
-                ));
+        array_push($arr_join, array(
+            'table' => 'paquetes_usuarios', 
+            'alias' => 'PU', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'PU.paquete_id=Paquete.id'
+                )
+            ));
+        
+        array_push($arr_join, array(
+            'table' => 'estados', 
+            'alias' => 'E', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'E.id=Paquete.estado_id'
+                )
+            )); 
+        
+        array_push($arr_join, array(
+            'table' => 'oficinas', 
+            'alias' => 'O', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'O.id=Paquete.oficina_id'
+                )
+            )); 
+        
+        array_push($arr_join, array(
+            'table' => 'ciudades', 
+            'alias' => 'C', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'C.id=O.ciudade_id'
+                )
+            ));     
+        
+        array_push($arr_join, array(
+            'table' => 'regionales', 
+            'alias' => 'R', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'R.id=C.regionale_id'
+                )
+            ));            
+        
+        $arrPaquetes = $this->find('all', array(
+            'joins' => $arr_join,   
+            'fields' => array(
+                'Paquete.*',
+                'E.descripcion',
+                'O.id',
+                'O.descripcion',
+                'C.id',
+                'C.descripcion',
+                'R.id',
+                'R.descripcion'
+                ),                
+            'conditions' => array(
+                'Paquete.numerocredencial' => $credencial,
+                'PU.asignado' => '1',
+                'PU.usuario_id' => $usuarioId,
+                'E.estadofinal' => '0',
+                'E.adjuntararchivos' => '1'
+                ),
+            'recursive' => '-1'                
+            ));            
+        
+        return $arrPaquetes;
+    }
+        
+    public static function crearPaquete($numeroCredencial, $oficinaId, $estadoId){
+        $datosPaquete['numerocredencial'] = $numeroCredencial;
+        $datosPaquete['numerosolicitud'] = $numeroCredencial;
+        $datosPaquete['fechacreacion'] = date('Y-m-d H:i:s');
+        $datosPaquete['oficina_id'] = $oficinaId;
+        $datosPaquete['estado_id'] = $estadoId;            
+        
+        $objPaquete = new Paquete();
+        if($objPaquete->save($datosPaquete)){
+            return $objPaquete->id;
+        }else{
+            return 0;
+        }            
+    }
+        
+    public function actualizarCredencial($paqueteId, $credencial){
+        $datosPaquete['id'] = $paqueteId;
+        $datosPaquete['numerocredencial'] = $credencial;
 
-            array_push($arr_join, array(
-                'table' => 'ciudades', 
-                'alias' => 'C', 
-                'type' => 'INNER',
-                'conditions' => array(
-                    'O.ciudade_id=C.id'
-                    )
-                ));               
-            
-            $arrPaquetes = $this->find('all', array(
-                'joins' => $arr_join,   
-                'fields' => array(
-                    'O.id',
-                    'C.id',
-                    'C.regionale_id'
-                    ),                
-                'conditions' => array(
-                    'Paquete.id' => $paqueteId
-                    ),
-                'recursive' => '-1'                
-                ));            
-            
-            return $arrPaquetes;               
-        }
+        $objPaquete = new Paquete();
+        if ($objPaquete->save($datosPaquete)) {                
+            $salida = true;
+        } else {
+            $salida = false;
+        } 
+        return $salida;
+    }
+        
+    public function obtenerPaquetesEstadoPaquetes($arr_condiciones){
+        
+        $arr_join = array(); 
+        
+        array_push($arr_join, array(
+            'table' => 'paquetes_usuarios', 
+            'alias' => 'PU', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'PU.paquete_id=Paquete.id'
+                )
+            ));            
+        
+        array_push($arr_join, array(
+            'table' => 'estados', 
+            'alias' => 'E', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'E.id=Paquete.estado_id'
+                )
+            )); 
+        
+        array_push($arr_join, array(
+            'table' => 'oficinas', 
+            'alias' => 'O', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'O.id=Paquete.oficina_id'
+                )
+            ));     
+        
+        array_push($arr_join, array(
+            'table' => 'ciudades', 
+            'alias' => 'C', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'C.id=O.ciudade_id'
+                )
+            ));   
+
+        array_push($arr_join, array(
+            'table' => 'regionales', 
+            'alias' => 'R', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'R.id=C.regionale_id'
+                )
+            ));   
+        
+        array_push($arr_join, array(
+            'table' => 'usuarios', 
+            'alias' => 'U', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'U.id=PU.usuario_id'
+                )
+            ));              
+        
+        $arrPaquetes = $this->find('all', array(
+            'joins' => $arr_join,   
+            'fields' => array(
+                'Paquete.*',
+                'E.descripcion',
+                'O.id',
+                'O.descripcion',
+                'U.nombre',
+                'C.id',
+                'C.descripcion',
+                'R.id',
+                'R.descripcion'
+                ),                
+            'conditions' => array(
+                $arr_condiciones,
+                'PU.asignado' => '1'
+                ),
+            'recursive' => '-1'                
+            ));            
+        
+        return $arrPaquetes;            
+    }
+
+    public function obtenerRutaPaqueteId($paqueteId){
+        $arr_join = array(); 
+    
+        array_push($arr_join, array(
+            'table' => 'oficinas', 
+            'alias' => 'O', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'Paquete.oficina_id=O.id'
+                )
+            ));
+
+        array_push($arr_join, array(
+            'table' => 'ciudades', 
+            'alias' => 'C', 
+            'type' => 'INNER',
+            'conditions' => array(
+                'O.ciudade_id=C.id'
+                )
+            ));               
+        
+        $arrPaquetes = $this->find('all', array(
+            'joins' => $arr_join,   
+            'fields' => array(
+                'O.id',
+                'C.id',
+                'C.regionale_id'
+                ),                
+            'conditions' => array(
+                'Paquete.id' => $paqueteId
+                ),
+            'recursive' => '-1'                
+            ));            
+        
+        return $arrPaquetes;               
+    }
 }

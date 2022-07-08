@@ -40,9 +40,9 @@ echo $this->Html->script('ciudades/ciudades.js');
         ?>
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('regionale_id','Regional'); ?></th>
-			<th><?php echo $this->Paginator->sort('estadoregistro_id','Estado'); ?></th>	
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Regional'); ?></th>
+			<th><?php echo ('Estado'); ?></th>	
 			
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
@@ -57,15 +57,17 @@ echo $this->Html->script('ciudades/ciudades.js');
 		</td>
 		
 		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $ciudade['Ciudade']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $ciudade['Ciudade']['id'])); ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $ciudade['Ciudade']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $ciudade['Ciudade']['id']), array('escape' => false)) ?>
                     <?php 
-                                if($ciudade['Estadoregistro']['id']==1){
-                                echo $this->Form->postLink(__('Inactivar'), array('action' => 'inactivar', $ciudade['Ciudade']['id']), null, __('Está seguro que desea inactivar la Ciudad %s?', $ciudade['Ciudade']['descripcion'])); 
-                            }else{
-                                echo $this->Form->postLink(__('Activar'), array('action' => 'inactivar', $ciudade['Ciudade']['id']), null, __('Está seguro que desea activar la Ciudad %s?', $ciudade['Ciudade']['descripcion']));                             
-                            }
-                        ?>
+                        if($ciudade['Estadoregistro']['id']==1){
+                            echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-down fa-lg')). "", array('action' => 'inactivar', $ciudade['Ciudade']['id']),
+                                            array('escape'=>false), __('Está seguro que desea inactivar la Ciudad %s?', $ciudade['Ciudade']['descripcion']), array('class' => 'btn btn-mini'));
+                        }else{
+                            echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-thumbs-up fa-lg')). "", array('action' => 'inactivar', $ciudade['Ciudade']['id']),
+                                            array('escape'=>false), __('Está seguro que desea activar la Ciudad %s?', $ciudade['Ciudade']['descripcion']), array('class' => 'btn btn-mini'));
+                        }
+                    ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

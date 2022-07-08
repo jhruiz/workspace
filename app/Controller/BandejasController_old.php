@@ -721,7 +721,7 @@ class BandejasController extends AppController {
 
              // the page we will redirect to
              $url=array();
-             $arrUrl = split('/', $this->request->data['Bandejas']['Bandeja']); 
+             $arrUrl = explode('/', $this->request->data['Bandejas']['Bandeja']); 
              $url['action'] = 'listarpaquetes/' . $arrUrl['5'];
 
              if(isset($this->data['Search']['FechaDesde'])){
@@ -835,7 +835,7 @@ class BandejasController extends AppController {
     public function calcularDiasCreacionPaquete($fechaCreacion){
         $this->loadModel('Diasfestivo');
 
-            $arrFechaCreacion = split(" ", $fechaCreacion);
+            $arrFechaCreacion = explode(" ", $fechaCreacion);
             $fechaActual = date("Y-m-d");
             $fechaAnterior = strtotime(h($arrFechaCreacion[0]));
             $dias = floor(abs((strtotime($fechaActual)-$fechaAnterior)/86400));

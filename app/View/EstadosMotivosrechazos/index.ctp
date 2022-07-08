@@ -3,8 +3,8 @@
 	<legend><h2><?php echo __('Estados - Motivos de Rechazo'); ?></h2></legend>
         <table class="CSSTable">
 	<tr>
-			<th><?php echo $this->Paginator->sort('estado_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('motivosrechazo_id', 'Motivo de Rechazo'); ?></th>
+			<th><?php echo ('Estado'); ?></th>
+			<th><?php echo ('Motivo de Rechazo'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($estadosMotivosrechazos as $estadosMotivosrechazo): ?>

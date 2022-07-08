@@ -22,8 +22,9 @@
 			<?php echo $this->Html->link($oficinasUsuario['OFI']['descripcion'], array('controller' => 'oficinas', 'action' => 'view', $oficinasUsuario['OficinasUsuario']['oficina_id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $oficinasUsuario['OficinasUsuario']['id']), null, __('Está seguro que desea eliminar la oficina para el usuario?')); ?>
-		</td>
+            <?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $oficinasUsuario['OficinasUsuario']['id']),
+                                            array('escape'=>false), __('Está seguro que desea eliminar la oficina para el usuario?'), array('class' => 'btn btn-mini')); ?>
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

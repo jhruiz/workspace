@@ -224,7 +224,7 @@ class UsuariosController extends AppController {
         } else {
             $newEst = 1;
         }
-        if ($this->Usuario->updateAll(array('estadoregistro_id' => $newEst, 'num_intentos' => 0), array('id' => $id))) {
+        if ($this->Usuario->updateAll(array('Usuario.estadoregistro_id' => $newEst, 'Usuario.num_intentos' => 0), array('Usuario.id' => $id))) {
             
             /*Se realiza el registro en auditoria para el usuario inactivado*/
             $accionAud = $this->Auditoria->accionAuditoria('5');
@@ -309,7 +309,7 @@ class UsuariosController extends AppController {
                     } else {
                         if ($numIntentos == 2) {
                             $this->Usuario->updateAll(
-                                    array('estadoregistro_id' => 2), array('id' => $id)
+                                    array('estadoregistro_id' => 2), array('usuario.id' => $id)
                             );
                             
                             
@@ -325,7 +325,7 @@ class UsuariosController extends AppController {
                             $this->Session->setFlash(__('Su usuario ha sido bloqueado por 3 intentos fallidos de autenticacion, se le notificara cuando quede activo'));
                         } else {
                             $this->Usuario->updateAll(
-                                    array('num_intentos' => $numIntentos + 1), array('id' => $id)
+                                    array('num_intentos' => $numIntentos + 1), array('usuario.id' => $id)
                             );
                             $this->Session->setFlash(__('Contraseña y/o el nombre de usuario incorrectos. Por favor, intente de nuevo'));
                         }
@@ -417,9 +417,29 @@ class UsuariosController extends AppController {
         return $menu;
     }
 
+    public function ordenarBandejasMenu($userId){    
+
+        $this->loadModel('Configuraciondato');
+        $urlRaizProyDesarrollo = $this->Configuraciondato->obtenerInfo("url_raizproyserver");
+
+        $menu = array();
+        foreach($arrMenuPerfil as $key => $val) {
+            if(empty($val['Menu']['menu_id'])) {
+                $menu[$val['Menu']['id']]['descMenu'] =  $val['Menu']['descripcion'];
+                $menu[$val['Menu']['id']]['urlMenu'] =  !empty($val['Menu']['url'])  ? $urlRaizProyDesarrollo . $val['Menu']['url'] : "";
+            } else {
+                $menu[$val['Menu']['menu_id']]['submenu'][$val['Menu']['id']]['descripcion'] = $val['Menu']['descripcion'];
+                $menu[$val['Menu']['menu_id']]['submenu'][$val['Menu']['id']]['url'] = !empty($val['Menu']['url'])  ? $urlRaizProyDesarrollo . $val['Menu']['url'] : "";
+            }
+        }
+
+        return $menu;
+    }
+
     public function generarMenuDinamico() {
         $this->loadModel('Menu');
         $perfil = $this->request->data('perfil');
+        $userId = $this->request->data('userId');
 
         $join = array(array('table' => 'menus_perfiles', 'type' => 'INNER', 'alias' => 'MP',
                 'conditions' => array('MP.menu_id = Menu.id', 'MP.perfile_id = ' . $perfil)));
@@ -428,7 +448,8 @@ class UsuariosController extends AppController {
 
         $strDibujoMenu = "";
         if(count($arrMenuPerfil) > 0){
-            $strDibujoMenu = $this->dibujarMenu($this->ordenarItemsMenu($arrMenuPerfil));            
+            $strDibujoMenu = $this->dibujarMenu($this->ordenarItemsMenu($arrMenuPerfil));  
+            //$strDibujoMenu += $this->dibujarOficinasBandejas($this->ordenarBandejasMenu($userId));         
         }
         print_r($strDibujoMenu);
 
@@ -452,8 +473,7 @@ class UsuariosController extends AppController {
                         $strMenu .= "<li><a href='" . $subme['url'] . "'> <span>" . $subme['descripcion'] . "</span></a></li>";
                     }
                     $strMenu .= "</ul>";
-                }
-
+                } 
             }
         }
         

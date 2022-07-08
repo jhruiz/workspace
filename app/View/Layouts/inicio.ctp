@@ -3,7 +3,7 @@
     <head>
         <?php echo $this->Html->charset(); ?>
         <title>Sistema de Gestión Documental</title>  
-      <?php
+    <?php
   
         echo $this->Html->meta('icon');
         echo $this->Html->css(array('StyleLayout', 'StyleTable'));
@@ -16,7 +16,8 @@
         echo $this->Html->script('jquery-ui/js/jquery-ui-1.10.3.custom.min');
         echo $this->Html->script('bootbox.min.js');
         echo $this->Html->css('jquery-ui-css/redmond/jquery-ui.css');
-        
+        echo $this->Html->css('font-awesome/css/font-awesome.min.css');
+
         /*Adicionamos la librería para el menu*/
         echo $this->Html->css('menu');
         echo $this->Html->script('menu.js?ver=1.0');
@@ -35,7 +36,6 @@
         echo $this->Html->script('utilsjs/utilsElementosHTML');
         echo $this->Html->script('layout/inicio');
         ?>      
-
         <style type="text/css">
             label {
                 float: left;
@@ -90,7 +90,7 @@
             text-align:left;
                 margin:0 auto !important; 
                 display:inline-block
-            }               
+            }     
             
         </style>
 
@@ -108,9 +108,6 @@
                             echo '<script> generarMenu('. $current_user['Perfile']['id'] .'); </script>';                        
                         ?>
                     </ul>
-
-                    <ul>
-                        
                 </div>
             <?php } ?>
                 
@@ -147,7 +144,7 @@
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
         © 2018 Copyright:
-        <a href="https://mdbootstrap.com/material-design-for-bootstrap/"> sgd.com </a>
+        <a href="#"> sgd.com </a>
     </div>
     <!--/.Copyright-->
 

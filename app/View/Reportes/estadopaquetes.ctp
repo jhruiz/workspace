@@ -8,8 +8,8 @@
         <br />
         <table width="100%">
             <tr>
-                <td><div><?php echo $this->Form->input('fecha_inicio', array('label' => __('Desde'), 'class' => 'date')); ?></div></td>
-                <td><div><?php echo $this->Form->input('fecha_fin', array('label' => __('Hasta'), 'class' => 'date')); ?></div></td>
+                <td><div><?php echo $this->Form->input('fecha_inicio', array('label' => __('Desde'), 'class' => 'date', 'autocomplete' => 'off')); ?></div></td>
+                <td><div><?php echo $this->Form->input('fecha_fin', array('label' => __('Hasta'), 'class' => 'date', 'autocomplete' => 'off')); ?></div></td>
                 <td></td>
             </tr>
             <tr>

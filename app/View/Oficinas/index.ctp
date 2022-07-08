@@ -47,8 +47,8 @@
         ?>        
                 <table class="table table-striped">
                 <tr>
-                                <th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-                                <th><?php echo $this->Paginator->sort('ciudade_id','Ciudad'); ?></th>
+                                <th><?php echo ('Nombre'); ?></th>
+                                <th><?php echo ('Ciudad'); ?></th>
                                 <th class="actions"><?php echo __('Acciones'); ?></th>
                 </tr>
                 <?php foreach ($oficinas as $oficina): ?>
@@ -58,9 +58,10 @@
                                 <?php echo $this->Html->link($oficina['Ciudade']['descripcion'], array('controller' => 'ciudades', 'action' => 'view', $oficina['Ciudade']['id'])); ?>
                         </td>
                         <td class="actions">
-                                <?php echo $this->Html->link(__('Ver'), array('action' => 'view', $oficina['Oficina']['id'])); ?>
-                                <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $oficina['Oficina']['id'])); ?>
-                                <?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $oficina['Oficina']['id']), null, __('Esta seguro que desea eliminar la oficina %s?', $oficina['Oficina']['descripcion'])); ?>
+                            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $oficina['Oficina']['id']), array('escape' => false)) ?>
+                            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $oficina['Oficina']['id']), array('escape' => false)) ?>
+                            <?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $oficina['Oficina']['id']),
+                                                            array('escape'=>false), __('Esta seguro que desea eliminar la oficina %s?', $oficina['Oficina']['descripcion']), array('class' => 'btn btn-mini')); ?>
                         </td>
                 </tr>
         <?php endforeach; ?>

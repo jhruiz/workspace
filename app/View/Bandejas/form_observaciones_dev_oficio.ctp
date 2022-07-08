@@ -14,7 +14,8 @@
                         Motivos: 
                     </center></td>
                     <td><center>
-                        <?php echo $this->Form->input('motivosrechazo', array('options' => $motivosRechazoList, 'id' => 'motivosrechazo', 'label' => false, 'empty' => 'SELECCIONE UNA: ', 'onchange' => 'agregarObservacion(this);')); ?>
+                    <?php echo $this->Form->input('motivosrechazo', array('options' => $motivosRechazoList, 'id' => 'motivosrechazo', 'label' => false, 'empty' => 'SELECCIONE UNA: ', 'onchange' => 'agregarObservacion(this);')); ?>
+                    
                     </center></td>
                 <tr>    
                 <tr>

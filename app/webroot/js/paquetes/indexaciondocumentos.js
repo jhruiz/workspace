@@ -30,14 +30,15 @@ var seleccionarOficio;
     $('#DocumentospaqueteCarguearchivosForm').submit();        
 }
 
-function abrirDialogoSeleccionOficio(listaSolicitud, permisoCrear){
+function abrirDialogoSeleccionOficio(listaSolicitud, permisoCrear, numeroDocumento){
 
     $("#div_seleccionoficio").load(
         $('#url-proyecto').val() + "paquetes/formseleccionoficiocarguearchivos",
         {
             arrSolicitud: listaSolicitud, permisoCrear: permisoCrear
         },
-        function(){                                                            
+        function(){                          
+            $('#DocumentospaqueteNumeroDocumento').val(numeroDocumento);                              
             seleccionarOficio=$("#div_seleccionoficio").dialog(dialogSeleccionarOficio);
             seleccionarOficio.dialog('open');
         }
@@ -89,30 +90,29 @@ function estadoCargueArchivos(estadoId){
 }
 
 function validarSolicitud(){
-   $('#trazaPaqModal').modal('hide');
+    $('#trazaPaqModal').modal('hide');
     ocultarFormulario();
+
     var numeroDocumento = $('#DocumentospaqueteNumeroDocumento').val();
-    
     $.ajax({
         method: 'POST',
         url: $('#url-proyecto').val() + 'documentospaquetes/ajaxValidarSolicitud',
         data: {numeroDocumento : numeroDocumento.trim()},
         async: false,
         success: function(data){
-         var respuesta = JSON.parse(data);
-         if(respuesta.M != "" && respuesta.S == "" && respuesta.P == ""){
-            bootbox.alert(respuesta.M);
-        }
+            var respuesta = JSON.parse(data);
+            if(respuesta.M != "" && respuesta.S == "" && respuesta.P == ""){
+                bootbox.alert(respuesta.M);
+            }
+            if(respuesta.M == "" && respuesta.S != "" && respuesta.P != ""){
+                abrirDialogoSeleccionOficio(respuesta.S, respuesta.P, numeroDocumento);
+            }
 
-        if(respuesta.M == "" && respuesta.S != "" && respuesta.P != ""){
-            abrirDialogoSeleccionOficio(respuesta.S, respuesta.P);
+            if(respuesta.M == "" && respuesta.S == "" && respuesta.P != ""){
+                nuevasolicitud('0');
+            }          
         }
-
-        if(respuesta.M == "" && respuesta.S == "" && respuesta.P != ""){
-            nuevasolicitud('0');
-        }          
-    }
-});
+    });
 }
 
 
@@ -128,22 +128,9 @@ function validarCredecialesServicioWeb(){
             $('#div_trazabilidad').html(data);
             $('#trazaPaqModal').modal("show");
             $('#trazaPaqModal').css({'position':'fixed'});    
-        }
-            /*var response = JSON.parse(data);
-            var cod_error = response.errorBean;
-            if(cod_error.codigo == "0"){
-                var sel = $('<select>').appendTo('body');
-                $(response.credencialesDTO).each(function() {
-                   sel.append($("<option>").attr('value',this.val).text(this.text));
-               });
-                debugger;
-                for (var i = response.credencialesDTO.length - 1; i >= 0; i--) {
-                    
-                }
-            }*/
-            
+        }   
 
-        });
+    });
 }
 
 function nuevasolicitud(dato){ 
@@ -221,13 +208,14 @@ function checkForOther(data){
                 async: false,
                 success:function(data){
                     var datos = eval(data);
-                    console.log(datos);
                     $('#formCargue').removeAttr("style");                  
                     $('#inputReg').removeAttr("style");
                     $('#inputCiu').removeAttr("style");                
                     $('#inputOfi').removeAttr("style");
                     $('#DocumentospaqueteNumeroDocumento').val(datos.credencial);
-                    $('#DocumentospaqueteNumeroDocumento').attr('readonly', true);
+                    if(datos.credencial != null) {
+                        $('#DocumentospaqueteNumeroDocumento').attr('disabled', true);
+                    }
                     $('#regNombre').val(datos.regionalDesc);                
                     $('#ciuNombre').val(datos.ciudadDesc);
                     $('#ofiNombre').val(datos.oficinaDesc);

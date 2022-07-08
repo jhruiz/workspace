@@ -271,14 +271,12 @@ class BandejasController extends AppController {
         
         /*Se obtiene el listado de paquetes que el usuario puede gestionar o visualizar y se pagina*/        
         if(empty($paginate)){
-            $this->Paginator->settings = $this->Paquete->obtenerListadoPaquetes($arrEstId, $usuarioId, $oficinasIds, $permisoUsuarioBandeja);               
+            $this->Paginator->settings = $this->Paquete->obtenerListadoPaquetes($arrEstId, $usuarioId, $oficinasIds, $permisoUsuarioBandeja, $paginate);               
             $arrPaquetes = $this->Paginator->paginate('Paquete');            
         }else{
-            $this->Paginator->settings = $this->Paquete->obtenerListadoPaquetes($arrEstId, $usuarioId, $oficinasIds, $permisoUsuarioBandeja);               
+            $this->Paginator->settings = $this->Paquete->obtenerListadoPaquetes($arrEstId, $usuarioId, $oficinasIds, $permisoUsuarioBandeja, $paginate);               
             $arrPaquetes = $this->Paginator->paginate('Paquete', $paginate);            
         }
-        
-        
 
         /*Se recorre el arreglo de paquetes para agregar la ciudad y la regional a la que pertenece el paquete*/
         $arrUbicacion = array();
@@ -373,6 +371,8 @@ class BandejasController extends AppController {
             $this->loadModel('Estado');
             $this->loadModel('Configuraciondato');
             $this->loadModel('MotivosrechazosPaquete');
+            $this->loadModel('Documento');
+
             $posData = $this->request->data;
 
             $permisobandejaId = $posData['permisobandejaId'];
@@ -391,13 +391,13 @@ class BandejasController extends AppController {
 
             foreach($codNombreEstado as $valor){
                 $listEstadosBandeja[$valor['Estado']['id']] =  $valor['Etiquetacambioestado']['descripcion'] . " a " . $valor['Estado']['descripcion'];
-            }                       
+            }
             
             /*Se obtienen las observaciones realizadas sobre el paquete*/
             $observacion = $this->Observacione->obtenerObservacionesPorPaqueteId($paqueteId);           
 
             /*Se obtiene el documento del paquete*/
-            $documentosPaq = $this->Documentospaquete->obtenerDocsPaquetePorPaqteId($paqueteId);                      
+            $documentosPaq = $this->Documentospaquete->obtenerDocsPaquetePorPaqteId($paqueteId);      
 
             $varDirTemp = 'dirTemp';
             $dirTemp = $this->Configuraciondato->obtenerInfo($varDirTemp);
@@ -409,7 +409,7 @@ class BandejasController extends AppController {
             $dirAgente = $this->Configuraciondato->obtenerInfo($varAgente);
 
             /*Si el oficio tiene mas de un documento anexado, se concatenan y se elmina el registro del doc concatenado, dejando el primero como registro*/
-            if(count($documentosPaq) > 1){
+            /*if(count($documentosPaq) > 1){
                 $documentosPaquete = new DocumentospaquetesController();
                 $urlRaizDocs = $this->Configuraciondato->obtenerInfo($dato = 'dirPaquetes');
 
@@ -422,17 +422,21 @@ class BandejasController extends AppController {
                 
                 //Se ejecuta el jar, se envía como parametro el id del paquete
                 shell_exec('"' . $dirJVM . '" -jar "' . $dirAgente . '" ' . '"' . $infoConcatPDF['rutaTxt'] . '"');
-                /*Se elimina el registro de documentospaquetes del archivo concatenado*/
+                
+                //Se elimina el registro de documentospaquetes del archivo concatenado
                 for($j = 0; $j < count($documentosPaq); $j++){
                     $this->Documentospaquete->desactivarDocPaquete($documentosPaq[$j]['Documentospaquete']['id']);
                 }
                 
-                /*se guarda la informacion del nuevo documento*/
+                //se guarda la informacion del nuevo documento
                 $this->guardarDocumentoPaqueteConcat($paqueteId,$infoConcatPDF['pathPdf'],$documentosPaq['0']['Documentospaquete']['documento_id']);
-            }
+            }*/
 
             /*se obtiene el documento activo para el paquete*/
             $documentoGestion = $this->Documentospaquete->obtenerDocsPaquetePorPaqteId($paqueteId);
+            
+            /**se obtiene el listado de documentos parametrizados en la aplicación */
+            $tipoDocs = $this->Documento->obtenerDocumentos();
 
             /*Se obtiene el ultimo registro en trazabilidad con estado FALSE para obtener el paso previo del paquete*/
             $ultimaTraza = $this->Trazabilidade->consultarTrazaPreviaActual($paqueteId);
@@ -445,15 +449,19 @@ class BandejasController extends AppController {
             
             /*Se obtiene la información del estado actual*/
             $arrInfoEstado = $this->Estado->obtenerEstadoPorId($estadoId);
+
             /*Se valida si el estado es de tipo "anulado"*/
             if($arrInfoEstado['Estado']['estadoanulado'] == '1'){
                 $motivoPaquete = $this->MotivosrechazosPaquete->obtenerUltimoMotivoPaquete($paqueteId);
             }
 
+            /** Se obtiene información del estado */
+            $infoEstado = $this->Estado->obtenerEstadoPorId($estadoId);
+
             $this->set(compact('permisobandejaId','paqueteId','fechaCreacion','fechaDigitalizacion','numeroOficio'));
             $this->set(compact('estado','nombreOficina','oficinaId','bandejaId','listEstadosBandeja', 'motivoPaquete'));
             $this->set(compact('observacion','ultimaTraza','documentosPaq', 'datosUsuarioLogin', 'estadoId', 'urlDocs', 'numeroCredencial'));
-            $this->set(compact('documentoGestion'));
+            $this->set(compact('documentoGestion', 'tipoDocs', 'infoEstado'));
         }        
     }
     
@@ -527,19 +535,19 @@ class BandejasController extends AppController {
                 if(count($arrNuevoEstado) > 0 && $arrNuevoEstado['Estado']['estadoanulado'] == '1'){
                     
                     /*Se valida si el nuevo estado es "pendientes" y el motivo específico es "faltan soportes" para eliminar el documento*/
-                    if($arrNuevoEstado['Estado']['id'] == '2' && $motivoRechazoId == '9'){
+                    /*if($arrNuevoEstado['Estado']['id'] == '2' && $motivoRechazoId == '9'){
                         //Se obtienen los documentos del paquete
                         $arrDocsPaquete = $this->Documentospaquete->obtenerDocsPorPaqteId($paqueteId);
                         foreach($arrDocsPaquete as $documentos){
                             $this->Documentospaquete->desactivarDocPaquete($documentos['Documentospaquete']['id']);
-                        }
+                        }*/
 
                         /*Se registra la eliminación del documento*/
-                        $accionAud = $this->Auditoria->accionAuditoria($mensajeId = '1');
+                        /*$accionAud = $this->Auditoria->accionAuditoria($mensajeId = '1');
                         $arrDescripcionAud['numOficio'] = $numOficio;
                         $descripcionAud = $this->Auditoria->descripcionAuditoria($id = '1', $arrDescripcionAud);
                         $this->Auditoria->logAuditoria($usuarioId, $descripcionAud, $accionAud);                                                          
-                    }
+                    }*/
                     
                     /*Se registra el motivo de rechazo seleccionado por el usuario*/
                     $this->MotivosrechazosPaquete->guardarEstadoMotivoRechazo($motivoRechazoId, $paqueteId);
@@ -744,7 +752,7 @@ class BandejasController extends AppController {
 
              // the page we will redirect to
              $url=array();
-             $arrUrl = split('/', $this->request->data['Bandejas']['Bandeja']); 
+             $arrUrl = explode('/', $this->request->data['Bandejas']['Bandeja']); 
              $url['action'] = 'listarpaquetes/' . $arrUrl['5'];             
 
              foreach ($this->data as $k=>$v){
@@ -792,9 +800,9 @@ class BandejasController extends AppController {
      
      public function formObservacionesDevOficio(){
          $this->loadModel('EstadosMotivosrechazo');
-         
+
          $posData = $this->request->data;
-         
+
          $arrEstadoRechazo = $this->EstadosMotivosrechazo->estadosMotivosRechazoEstId($posData['estadoId']);
          
          foreach ($arrEstadoRechazo as $motivos){
@@ -850,7 +858,7 @@ class BandejasController extends AppController {
     public function calcularDiasCreacionPaquete($fechaCreacion){
         $this->loadModel('Diasfestivo');
 
-            $arrFechaCreacion = split(" ", $fechaCreacion);
+            $arrFechaCreacion = explode(" ", $fechaCreacion);
             $fechaActual = date("Y-m-d");
             $fechaAnterior = strtotime(h($arrFechaCreacion[0]));
             $dias = floor(abs((strtotime($fechaActual)-$fechaAnterior)/86400));

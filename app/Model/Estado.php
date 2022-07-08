@@ -88,8 +88,8 @@ class Estado extends AppModel {
 		)            
 	);        
         
-        public function obtenerEstadoPorId($estadoiId){
-            $arrEstado = $this->find('first', array('conditions' => array('Estado.id' => $estadoiId), 'recursive' => 0));
+        public function obtenerEstadoPorId($estadoId){
+            $arrEstado = $this->find('first', array('conditions' => array('Estado.id' => $estadoId), 'recursive' => 0));
             return $arrEstado;                    
         }
         

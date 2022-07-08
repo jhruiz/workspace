@@ -47,9 +47,9 @@ echo $this->Html->script('tiposdocumentales/tiposdocumentales.js');
     </div>      
     <table class="table table-striped">
     <tr>
-                    <th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-                    <th><?php echo $this->Paginator->sort('codigo', 'Código'); ?></th>
-                    <th><?php echo $this->Paginator->sort('serie_id'); ?></th>
+                    <th><?php echo ('Nombre'); ?></th>
+                    <th><?php echo ('Código'); ?></th>
+                    <th><?php echo ('Serie'); ?></th>
                     <th class="actions"><?php echo __('Acciones'); ?></th>
     </tr>
     <?php foreach ($tipodocumentos as $tipodocumento): ?>
@@ -60,9 +60,10 @@ echo $this->Html->script('tiposdocumentales/tiposdocumentales.js');
                     <?php echo $this->Html->link($tipodocumento['Serie']['descripcion'], array('controller' => 'series', 'action' => 'view', $tipodocumento['Serie']['id'])); ?>
             </td>
             <td class="actions">
-                    <?php echo $this->Html->link(__('Ver'), array('action' => 'view', $tipodocumento['Tipodocumento']['id'])); ?>
-                    <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $tipodocumento['Tipodocumento']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $tipodocumento['Tipodocumento']['id']), null, __('Está seguro que desea eliminar el tipo documental # %s?', $tipodocumento['Tipodocumento']['descripcion'])); ?>
+                <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $tipodocumento['Tipodocumento']['id']), array('escape' => false)) ?>
+                <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $tipodocumento['Tipodocumento']['id']), array('escape' => false)) ?>
+                <?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $tipodocumento['Tipodocumento']['id']),
+                                                array('escape'=>false), __('Está seguro que desea eliminar el tipo documental %s?', $tipodocumento['Tipodocumento']['descripcion']), array('class' => 'btn btn-mini')); ?>    
             </td>
     </tr>
 <?php endforeach; ?>

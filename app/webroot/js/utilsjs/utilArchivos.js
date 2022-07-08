@@ -123,7 +123,6 @@ function cargarArchivoTmp(idInputFile,nombArchivo,idBotVistaPrevia,idBotCargarAr
        
        ///Si el archivo seleccionado es valido, se carga el archivo al servidor
         if(fileValid){
-            
             mostrarModal(idDivModal);
             
             $("#"+idInputFile).upload(

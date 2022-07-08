@@ -185,7 +185,7 @@ class MenusController extends AppController {
 
                 /*** Cargamos las bandejas del usuario ***/ 
                 $this->loadModel('Permisousuariobandeja');
-                $bandejasusr = $this->Permisousuariobandeja->obtenerPermisoXUsuario($user_id);  
+                $bandejasusr = $this->Permisousuariobandeja->obtenerPermisoXUsuario($user_id);
                 $this->set(compact('bandejasusr'));
             }                
         }

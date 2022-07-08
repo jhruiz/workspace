@@ -90,7 +90,7 @@ class PaquetesUsuario extends AppModel {
                 'fields' => 'PaquetesUsuario.id',
                 'conditions' => array(
                     'PaquetesUsuario.paquete_id' => $paqueteId, 
-                    'PaquetesUsuario.asignado' => 't'
+                    'PaquetesUsuario.asignado' => '1'
                     ),
                 'recursive' => -1
                 ));
@@ -134,7 +134,7 @@ class PaquetesUsuario extends AppModel {
             
             $listadoPaquetes = array(
                 'conditions' => array(
-                    'PaquetesUsuario.asignado' => 't',
+                    'PaquetesUsuario.asignado' => '1',
                     ),               
                 'order' => array('Paquete.fecha_creacion' => 'ASC'),
                 'limit' => 20,
@@ -149,7 +149,7 @@ class PaquetesUsuario extends AppModel {
             $paqAsig = $this->find('first', array(
                 'conditions' => array(
                     'PaquetesUsuario.paquete_id' => $paqueteId, 
-                    'PaquetesUsuario.asignado' => 't'
+                    'PaquetesUsuario.asignado' => '1'
                     ),
                 'recursive' => 0
                 ));
@@ -228,7 +228,7 @@ class PaquetesUsuario extends AppModel {
                     ),
                 'conditions' => array(
                     'PaquetesUsuario.usuario_id' => $usuarioId,
-                    'PaquetesUsuario.asignado' => 't'), 
+                    'PaquetesUsuario.asignado' => '1'), 
                 'order' => 'PQ.estado_id',
                 'paramType' => 'querystring',
                 'recursive' => 0

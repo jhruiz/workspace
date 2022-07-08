@@ -6136,7 +6136,6 @@ a.badge:focus {
 
 .next a, a:visited {
     text-decoration: none !important;
-    color: #FFF !important;
     font-weight: bold;
 }
 

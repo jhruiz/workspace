@@ -34,7 +34,6 @@ function abrirDialogoPermisos(idPadreDocumental) {
         $('#tablaPermisoUsuario tbody').empty();
 
         var respuesta = JSON.parse(responseText);
-        console.log(respuesta);
 
         if (respuesta.cargos)
             for (var i = 0; i < respuesta.cargos.length; i++)
@@ -57,7 +56,6 @@ function agregarPermisoCargo() {
         permisodoc_id: $('#permiso').val()
     }, function (responseText) {
         var respuesta = JSON.parse(responseText);
-        console.log(respuesta);
 
         //pongo el cargo recien guardado en la tabla.
         if (respuesta.cargos){

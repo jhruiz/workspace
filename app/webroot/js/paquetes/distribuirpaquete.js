@@ -85,7 +85,6 @@ function enviarFormulario(){
             //error en la fila
             campo.parent().parent().addClass('error');
             campo.focus();
-            console.log(montosEnviar);
             alert('Hay un Centro de Costo Repetido');
             return false;
         }            

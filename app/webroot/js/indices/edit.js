@@ -37,7 +37,6 @@ var delOption = function(){
 var countOptions = 1;
 ///Crea el html de una nueva opcion y la agrega a la tabla
 var createHTMLOptionTable = function(){
-    console.log(countOptions);
     ///no permito nuevos opciones si existe al menos un input vacio
     if (!validateEmptyOptions())
         return false;

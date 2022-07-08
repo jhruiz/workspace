@@ -15,8 +15,8 @@ echo $this->Html->script('relacionBandejaEstados/relacionBandejaEstados.js');
 
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('bandeja_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('estado_id'); ?></th>
+			<th><?php echo ('Bandeja'); ?></th>
+			<th><?php echo ('Estado'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($relacionbandejasestados as $relacionbandejasestado): ?>
@@ -28,10 +28,11 @@ echo $this->Html->script('relacionBandejaEstados/relacionBandejaEstados.js');
 			<?php echo $this->Html->link($relacionbandejasestado['Estado']['descripcion'], array('controller' => 'estados', 'action' => 'view', $relacionbandejasestado['Estado']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $relacionbandejasestado['Relacionbandejasestado']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $relacionbandejasestado['Relacionbandejasestado']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $relacionbandejasestado['Relacionbandejasestado']['id']), null, __('Está seguro que desea eliminar la relación?')); ?>
-		</td>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $relacionbandejasestado['Relacionbandejasestado']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $relacionbandejasestado['Relacionbandejasestado']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $relacionbandejasestado['Relacionbandejasestado']['id']),
+                                            array('escape'=>false), __('Está seguro que desea eliminar la relación?'), array('class' => 'btn btn-mini')); ?>
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

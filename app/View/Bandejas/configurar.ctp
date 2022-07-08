@@ -208,7 +208,8 @@
                   </td>
                   <td><a style="cursor: pointer;" onclick="borrarSecuencia(<?php 
                     echo $datosFlujoSecuencia['Bandejasestado']['id'];
-                  ?>);"><i class="icon-trash"></i> Borrar</a><td>
+                  ?>);"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+                  <td>
               </tr>
           <?php
           }

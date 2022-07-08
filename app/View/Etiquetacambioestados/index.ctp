@@ -24,7 +24,7 @@
 	<legend><h2><?php echo __('Etiquetas Cambio Estados'); ?></h2></legend>
         <table cellpadding="0" cellspacing="0" class="CSSTable">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($etiquetacambioestados as $etiquetacambioestado): ?>

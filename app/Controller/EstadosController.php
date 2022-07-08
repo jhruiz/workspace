@@ -115,26 +115,26 @@ class EstadosController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
         
-        public function validaestadorechazo(){            
-            
-            $this->layout='ajax';
-            $this->autoRender=false;                                
+    public function validaestadorechazo(){            
+        
+        $this->layout='ajax';
+        $this->autoRender=false;                                
 
-            $response['valido']=true;
+        $response['valido']=true;
 
-            if($this->request->is("post")){
-                $estadoId = $this->request->data("estadoId");
-                $arrEstado = $this->Estado->obtenerEstadoPorId($estadoId);
-                
-                if(isset($arrEstado) && count($arrEstado) > 0){
-                    $estadoAnulado = $arrEstado['Estado']['estadoanulado'];
-                    if($estadoAnulado == NULL){
-                        $response['valido']=false;
-                    }
-                }                
-            }                          
-            return json_encode($response);        
-        }
+        if($this->request->is("post")){
+            $estadoId = $this->request->data("estadoId");
+            $arrEstado = $this->Estado->obtenerEstadoPorId($estadoId);
+
+            if(isset($arrEstado) && count($arrEstado) > 0){
+                $estadoAnulado = $arrEstado['Estado']['estadoanulado'];
+                if(!$estadoAnulado){
+                    $response['valido']=false;
+                }
+            }                
+        }                          
+        return json_encode($response);        
+    }
         
     /**
      * Funcion que crea un formulario en un div para cambiar la bandeja de un oficio

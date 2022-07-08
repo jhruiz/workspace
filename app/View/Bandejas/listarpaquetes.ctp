@@ -16,11 +16,11 @@
 <div id="pestana_filtro">
     <div class="paquetes form" id="divConfigPaquete" text-align: center> 
         <h3><?php echo __('Filtros'); ?></h3> 
-        <?php echo $this->Form->create('Bandejas',array('action'=>'searchListarPaquetes','method'=>'post'));?>
+        <?php echo $this->Form->create('Bandejas',array('action'=>'searchListarPaquetes','method'=>'post', 'autocomplete'=>'off'));?>
             <fieldset>
                 <h4>Credencial</h4>
                 <div id='credencial'>
-                    <?php echo $this->Form->input('Search.Numero', array('label' => 'Número', 'onclick' => 'focusFilter()')); ?>                                   
+                    <?php echo $this->Form->input('Search.Numero', array('label' => 'Número paquete', 'onclick' => 'focusFilter()', 'autocomplete' => 'off')); ?>                                   
                     <?php echo $this->Form->input('Bandeja', array('type' => 'hidden', 'value' => $_SERVER['REQUEST_URI'])); ?>
                 </div>
                 <h4>Fecha Creación</h4>

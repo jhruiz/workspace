@@ -11,8 +11,6 @@ var idIntervalVerificaSesion=0; ///contiene el el id del setInterval que verific
 
  function obtenerBandejasFlujoAjax(user_id) {
 
-        var bandejasFlujo = "";
-        
             $.ajax({
                 type: 'POST',
                 dataType: 'html',
@@ -20,11 +18,12 @@ var idIntervalVerificaSesion=0; ///contiene el el id del setInterval que verific
                 url: $('#url-proyecto').val() + 'menus/obtenerbandejasflujoajax',
                 data: {user_id: user_id},
                 success: function (data) {
-                    bandejasFlujo = data;
+                    mostrarModal('menu_vert');
+                    $("#menu_vert").html(data);
+                    ocultarModal('menu_vert');
+                    animarMenuVert();          
                 }
             });
-
-            return bandejasFlujo;
     }
     
     /**
@@ -79,7 +78,6 @@ var idIntervalVerificaSesion=0; ///contiene el el id del setInterval que verific
     
     
     $(document).ready(function () {
-        
         $("#btn_verbandejas").bind("click",function(){
             $("#izquierda").toggle();
         });
@@ -87,12 +85,7 @@ var idIntervalVerificaSesion=0; ///contiene el el id del setInterval que verific
         verificarSesionIntervaloTiempo();
 
         if ($("#user-id").length > 0 && $("#user-id").val() != "" && $("#tipoperfiluser_id").val() != 1) {
-                mostrarModal('menu_vert');
-                var menuVert = obtenerBandejasFlujoAjax($("#user-id").val());
-                $("#menu_vert").html(menuVert);
-                ocultarModal('menu_vert');
-                animarMenuVert();          
-
+            obtenerBandejasFlujoAjax($("#user-id").val());
         }
     });
 

@@ -14,7 +14,10 @@
         margin: 0 auto; 
     }    
 </style>
-<div class="paquetes form" text-align: center>  
+<div class="paquetes form" text-align: center>
+    
+        <input type="hidden" name="urlDocs" id="urlDocs" value='<?php echo ($urlDocs); ?>'> 
+
         <h2><?php echo __('Detalles'); ?></h2>
         <table class="table table-condensed">
             <tr>
@@ -74,6 +77,14 @@
             <?php
             }else{
             ?>
+                <div>
+                    <select name="documentosPaquete" id="selDocPaq">
+                        <?php foreach ($documentosPaq as $dosc) { ?>
+                            <option data-dir="<?php echo($dosc['Documentospaquete']['url_fisica']); ?>" value="<?php echo ($dosc['Documentospaquete']['id']); ?>"><?php echo ($tipoDocs[$dosc['Documentospaquete']['documento_id']] . ' - ' . $dosc['Documentospaquete']['created']); ?></option> 
+                        <?php } ?>
+                    </select>
+                </div>  
+
                 <div id="portapdf"> 
                     <object data="<?php echo $urlDocs . $documentosPaq['0']['Documentospaquete']['url_fisica']; ?>" type="application/pdf" width="100%" height="100%"></object> 
                 </div>

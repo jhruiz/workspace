@@ -13,9 +13,9 @@ echo $this->Html->script('semaforos/semaforos.js');
         </div>      
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('rangoinicial'); ?></th>
-			<th><?php echo $this->Paginator->sort('rangofinal'); ?></th>
-			<th><?php echo $this->Paginator->sort('color'); ?></th>
+			<th><?php echo ('rangoinicial'); ?></th>
+			<th><?php echo ('rangofinal'); ?></th>
+			<th><?php echo ('color'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($semaforos as $semaforo): ?>
@@ -24,10 +24,12 @@ echo $this->Html->script('semaforos/semaforos.js');
 		<td><?php echo h($semaforo['Semaforo']['rangofinal']); ?>&nbsp;</td>
 		<td bgcolor="#<?php echo h($semaforo['Semaforo']['color']); ?>" ><?php echo "#".h($semaforo['Semaforo']['color']); ?>&nbsp;</td>
 		<td class="actions">
-                    <?php echo $this->Html->link(__('Ver'), array('action' => 'view', $semaforo['Semaforo']['id'])); ?>
-                    <?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $semaforo['Semaforo']['id'])); ?>
-                    <?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $semaforo['Semaforo']['id']), null, __('Está seguro de eliminar el semáforo %s?', '')); ?>
-		</td>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-eye fa-lg')), array('action' => 'view', $semaforo['Semaforo']['id']), array('escape' => false)) ?>
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $semaforo['Semaforo']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $semaforo['Semaforo']['id']),
+                                            array('escape'=>false), __('Está seguro de eliminar el semáforo?'), array('class' => 'btn btn-mini')); ?>
+        
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>

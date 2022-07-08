@@ -2,9 +2,9 @@
 	<h2><?php echo __('Configuraciondatos'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('valor'); ?></th>
+			<th><?php echo ('id'); ?></th>
+			<th><?php echo ('nombre'); ?></th>
+			<th><?php echo ('valor'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($configuraciondatos as $configuraciondato): ?>

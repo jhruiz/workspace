@@ -184,13 +184,13 @@ class RegionalesController extends AppController {
                 }
                 
                 if($this->Regionale->updateAll(
-                        array('estadoregistro_id' => $newEst),
-                        array('id' => $id)                       
+                        array('Regionale.estadoregistro_id' => $newEst),
+                        array('Regionale.id' => $id)                       
                 )){
                 
                      //Se activan/inactivan las ciudades de la regional que se ha activado/inactivado
-                    $ciudades = $this->Regionale->Ciudade->find("list", array("conditions" => array("regionale_id" => $id), 'fields' => 'id', 'recursive' => -1 ));
-                    $this->Regionale->Ciudade->updateAll(array('estadoregistro_id' => $newEst),array('id' => $ciudades));
+                    $ciudades = $this->Regionale->Ciudade->find("list", array("conditions" => array("Ciudade.regionale_id" => $id), 'fields' => 'id', 'recursive' => -1 ));
+                    $this->Regionale->Ciudade->updateAll(array('Ciudade.estadoregistro_id' => $newEst),array('Ciudade.id' => $ciudades));
                     $this->Session->setFlash(__('Se ha cambiado el estado de la Regional a '.$mensaje));
                     return $this->redirect(array('action' => 'index'));               
                 }else{

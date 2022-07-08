@@ -15,8 +15,6 @@ function mostrarTrazabilidad(paqueteId, nombreBandeja, idDivTraza) {
             $('#' + idDivTraza).html(responseText);
             $('#trazaPaqModal').modal("show");
             $('#trazaPaqModal').css({'width': '760px', 'left': '45%'});
-
-
         });
     }
 }

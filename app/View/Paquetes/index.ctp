@@ -2,13 +2,13 @@
 	<h2><?php echo __('Paquetes'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('fecha_creacion'); ?></th>
-			<th><?php echo $this->Paginator->sort('fecha_digitalizacion'); ?></th>
-			<th><?php echo $this->Paginator->sort('fecha_recepcion_embargo'); ?></th>
-			<th><?php echo $this->Paginator->sort('numero_oficio'); ?></th>
-			<th><?php echo $this->Paginator->sort('estado_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('oficina_id'); ?></th>
+			<th><?php echo ('id'); ?></th>
+			<th><?php echo ('fecha_creacion'); ?></th>
+			<th><?php echo ('fecha_digitalizacion'); ?></th>
+			<th><?php echo ('fecha_recepcion_embargo'); ?></th>
+			<th><?php echo ('numero_oficio'); ?></th>
+			<th><?php echo ('estado_id'); ?></th>
+			<th><?php echo ('oficina_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($paquetes as $paquete): ?>

@@ -45,9 +45,9 @@ echo $this->Html->script('menu/menu.js');
 
         <table class="table table-striped">
 	<tr>
-			<th><?php echo $this->Paginator->sort('descripcion', 'Nombre'); ?></th>
-			<th><?php echo $this->Paginator->sort('url'); ?></th>
-			<th><?php echo $this->Paginator->sort('menu_id', 'Menu Padre'); ?></th>
+			<th><?php echo ('Nombre'); ?></th>
+			<th><?php echo ('Url'); ?></th>
+			<th><?php echo ('Menu Padre'); ?></th>
 			<th class="actions"><?php echo __('Acciones'); ?></th>
 	</tr>
 	<?php foreach ($menus as $menu): ?>
@@ -55,10 +55,11 @@ echo $this->Html->script('menu/menu.js');
 		<td><?php echo h($menu['Menu']['descripcion']); ?>&nbsp;</td>
 		<td><?php echo h($menu['Menu']['url']); ?>&nbsp;</td>
 		<td><?php echo h($menu['Menu']['menu_id']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $menu['Menu']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Eliminar'), array('action' => 'delete', $menu['Menu']['id']), null, __('Está seguro que desea eliminar el Menú: %s?', $menu['Menu']['descripcion'])); ?>
-		</td>
+        <td class="actions">
+            <?php echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-pencil-square-o fa-lg')), array('action' => 'edit', $menu['Menu']['id']), array('escape' => false)) ?>
+			<?php echo $this->Form->postLink($this->Html->tag('i', '', array('class' => 'fa fa-trash fa-lg')). "", array('action' => 'delete', $menu['Menu']['id']),
+                                            array('escape'=>false), __('Está seguro que desea eliminar el Menú: %s?', $menu['Menu']['descripcion']), array('class' => 'btn btn-mini')); ?>
+        </td>
 	</tr>
 <?php endforeach; ?>
 	</table>
