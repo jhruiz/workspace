@@ -37,10 +37,10 @@ class PaquetesUbicacionesfisicasController extends AppController {
 
         //se valida si existe un regitro de almacenamiento para eliminarlo
         $ubPaquete = $this->PaquetesUbicacionesfisica->obtenerUbicacionPaqueteU($idPaquete);
+
         if(!empty($ubPaquete)) {
             // se elimina la ubicación actual del paquete
             $this->PaquetesUbicacionesfisica->eliminarUbicacionPaquete($ubPaquete['0']['PaquetesUbicacionesfisica']['id']);
-            
         }
 
         $resp = $this->PaquetesUbicacionesfisica->guardarUbicacion($idUbicacion, $idPaquete, $idUsuario, $fecha);

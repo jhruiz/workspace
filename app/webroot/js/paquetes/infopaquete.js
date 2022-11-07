@@ -53,7 +53,7 @@ var dialogCambiarBandejaOficio;
 function cambiarUsuarioAsignado(paquete,paqueteUsuario,usuario_id){
     if(paquete > 0 && paqueteUsuario > 0){
         $("#div_asignausuario").load(
-                $('#url-proyecto').val() + "paquetesusuarios/formcambiarusuariopaquete",
+                $('#url-proyecto').val() + "paquetesUsuarios/formcambiarusuariopaquete",
                 {
                     paquete_id: paquete, paquetesusuario_id: paqueteUsuario, usuario_id: usuario_id
                 },

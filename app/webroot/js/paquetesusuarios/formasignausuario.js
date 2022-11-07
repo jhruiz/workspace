@@ -27,7 +27,7 @@ function enviarFormularioAjax(){
 
        if(formValido){
            $.ajax({
-               url: $('#url-proyecto').val() + "paquetesusuarios/cambiarpaqueteusuario",
+               url: $('#url-proyecto').val() + "paquetesUsuarios/cambiarpaqueteusuario",
                type: "POST",
                dataType: "json",
                data: {paquete_id: paquete_id, usuario_id: usuario_id, paquetesusuarioactual_id: paquetesusuario_id},

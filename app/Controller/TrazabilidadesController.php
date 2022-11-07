@@ -20,6 +20,7 @@ class TrazabilidadesController extends AppController {
 
             //Se obtienen los estados tipo finalizado
             $estadoFin = $this->Estado->obtenerEstadosFin();
+
             $arrEstF = array();
             $tiempoTotal = 0;
             foreach ($estadoFin as $estfin){
@@ -28,6 +29,7 @@ class TrazabilidadesController extends AppController {
 
             if (!empty($paquete_id)) {
                 $trazas = $this->Trazabilidade->consultarTrazasPorPaqueteId($paquete_id);
+
                 for($i = 0; $i < count($trazas); $i++){
                     if(!in_array($trazas[$i]['Estadodestino']['id'], $arrEstF)){
                         

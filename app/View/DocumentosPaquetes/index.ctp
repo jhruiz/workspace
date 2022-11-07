@@ -19,7 +19,7 @@
 			<?php echo ($documentospaquete['Paquete']['numerocredencial']); ?>
 		</td>
 		<td>
-			<?php echo ($documentospaquete['Documentospaquete']['created']); ?>
+			<?php echo ($documentospaquete['DocumentosPaquete']['created']); ?>
 		</td>
 		<td>
 			<?php echo ($documentospaquete['calcretencion']['fechaElim']); ?>

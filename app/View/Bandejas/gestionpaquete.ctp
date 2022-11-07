@@ -7,6 +7,8 @@
     echo $this->Html->script('paquetes/gestionpaquete.js');
     echo $this->Html->script('bandeja/gestionBandejas.js');
     echo $this->Html->script('ubicaciones/ubicacionpaquete.js');
+    echo $this->Html->script('documentos/documentos.js');
+    echo $this->Html->script('paquetes/listachequeos.js');
     
 ?>
 <style type="text/css">
@@ -109,14 +111,18 @@
                 <div>
                     <select name="documentosPaquete" id="selDocPaq">
                         <?php foreach ($documentoGestion as $dosc) { ?>
-                            <option data-dir="<?php echo($dosc['Documentospaquete']['url_fisica']); ?>" value="<?php echo ($dosc['Documentospaquete']['id']); ?>"><?php echo ($tipoDocs[$dosc['Documentospaquete']['documento_id']] . ' - ' . $dosc['Documentospaquete']['created']); ?></option> 
+                            <option data-dir="<?php echo($dosc['DocumentosPaquete']['url_fisica']); ?>" value="<?php echo ($dosc['DocumentosPaquete']['id']); ?>"><?php echo ($tipoDocs[$dosc['DocumentosPaquete']['documento_id']] . ' - ' . $dosc['DocumentosPaquete']['created']); ?></option> 
                         <?php } ?>
                     </select>
-                </div>  
-                 
-                <div id="portapdf"> 
-                    <object data="<?php echo $urlDocs . $documentoGestion['0']['Documentospaquete']['url_fisica']; ?>" type="application/pdf" width="100%" height="100%"></object> 
+                    <br>
+                    <?php  echo $this->Form->button("Eliminar", array('id' => 'btnEliminar', 'type'=>'button','class'=>'btn btn-danger', 'onclick' => 'eliminarDocumento();')); ?>
+                    
                 </div>
+
+                <div id="portapdf"> 
+                    <object data="<?php echo $urlDocs . $documentoGestion['0']['DocumentosPaquete']['url_fisica']; ?>" type="application/pdf" width="100%" height="100%"></object> 
+                </div>
+
             <?php    
             }                 
             ?>
@@ -124,17 +130,44 @@
             <!--<br><button type="button" name="butCargueDoc" id="butCargueDoc" class="btn btn-info" onclick="cargarDocumentos(<?php //echo $paqueteId; ?>);">Cargar Documentos</button><br> -->
                 
     </fieldset><br><br>
+
+    <fieldset>
+        <legend><h4>Lista de Checkeo</h4></legend>
+        <?php foreach( $listaBandeja as $key => $val ) { ?>
+
+            <?php $checked = ''; ?>
+            <?php $checkedByUserDate = ''; ?>
+            <?php if (isset($val['BandejasListachequeo']['user'])) {?>
+                <?php $checkedByUserDate = $val['BandejasListachequeo']['user'] . ' (' . $val['BandejasListachequeo']['created_at'] . ')'; ?>
+                <?php $checked = 'checked';?>
+            <?php } ?>
+
+
+            <div class="form-check">
+                <input style="margin-top:0px;" class="form-check-input" type="checkbox" value="" id="<?php echo ($val['BandejasListachequeo']['bandeja_id'] . '_' . $val['LC']['id']); ?>" <?php echo $checked; ?> onchange="checkListBandeja(this);">
+                <label class="form-check-label" for="flexCheckDefault">
+                    <b><?php echo $val['LC']['descripcion']?></b>
+                </label>
+
+                <b id="userDate_<?php echo ($val['LC']['id']); ?>"><?php echo ($checkedByUserDate); ?></b>
+                
+            </div>
+
+        <?php } ?>
+
+    </fieldset>
+
     <table width="100%">
         <tr>
             <?php if(isset($permisobandejaId) && $permisobandejaId == 1){?>
             <td width="50%">
-            <legend><h4>Agregar Observaci&oacute;n:</h4></legend>
-            <textarea name="observacion" id="observacion" cols="60" rows="3" class="textAreaLoc" onblur="guardarObserv('<?php echo $datosUsuarioLogin['nombre']?>');"></textarea>
+                <legend><h4>Agregar Observaci&oacute;n:</h4></legend>
+                <textarea name="observacion" id="observacion" cols="60" rows="3" class="textAreaLoc" onblur="guardarObserv('<?php echo $datosUsuarioLogin['nombre']?>');"></textarea>
             </td>
             <?php } ?>
             <td width="50%">
-            <legend><h4>Observaciones:</h4></legend>
-            <textarea name="obsGeneral" cols="60" rows="3" class="textAreaLoc" readonly id="obsGeneral"><?php if (isset($observacion['0'])){echo $observacion['0']['Observacione']['descripcion']; } ?></textarea>            
+                <legend><h4>Observaciones:</h4></legend>
+                <textarea name="obsGeneral" cols="60" rows="3" class="textAreaLoc" readonly id="obsGeneral"><?php if (isset($observacion['0'])){echo $observacion['0']['Observacione']['descripcion']; } ?></textarea>            
             </td>
         </tr>
     </table>    

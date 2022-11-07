@@ -1,6 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
-App::uses ('DocumentospaquetesController', 'Controller');
+App::uses ('DocumentosPaquetesController', 'Controller');
 App::uses('EstadosController', 'Controller');
 /**
  * Bandejas Controller
@@ -185,7 +185,7 @@ class BandejasController extends AppController {
             $bandejaInicial = $postData['bandejasflujo_id'];
             $bandejaSiguiente = $postData['bandejasflujosig_id'];
             $etiquetaCambio = $postData['etiqutaCambio'];
-            $analisisCargas = $postData['analisisCargas'];
+            $analisisCargas = $postData['analisisCargas'] == 'true' ? '1' : '0';
 
             //se obtiene el estado segun id de la bandeja
             $arrBandEst = $this->Relacionbandejasestado->obtenerInfoRelacionBEPorBandeja($bandejaSiguiente);            
@@ -366,12 +366,14 @@ class BandejasController extends AppController {
         if($this->request->is('post')){
             $this->loadModel('Bandejasestado');
             $this->loadModel('Observacione');
-            $this->loadModel('Documentospaquete');
+            $this->loadModel('DocumentosPaquete');
             $this->loadModel('Trazabilidade');
             $this->loadModel('Estado');
             $this->loadModel('Configuraciondato');
             $this->loadModel('MotivosrechazosPaquete');
             $this->loadModel('Documento');
+            $this->loadModel('BandejasListachequeo');
+            $this->loadModel('BandejasListachequeosUsuario');
 
             $posData = $this->request->data;
 
@@ -397,7 +399,7 @@ class BandejasController extends AppController {
             $observacion = $this->Observacione->obtenerObservacionesPorPaqueteId($paqueteId);           
 
             /*Se obtiene el documento del paquete*/
-            $documentosPaq = $this->Documentospaquete->obtenerDocsPaquetePorPaqteId($paqueteId);      
+            $documentosPaq = $this->DocumentosPaquete->obtenerDocsPaquetePorPaqteId($paqueteId);      
 
             $varDirTemp = 'dirTemp';
             $dirTemp = $this->Configuraciondato->obtenerInfo($varDirTemp);
@@ -433,7 +435,7 @@ class BandejasController extends AppController {
             }*/
 
             /*se obtiene el documento activo para el paquete*/
-            $documentoGestion = $this->Documentospaquete->obtenerDocsPaquetePorPaqteId($paqueteId);
+            $documentoGestion = $this->DocumentosPaquete->obtenerDocsPaquetePorPaqteId($paqueteId);
             
             /**se obtiene el listado de documentos parametrizados en la aplicación */
             $tipoDocs = $this->Documento->obtenerDocumentos();
@@ -458,10 +460,28 @@ class BandejasController extends AppController {
             /** Se obtiene información del estado */
             $infoEstado = $this->Estado->obtenerEstadoPorId($estadoId);
 
+            /** Se obtiene la lista de checkeo configurada para la bandeja */
+            $listaBandeja = $this->BandejasListachequeo->obtenerListaItemsBandeja($bandejaId);
+            
+            /** Se obtienen los items checkeados por usuarios en la bandeja */
+            $listChecked = $this->BandejasListachequeosUsuario->obtenerListasCheckeadasUsuario($bandejaId, $paqueteId);
+
+            foreach($listaBandeja as $key => $val) {
+                
+                foreach($listChecked as $keyj => $valj) {
+                    if( $val['LC']['id'] == $valj['BandejasListachequeosUsuario']['listachequeo_id'] ){
+
+                        $listaBandeja[$key]['BandejasListachequeo']['user'] = $valj['U']['nombre'];
+
+                    }
+                }
+            
+            }
+
             $this->set(compact('permisobandejaId','paqueteId','fechaCreacion','fechaDigitalizacion','numeroOficio'));
             $this->set(compact('estado','nombreOficina','oficinaId','bandejaId','listEstadosBandeja', 'motivoPaquete'));
             $this->set(compact('observacion','ultimaTraza','documentosPaq', 'datosUsuarioLogin', 'estadoId', 'urlDocs', 'numeroCredencial'));
-            $this->set(compact('documentoGestion', 'tipoDocs', 'infoEstado'));
+            $this->set(compact('documentoGestion', 'tipoDocs', 'infoEstado', 'listaBandeja'));
         }        
     }
     
@@ -476,7 +496,7 @@ class BandejasController extends AppController {
             $this->loadModel('Usuario');
             $this->loadModel('Relacionbandejasestado');
             $this->loadModel('Bandejasestado');
-            $this->loadModel('Documentospaquete');
+            $this->loadModel('DocumentosPaquete');
             $this->loadModel('MotivosrechazosPaquete');
             $estadosController = new EstadosController();
 
@@ -769,7 +789,7 @@ class BandejasController extends AppController {
      public function cambiarNumeroOficio($paqueteId, $nuevoNumeroOficio){
          $this->loadModel('Paquete');
          $this->loadModel('Configuraciondato');
-         $this->loadModel('Documentospaquete');
+         $this->loadModel('DocumentosPaquete');
          
          $arrPaquete = $this->Paquete->obtenerInfoPaquete($paqueteId);
          if($nuevoNumeroOficio != $arrPaquete['Paquete']['numero_oficio']){
@@ -778,7 +798,7 @@ class BandejasController extends AppController {
              $arrUbicacion = $this->obtenerUbicacionPaquete($arrPaquete['Paquete']['oficina_id']);
              
              /*Se obtienen los documentos del oficio que seran movidos a la nueva ubicacion*/
-             $docOficio = $this->Documentospaquete->obtenerDocsPorPaqteId($paqueteId);
+             $docOficio = $this->DocumentosPaquete->obtenerDocsPorPaqteId($paqueteId);
              
              /*Se obtiene la url raiz de los documentos*/
              $urlRaiz = $this->Configuraciondato->obtenerInfo($dato= 'dirPaquetes');
@@ -791,7 +811,7 @@ class BandejasController extends AppController {
              
              /*Se cambia la ubicacion de los documentos asociados al oficio*/
              foreach($docOficio as $clv => $val){
-                 rename ($url . $arrPaquete['Paquete']['numero_oficio'] . "\\" . $val['Documentospaquete']['url_fisica'], $url . $nuevoNumeroOficio . "\\" . $val['Documentospaquete']['url_fisica']);
+                 rename ($url . $arrPaquete['Paquete']['numero_oficio'] . "\\" . $val['DocumentosPaquete']['url_fisica'], $url . $nuevoNumeroOficio . "\\" . $val['DocumentosPaquete']['url_fisica']);
              }
              
          }
@@ -898,12 +918,12 @@ class BandejasController extends AppController {
     
     public function guardarDocumentoPaqueteConcat($paqueteId,$pathPdf,$documentoId){
         $this->loadModel('Paquete');
-        $this->loadModel('Documentospaquete');
+        $this->loadModel('DocumentosPaquete');
         
         $datosPaquete = $this->Paquete->obtenerRutaPaqueteId($paqueteId);        
         $rutaFisica = $datosPaquete['0']['C']['regionale_id'] . '/' . $datosPaquete['0']['C']['id'] . '/' . $datosPaquete['0']['O']['id'] . '/' . $pathPdf;
 
-        $this->Documentospaquete->guardarDocumentosPaquete($documentoId, $paqueteId, $rutaFisica);
+        $this->DocumentosPaquete->guardarDocumentosPaquete($documentoId, $paqueteId, $rutaFisica);
     }
 
 }

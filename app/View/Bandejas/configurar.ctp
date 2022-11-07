@@ -143,6 +143,26 @@
   </div>
 </div>
 
+<div id="addItemsBandejas" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Añadir Items a Bandejas <span id="items_nombreBandeja"></span></h3>
+  </div>
+  
+  <div class="modal-body">
+        <form class="form-horizontal">
+            <div id="dvListItems">
+
+            </div>
+        </form>
+  </div>
+  
+  <div class="modal-footer">
+    <button class="btn" onclick="cerrarDialogItemsBandeja()" aria-hidden="true">Salir</button>
+  </div>
+</div>
+
 
 <!--Se crean las tablas que muestran la información de las bandejas y la configuración del flujo-->
 <div class="flujos form">
@@ -182,6 +202,16 @@
                     echo json_encode($tupla['Bandeja']['descripcion']);
                   ?>
                   );'> Permisos </a>
+                  
+                 <a style="cursor: pointer;" onclick='abrirDialogoItemsCheck(
+                  <?php 
+                    echo $tupla['Bandeja']['id'];
+                  ?>, 
+                  <?php 
+                    echo json_encode($tupla['Bandeja']['descripcion']);
+                  ?>
+                  );'> Items </a>
+
                   </td>              
               </tr>
           <?php

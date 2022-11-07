@@ -132,7 +132,7 @@ class PaquetesUsuariosController extends AppController {
             $this->loadModel('Observacione');
             $this->loadModel('Ciudade');
             $this->loadModel('Oficina');
-            $this->loadModel('Documentospaquete');
+            $this->loadModel('DocumentosPaquete');
             $this->loadModel('Trazabilidade');
             $this->loadModel('Configuraciondato');
             $this->loadModel('Paquete');
@@ -149,7 +149,7 @@ class PaquetesUsuariosController extends AppController {
             $arrPaqUsr = $this->PaquetesUsuario->obtenerPaquetesUsuarioAsignado($paqueteId);
 
             /*Se obtiene el documento del paquete*/
-            $documentosPaq = $this->Documentospaquete->obtenerDocsPaquetePorPaqteId($paqueteId);  
+            $documentosPaq = $this->DocumentosPaquete->obtenerDocsPaquetePorPaqteId($paqueteId);  
                  
             /*Se obtienen las observaciones realizadas sobre el paquete*/
             $observacion = $this->Observacione->obtenerObservacionesPorPaqueteId($paqueteId);                       

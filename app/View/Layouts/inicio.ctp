@@ -2,7 +2,7 @@
 <html>
     <head>
         <?php echo $this->Html->charset(); ?>
-        <title>Sistema de Gestión Documental</title>  
+        <title>WorkSpace</title>  
     <?php
   
         echo $this->Html->meta('icon');
@@ -139,16 +139,16 @@
             <div class="container-fluid">
 <!--                <footer id="piePagina">
                 </footer>-->
-<footer class="page-footer font-small blue pt-4 mt-4">
-
-    <!--Copyright-->
-    <div class="footer-copyright py-3 text-center">
-        © 2018 Copyright:
-        <a href="#"> sgd.com </a>
-    </div>
-    <!--/.Copyright-->
-
-</footer>
+            <footer class="page-footer font-small blue pt-4 mt-4">
+            
+                <!--Copyright-->
+                <div class="footer-copyright py-3 text-center">
+                    © 2018 Copyright:
+                    <a href="#"> sgd.com </a>
+                </div>
+                <!--/.Copyright-->
+            
+            </footer>
             </div>
         </div>
         <input type="hidden" id="url-proyecto" value="<?php echo $this->Html->url('/', true) ?>" />

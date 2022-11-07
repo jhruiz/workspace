@@ -78,7 +78,7 @@ function validarFormulario(){
 function trasladosolicitudes(){
     $("#div_traslado").load(
         
-        $('#url-proyecto').val() + "paquetesusuarios/formtrasladosolicitudes",
+        $('#url-proyecto').val() + "paquetesUsuarios/formtrasladosolicitudes",
         {
         },
         function(){ 

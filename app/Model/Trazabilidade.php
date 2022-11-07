@@ -114,19 +114,11 @@ class Trazabilidade extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
-		'Paquetesusuario' => array(
-			'className' => 'Paquetesusuario',
-			'foreignKey' => 'paquetesusuario_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 
     public function consultarTrazasPorPaqueteId($paquete_id) {
         if (!empty($paquete_id)) {
-            $this->Behaviors->load('Containable');
 
             $trazas = $this->find("all", array(
                 'conditions' => array('Trazabilidade.paquete_id' => $paquete_id),

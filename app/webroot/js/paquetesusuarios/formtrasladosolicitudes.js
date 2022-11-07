@@ -39,7 +39,7 @@
 
                         var paqUsrId = $('#'+checkboxValues[i]).val();
 
-                        $.post(urlBase+'paquetesusuarios/cambiarpaqueteusuario', {
+                        $.post(urlBase+'paquetesUsuarios/cambiarpaqueteusuario', {
                             usuario_id : usuarioSelect,
                             paquete_id : checkboxValues[i],
                             paquetesusuarioactual_id : paqUsrId,

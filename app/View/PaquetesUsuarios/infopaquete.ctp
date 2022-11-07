@@ -65,14 +65,14 @@
     <br>
     <fieldset>
         <legend><h4>Documento</h4></legend>
-        
+
             <?php    
             if(count($documentosPaq)==0){
             ?>
             
-            <div id="error" class="alert alert-success" style="text-align: center">
-                <b>No hay documentos adjuntos para este paquete</b>
-            </div>
+                <div id="error" class="alert alert-success" style="text-align: center">
+                    <b>No hay documentos adjuntos para este paquete</b>
+                </div>
                             
             <?php
             }else{
@@ -80,13 +80,13 @@
                 <div>
                     <select name="documentosPaquete" id="selDocPaq">
                         <?php foreach ($documentosPaq as $dosc) { ?>
-                            <option data-dir="<?php echo($dosc['Documentospaquete']['url_fisica']); ?>" value="<?php echo ($dosc['Documentospaquete']['id']); ?>"><?php echo ($tipoDocs[$dosc['Documentospaquete']['documento_id']] . ' - ' . $dosc['Documentospaquete']['created']); ?></option> 
+                            <option data-dir="<?php echo($dosc['DocumentosPaquete']['url_fisica']); ?>" value="<?php echo ($dosc['DocumentosPaquete']['id']); ?>"><?php echo ($tipoDocs[$dosc['DocumentosPaquete']['documento_id']] . ' - ' . $dosc['DocumentosPaquete']['created']); ?></option> 
                         <?php } ?>
                     </select>
                 </div>  
 
                 <div id="portapdf"> 
-                    <object data="<?php echo $urlDocs . $documentosPaq['0']['Documentospaquete']['url_fisica']; ?>" type="application/pdf" width="100%" height="100%"></object> 
+                    <object data="<?php echo $urlDocs . $documentosPaq['0']['DocumentosPaquete']['url_fisica']; ?>" type="application/pdf" width="100%" height="100%"></object> 
                 </div>
             <?php    
             }                 

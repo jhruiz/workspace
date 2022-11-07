@@ -27,7 +27,7 @@ var seleccionarOficio;
  * djvu, para luego poderlo visualizar
  */
  function cargarArchivos() {    
-    $('#DocumentospaqueteCarguearchivosForm').submit();        
+    $('#DocumentosPaqueteCarguearchivosForm').submit();        
 }
 
 function abrirDialogoSeleccionOficio(listaSolicitud, permisoCrear, numeroDocumento){
@@ -38,7 +38,7 @@ function abrirDialogoSeleccionOficio(listaSolicitud, permisoCrear, numeroDocumen
             arrSolicitud: listaSolicitud, permisoCrear: permisoCrear
         },
         function(){                          
-            $('#DocumentospaqueteNumeroDocumento').val(numeroDocumento);                              
+            $('#DocumentosPaqueteNumeroDocumento').val(numeroDocumento);                              
             seleccionarOficio=$("#div_seleccionoficio").dialog(dialogSeleccionarOficio);
             seleccionarOficio.dialog('open');
         }
@@ -64,7 +64,7 @@ function obtenerOficioSeleecion(){
                 $('#ciuNombre').val($('#cd_'+oficioSel).val());
                 $('#ofiNombre').val($('#od_'+oficioSel).val());
                 $('#oficinaId').val($('#o_'+oficioSel).val());
-                $('#DocumentospaqueteOficioId').val(oficioSel);
+                $('#DocumentosPaqueteOficioId').val(oficioSel);
                 
                 seleccionarOficio.dialog('close');
             }
@@ -93,10 +93,10 @@ function validarSolicitud(){
     $('#trazaPaqModal').modal('hide');
     ocultarFormulario();
 
-    var numeroDocumento = $('#DocumentospaqueteNumeroDocumento').val();
+    var numeroDocumento = $('#DocumentosPaqueteNumeroDocumento').val();
     $.ajax({
         method: 'POST',
-        url: $('#url-proyecto').val() + 'documentospaquetes/ajaxValidarSolicitud',
+        url: $('#url-proyecto').val() + 'documentosPaquetes/ajaxValidarSolicitud',
         data: {numeroDocumento : numeroDocumento.trim()},
         async: false,
         success: function(data){
@@ -117,11 +117,11 @@ function validarSolicitud(){
 
 
 function validarCredecialesServicioWeb(){
-    var tipoDocumento = $('#DocumentospaqueteTipoDocumento option:selected').text();
-    var numeroDocumento = $('#DocumentospaqueteNumeroDocumento').val();
+    var tipoDocumento = $('#DocumentosPaqueteTipoDocumento option:selected').text();
+    var numeroDocumento = $('#DocumentosPaqueteNumeroDocumento').val();
     $.ajax({
         method: 'POST',
-        url: $('#url-proyecto').val() + 'documentospaquetes/mostrarProgramaCredenciales',
+        url: $('#url-proyecto').val() + 'documentosPaquetes/mostrarProgramaCredenciales',
         data: {tipoDocumento : tipoDocumento,numeroDocumento : numeroDocumento},
         async: false,
         success: function(data){
@@ -135,7 +135,7 @@ function validarCredecialesServicioWeb(){
 
 function nuevasolicitud(dato){ 
 
-    var solicitud = $('#DocumentospaqueteNumeroDocumento').val();
+    var solicitud = $('#DocumentosPaqueteNumeroDocumento').val();
     if(solicitud == "" || solicitud == null){
         bootbox.alert('El campo Número no puede estar vacio.');
     }else{
@@ -167,7 +167,7 @@ function ocultarFormulario(){
     $('#inputReg').attr("style", "display:none");
     $('#inputCiu').attr("style", "display:none");                
     $('#inputOfi').attr("style", "display:none"); 
-    $('#DocumentospaqueteOficioId').val("");
+    $('#DocumentosPaqueteOficioId').val("");
     $('#oficinaId').val("");
     $('#BandejaArchivo').val("");
 }
@@ -197,7 +197,7 @@ function checkForOther(data){
 
 
     $(function(){
-        var paqueteId = $('#DocumentospaquetePaqueteId').val();
+        var paqueteId = $('#DocumentosPaquetePaqueteId').val();
 
         if(paqueteId != "" || paqueteId != null){
             $.ajax({
@@ -212,15 +212,15 @@ function checkForOther(data){
                     $('#inputReg').removeAttr("style");
                     $('#inputCiu').removeAttr("style");                
                     $('#inputOfi').removeAttr("style");
-                    $('#DocumentospaqueteNumeroDocumento').val(datos.credencial);
+                    $('#DocumentosPaqueteNumeroDocumento').val(datos.credencial);
                     if(datos.credencial != null) {
-                        $('#DocumentospaqueteNumeroDocumento').attr('disabled', true);
+                        $('#DocumentosPaqueteNumeroDocumento').attr('disabled', true);
                     }
                     $('#regNombre').val(datos.regionalDesc);                
                     $('#ciuNombre').val(datos.ciudadDesc);
                     $('#ofiNombre').val(datos.oficinaDesc);
                     $('#oficinaId').val(datos.oficinaId);
-                    $('#DocumentospaqueteOficioId').val(paqueteId);
+                    $('#DocumentosPaqueteOficioId').val(paqueteId);
                 }
             });            
         }

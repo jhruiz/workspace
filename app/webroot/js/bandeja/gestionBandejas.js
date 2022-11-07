@@ -23,12 +23,29 @@ $(function() {
 
         if (x <= MaxInputs)
         {
-            FieldCount++;
-			
-            //agregar campo
-            $(contenedor).append('<div><br><input type="file" name="data[Bandeja][documento_' + FieldCount + ']" class="buttonC white" id="BandejaArchivo"><a href="#" class="eliminar">&times;</a> </div>');
 
-            x++; //text box increment
+            $.ajax({
+                type: 'POST',
+                async: false,
+                url: $('#url-proyecto').val()+'documentos/obtenerdocumentos',
+                success: function(data){ 
+                    var respuesta = JSON.parse(data);
+                    
+                    FieldCount++;
+
+                    var select = "<br>Tipo Documento: ";
+                    select += '<select name="data[Bandejatipo][tipoDoc_' + FieldCount + ']" id="nombreDocumento">';
+                    $.each(respuesta, function(i, val) {
+                        select += "<option value='" + i + "'>" + val + "</option>" 
+                    });
+                    select += '</select>';
+			
+                    //agregar campo
+                    $(contenedor).append('<div>' + select + '<br><input type="file" name="data[Bandeja][documento_' + FieldCount + ']" class="buttonC white" id="BandejaArchivo"><a href="#" class="eliminar">&times;</a> </div>');
+        
+                    x++; //text box increment
+                }
+            });
         }
         return false;
     });

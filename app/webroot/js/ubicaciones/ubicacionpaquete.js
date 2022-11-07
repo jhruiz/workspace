@@ -12,7 +12,7 @@ function mostrarUbicacion(paqueteId, idDivTraza) {
     this.idPaqueteU = paqueteId;
 
     if (paqueteId > 0) {
-        $.post($('#url-proyecto').val() + 'paquetesubicacionesfisicas/mostrarUbicacion',
+        $.post($('#url-proyecto').val() + 'paquetesUbicacionesfisicas/mostrarUbicacion',
                 {
                     paquete_id: paqueteId
                 },
@@ -88,7 +88,7 @@ var guardarUbicacion = function() {
             type: 'POST',
             dataType:'json',
             async: false,
-            url: $('#url-proyecto').val() + "paquetesubicacionesfisicas/guardarubicacion",
+            url: $('#url-proyecto').val() + "paquetesUbicacionesfisicas/guardarubicacion",
             data: {idUbicacion: idUbicacionU, idPaquete: idPaqueteU},
             success: function(data){   
                 var datos=eval(data); 
@@ -131,7 +131,7 @@ var obtenerUbucacionFisica = function() {
         type: 'POST',
         dataType:'json',
         async: false,
-        url: $('#url-proyecto').val() + "paquetesubicacionesfisicas/ubicacionPaquete",
+        url: $('#url-proyecto').val() + "paquetesUbicacionesfisicas/ubicacionPaquete",
         data: {idPaquete: idPaquete},
         success: function(data){   
             var datos=eval(data);  

@@ -303,13 +303,13 @@ class UsuariosController extends AppController {
                 if ($estado == 1) {
                     if ($this->Auth->login()) {
                         $this->Usuario->updateAll(
-                                array('num_intentos' => 0), array('usuario.id' => $id)
+                                array('num_intentos' => 0), array('Usuario.id' => $id)
                         );
                         $this->redirect(array('action' => 'paginainicio')); // Se redirecciona al index de usuarios
                     } else {
                         if ($numIntentos == 2) {
                             $this->Usuario->updateAll(
-                                    array('estadoregistro_id' => 2), array('usuario.id' => $id)
+                                    array('estadoregistro_id' => 2), array('Usuario.id' => $id)
                             );
                             
                             
@@ -325,7 +325,7 @@ class UsuariosController extends AppController {
                             $this->Session->setFlash(__('Su usuario ha sido bloqueado por 3 intentos fallidos de autenticacion, se le notificara cuando quede activo'));
                         } else {
                             $this->Usuario->updateAll(
-                                    array('num_intentos' => $numIntentos + 1), array('usuario.id' => $id)
+                                    array('num_intentos' => $numIntentos + 1), array('Usuario.id' => $id)
                             );
                             $this->Session->setFlash(__('Contraseña y/o el nombre de usuario incorrectos. Por favor, intente de nuevo'));
                         }

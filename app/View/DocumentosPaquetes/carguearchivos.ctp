@@ -99,7 +99,7 @@ echo ($this->Html->script('paquetes/indexaciondocumentos.js'));
                 <td>                                    
                     <div id="contenedor">
                         Tipo Documento: 
-                        <select name='data[Bandeja][tipoDoc_1]' id="nombreDocumento">
+                        <select name='data[Bandejatipo][tipoDoc_1]' id="nombreDocumento">
                             <?php foreach ($arrDocumentos as $key => $val):?>
                                 <option value='<?php echo $key; ?>'><?php echo $val; ?> </option>            
                             <?php endforeach;?>

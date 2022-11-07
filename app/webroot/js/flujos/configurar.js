@@ -33,6 +33,10 @@ function cerrarDialogoSecuencia(){
     window.location.reload();
 }
 
+function cerrarDialogItemsBandeja(){
+    $('#addItemsBandejas').modal('hide');
+}
+
 function borrarSecuencia(idSecuencia){
     if(confirm('Esta seguro de borrar esta secuencia?')){
         $.post(urlBase+'bandejas/borrarSecuencia',{
@@ -84,6 +88,74 @@ function abrirDialogoPermisos(idBandeja, nombreBandeja){
             $('#permisos_nombreBandeja').html(nombreBandeja);
             $('#dialogoPermisos').modal('show');
             $('#permisos_tabs a:first').tab('show');
+        });
+}
+
+
+function agregarItemBandeja(bandeja, item){
+    $.post(urlBase+'bandejaslistachequeos/agregaritembandeja',{
+        bandeja: bandeja,
+        item: item
+    },function(responseText){
+        var respuesta = JSON.parse(responseText);
+    });      
+}
+
+function eliminarItemBandeja(bandeja, item){
+    $.post(urlBase+'bandejaslistachequeos/eliminaritembandeja',{
+        bandeja: bandeja,
+        item: item
+    },function(responseText){
+        var respuesta = JSON.parse(responseText);
+    });  
+}
+
+
+function editListaBandeja(data) {
+
+    var infoItem = data.id.split('_');
+
+    if ( $('#' + data.id).prop('checked') ) {
+        agregarItemBandeja(infoItem['0'], infoItem['1']);
+    } else {
+        eliminarItemBandeja(infoItem['0'], infoItem['1']);
+    }
+}
+
+function abrirDialogoItemsCheck(idBandeja, nombreBandeja){
+
+    $.post(urlBase+'bandejaslistachequeos/ajaxListItems', {
+            idBandeja: idBandeja
+        }, function (responseText) {
+            var respuesta = JSON.parse(responseText);
+            if(respuesta.itemsChek){
+
+                var dvList = "";
+                for(var i = 0; i < respuesta.itemsChek.length; i++){
+
+                    var checked = "";
+                    if(typeof respuesta.itemsChek[i].Listachequeo.checked != 'undefined'){
+                        checked = "checked";
+                    }
+
+
+                    dvList += '<div class="form-check" style="margin:5px;">';
+                    dvList += '<input class="form-check-input" type="checkbox" style="margin:0px;" value=""';
+                    dvList += 'id="' + idBandeja + '_' + respuesta.itemsChek[i].Listachequeo.id + '" ' + checked;
+                    dvList += ' onchange="editListaBandeja(this)">';
+                    dvList += '<label class="form-check-label" for="' + idBandeja + '_' + respuesta.itemsChek[i].Listachequeo.id + '">';
+                    dvList += '<b>' + respuesta.itemsChek[i].Listachequeo.descripcion + '</b>';
+                    dvList += '</label>';
+                    dvList += '</div>';
+
+                }
+
+                $('#dvListItems').html(dvList);
+            }
+            
+            $('#addItemsBandejas').data('idBandeja', idBandeja);
+            $('#items_nombreBandeja').html(nombreBandeja);
+            $('#addItemsBandejas').modal('show');
         });
 }
 

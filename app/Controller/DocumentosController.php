@@ -130,6 +130,18 @@ class DocumentosController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+
+	/**
+	 * Retorna el listado de documentos
+	 */
+	public function obtenerdocumentos(){
+        $this->layout="ajax";
+        $this->autoRender=false;
+		
+		$documentos = $this->Documento->obtenerDocumentos();
+        
+        echo json_encode($documentos);
+	}
         
     public function search() {
             // the page we will redirect to
