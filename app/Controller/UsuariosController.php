@@ -398,7 +398,7 @@ class UsuariosController extends AppController {
         $this->set(compact('regionales', 'oficinas', 'arrOficinasUsuarios', 'arrInfoUsuario'));
     }
 
-    public function ordenarItemsMenu($arrMenuPerfil){    
+    public function ordenarItemsMenu($arrMenuPerfil, $bandejasUsr){    
 
         $this->loadModel('Configuraciondato');
         $urlRaizProyDesarrollo = $this->Configuraciondato->obtenerInfo("url_raizproyserver");
@@ -411,6 +411,15 @@ class UsuariosController extends AppController {
             } else {
                 $menu[$val['Menu']['menu_id']]['submenu'][$val['Menu']['id']]['descripcion'] = $val['Menu']['descripcion'];
                 $menu[$val['Menu']['menu_id']]['submenu'][$val['Menu']['id']]['url'] = !empty($val['Menu']['url'])  ? $urlRaizProyDesarrollo . $val['Menu']['url'] : "";
+            }
+        }
+
+        if(!empty($bandejasUsr)){
+            $menu[]['descMenu'] = 'BANDEJAS';
+            $menu[array_key_last($menu)]['urlMenu'] = '';
+            foreach($bandejasUsr as $key => $bdUser) {
+                $menu[array_key_last($menu)]['submenu'][$key]['descripcion'] = $bdUser["Bandeja"]["descripcion"];
+                $menu[array_key_last($menu)]['submenu'][$key]['url'] = $urlRaizProyDesarrollo . '/bandejas/listarpaquetes/' . $bdUser["Bandeja"]["id"];
             }
         }
 
@@ -438,6 +447,8 @@ class UsuariosController extends AppController {
 
     public function generarMenuDinamico() {
         $this->loadModel('Menu');
+        $this->loadModel('Permisousuariobandeja');
+
         $perfil = $this->request->data('perfil');
         $userId = $this->request->data('userId');
 
@@ -446,10 +457,13 @@ class UsuariosController extends AppController {
 
         $arrMenuPerfil = $this->Menu->find('all', array('order' => array('Menu.id'), 'joins' => $join, 'recursive' => -1));
 
+        $url_app = Router::url( '/', true );
+        
+        $bandejasusr = $this->Permisousuariobandeja->obtenerPermisoXUsuario($userId);
+
         $strDibujoMenu = "";
         if(count($arrMenuPerfil) > 0){
-            $strDibujoMenu = $this->dibujarMenu($this->ordenarItemsMenu($arrMenuPerfil));  
-            //$strDibujoMenu += $this->dibujarOficinasBandejas($this->ordenarBandejasMenu($userId));         
+            $strDibujoMenu = $this->dibujarMenu($this->ordenarItemsMenu($arrMenuPerfil, $bandejasusr));      
         }
         print_r($strDibujoMenu);
 

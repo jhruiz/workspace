@@ -23,8 +23,8 @@
         echo $this->Html->script('menu.js?ver=1.0');
         
         /*Adicionamos librería para menu vertical*/
-        echo $this->Html->script('menu_vert/jquery.easing.1.3');
-        echo $this->Html->script('menu_vert/script_menu_vert');
+        //echo $this->Html->script('menu_vert/jquery.easing.1.3');
+        //echo $this->Html->script('menu_vert/script_menu_vert');
         echo $this->Html->css('style_menu_vert');
         echo $this->Html->css('camposrotados');
 
@@ -112,18 +112,6 @@
             <?php } ?>
                 
             </header>
-            <section id="izquierda">
-            <?php       	
-            if($logged_in){                    
-            ?>
-                <div id='menu_vert'>
-                    </br> </br>
-                </div>
-
-            <?php
-            }
-            ?>                 
-            </section>
             <div class="container-fluid ">
                     <article>
                         <?php if ($flash = $this->Session->flash()) { ?>

@@ -7,24 +7,6 @@
 
 var idIntervalVerificaSesion=0; ///contiene el el id del setInterval que verifica si la sesion del usuario ha expirado o no. 
                                 ///Se usa para parar el set interval
-
-
- function obtenerBandejasFlujoAjax(user_id) {
-
-            $.ajax({
-                type: 'POST',
-                dataType: 'html',
-                async: false,
-                url: $('#url-proyecto').val() + 'menus/obtenerbandejasflujoajax',
-                data: {user_id: user_id},
-                success: function (data) {
-                    mostrarModal('menu_vert');
-                    $("#menu_vert").html(data);
-                    ocultarModal('menu_vert');
-                    animarMenuVert();          
-                }
-            });
-    }
     
     /**
      * Verifica si la sesion del usuario ha expirado
@@ -84,9 +66,6 @@ var idIntervalVerificaSesion=0; ///contiene el el id del setInterval que verific
         
         verificarSesionIntervaloTiempo();
 
-        if ($("#user-id").length > 0 && $("#user-id").val() != "" && $("#tipoperfiluser_id").val() != 1) {
-            obtenerBandejasFlujoAjax($("#user-id").val());
-        }
     });
 
 
