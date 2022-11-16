@@ -416,10 +416,10 @@ class UsuariosController extends AppController {
 
         if(!empty($bandejasUsr)){
             $menu[]['descMenu'] = 'BANDEJAS';
-            $menu[array_key_last($menu)]['urlMenu'] = '';
+            $menu[end(array_keys($menu))]['urlMenu'] = '';
             foreach($bandejasUsr as $key => $bdUser) {
-                $menu[array_key_last($menu)]['submenu'][$key]['descripcion'] = $bdUser["Bandeja"]["descripcion"];
-                $menu[array_key_last($menu)]['submenu'][$key]['url'] = $urlRaizProyDesarrollo . '/bandejas/listarpaquetes/' . $bdUser["Bandeja"]["id"];
+                $menu[end(array_keys($menu))]['submenu'][$key]['descripcion'] = $bdUser["Bandeja"]["descripcion"];
+                $menu[end(array_keys($menu))]['submenu'][$key]['url'] = $urlRaizProyDesarrollo . '/bandejas/listarpaquetes/' . $bdUser["Bandeja"]["id"];
             }
         }
 
