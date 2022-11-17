@@ -4,7 +4,7 @@
  */
 function agregarItemBandeja(infoItem){
     var paqueteId = $('#paqueteId').val();
-    $.post($('#url-proyecto').val()+'bandejaslistachequeosusuarios/agregaritembandejausuario',{
+    $.post($('#url-proyecto').val()+'bandejas_listachequeos_usuarios/agregaritembandejausuario',{
         bandeja: infoItem['0'],
         item: infoItem['1'],
         paqueteId: paqueteId
@@ -22,7 +22,7 @@ function agregarItemBandeja(infoItem){
  */
 function eliminarItemBandeja(infoItem){
     var paqueteId = $('#paqueteId').val();
-    $.post($('#url-proyecto').val()+'bandejaslistachequeosusuarios/eliminaritembandejausuario',{
+    $.post($('#url-proyecto').val()+'bandejas_listachequeos_usuarios/eliminaritembandejausuario',{
         bandeja: infoItem['0'],
         item: infoItem['1'],
         paqueteId: paqueteId
