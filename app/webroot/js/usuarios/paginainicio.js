@@ -66,7 +66,7 @@ $(function(){
 
 
 
-    $.post($('#url-proyecto').val()+'paquetes_usuarios/obtenerPaquetesUsuario',
+    $.post($('#url-proyecto').val()+'paquetes_usuarios/obtenerpaquetesusuario',
     function(responseText){
         var respuesta = JSON.parse(responseText);
         if(respuesta.resp){

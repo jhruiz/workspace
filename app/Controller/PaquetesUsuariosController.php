@@ -383,7 +383,7 @@ class PaquetesUsuariosController extends AppController {
         /**
          * Obtiene todos los paquetes de un usuario en las diferentes bandejas
          */
-        public function obtenerPaquetesUsuario(){
+        public function obtenerpaquetesusuario(){
             $this->autoRender = false;
             $usuarioId = $this->Auth->user('id');
 
