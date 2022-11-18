@@ -298,7 +298,7 @@ class PaquetesUsuario extends AppModel {
                 'joins' => $arr_join,   
                 'fields' => array(
                     'COUNT(P.estado_id) AS cantidad',
-                    'e.descripcion'
+                    'E.descripcion'
                     ),
                 'conditions' => array(
                     'PaquetesUsuario.usuario_id' => $usuarioId,
