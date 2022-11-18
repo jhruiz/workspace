@@ -379,4 +379,22 @@ class PaquetesUsuariosController extends AppController {
             
             $this->set(compact('arrMotivosTraslado'));
         }
+
+        /**
+         * Obtiene todos los paquetes de un usuario en las diferentes bandejas
+         */
+        public function obtenerPaquetesUsuario(){
+            $this->autoRender = false;
+            $usuarioId = $this->Auth->user('id');
+
+            $arrSolicitudes = $this->PaquetesUsuario->contadorPaquetesPorUsuarioId($usuarioId);
+
+            if(!empty($arrSolicitudes)){
+                $resp = true;
+            } else {
+                $resp = false;
+            }
+            
+            echo json_encode(array('resp' => $resp, 'data' => $arrSolicitudes));   
+        }
 }

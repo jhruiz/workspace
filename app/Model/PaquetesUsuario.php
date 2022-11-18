@@ -275,5 +275,40 @@ class PaquetesUsuario extends AppModel {
             return $salida;            
         }
         
+        public function contadorPaquetesPorUsuarioId($usuarioId) {
+            $arr_join = array(); 
+
+            array_push($arr_join, array(
+                'table' => 'paquetes',
+                'alias' => 'P',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'P.id = PaquetesUsuario.paquete_id')
+            ));                         
+
+            array_push($arr_join, array(
+                'table' => 'estados',
+                'alias' => 'E',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'E.id = P.estado_id')
+            ));                          
+                            
+            $PQUsuario = $this->find('all', array(
+                'joins' => $arr_join,   
+                'fields' => array(
+                    'COUNT(P.estado_id) AS cantidad',
+                    'e.descripcion'
+                    ),
+                'conditions' => array(
+                    'PaquetesUsuario.usuario_id' => $usuarioId,
+                    'PaquetesUsuario.asignado' => '1'), 
+                'group' => 'P.estado_id',
+                'paramType' => 'querystring',
+                'recursive' => 0
+            )); 
+                
+            return $PQUsuario;
+        }
 }
  
