@@ -270,5 +270,45 @@ class PaquetesController extends AppController {
             
             echo json_encode($infoPaquete);
             exit();            
-        }        
+        } 
+        
+        /**
+         * Obtiene todos los paquetes finalizados
+         */
+        public function obtenerpaquetesfinalizados(){
+            $this->autoRender = false;
+            $perfilId = $this->Auth->user('perfile_id');
+
+            $arrSolicitudes = [];
+            if($perfilId <= 2) {
+                $arrSolicitudes = $this->Paquete->contadorPaquetesFinalizados();
+                $resp = !empty($arrSolicitudes) ? true : false;
+            }else {
+                $resp = false;
+            }
+
+            $resp = !empty($arrSolicitudes) ? true : false;
+            
+            echo json_encode(array('resp' => $resp, 'data' => $arrSolicitudes));   
+        }
+
+        /**
+         * Obtiene todos los paquetes que se encuentran en gestion
+         */
+        public function obtenerpaquetesengestion(){
+            $this->autoRender = false;
+            $perfilId = $this->Auth->user('perfile_id');
+
+            $arrSolicitudes = [];
+            if($perfilId <= 2) {
+                $arrSolicitudes = $this->Paquete->contadorPaquetesEnGestion();
+                $resp = !empty($arrSolicitudes) ? true : false;
+            }else {
+                $resp = false;
+            }
+
+            $resp = !empty($arrSolicitudes) ? true : false;
+            
+            echo json_encode(array('resp' => $resp, 'data' => $arrSolicitudes));   
+        }
 }        

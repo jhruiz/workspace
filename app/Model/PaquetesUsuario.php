@@ -275,6 +275,9 @@ class PaquetesUsuario extends AppModel {
             return $salida;            
         }
         
+        /**
+         * obtiene los paquetes asignados a un usuario por estado
+         */
         public function contadorPaquetesPorUsuarioId($usuarioId) {
             $arr_join = array(); 
 
@@ -309,6 +312,50 @@ class PaquetesUsuario extends AppModel {
             )); 
                 
             return $PQUsuario;
+        }
+
+        /**
+         * Se obtienen todos los paquetes en gestion por usuarios
+         */
+        public function obtenerPaquetesUsuarios() {
+            $arr_join = array(); 
+
+            array_push($arr_join, array(
+                'table' => 'paquetes',
+                'alias' => 'P',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'P.id = PaquetesUsuario.paquete_id')
+            ));                         
+
+            array_push($arr_join, array(
+                'table' => 'estados',
+                'alias' => 'E',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'E.id = P.estado_id')
+            ));                          
+
+            array_push($arr_join, array(
+                'table' => 'usuarios',
+                'alias' => 'U',
+                'type' => 'INNER',
+                'conditions' => array(
+                    'U.id = PaquetesUsuario.usuario_id')
+            ));                          
+                            
+            $PQUsuario = $this->find('all', array(
+                'joins' => $arr_join,   
+                'fields' => array(
+                    'COUNT(E.id) AS cantidad',
+                    'U.nombre'
+                    ),
+                'group' => 'U.id',
+                'paramType' => 'querystring',
+                'recursive' => 0
+            )); 
+                
+            return $PQUsuario;  
         }
 }
  

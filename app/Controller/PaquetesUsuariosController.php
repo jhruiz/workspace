@@ -389,12 +389,29 @@ class PaquetesUsuariosController extends AppController {
 
             $arrSolicitudes = $this->PaquetesUsuario->contadorPaquetesPorUsuarioId($usuarioId);
 
-            if(!empty($arrSolicitudes)){
-                $resp = true;
-            } else {
-                $resp = false;
-            }
+            $resp = !empty($arrSolicitudes) ? true : false;
             
             echo json_encode(array('resp' => $resp, 'data' => $arrSolicitudes));   
         }
+
+        /**
+         * Obtiene todos los paquetes en gestion por usuarios
+         */
+        public function obtenerpaquetesusuarios(){
+            $this->autoRender = false;
+            $perfilId = $this->Auth->user('perfile_id');
+
+            $arrSolicitudes = [];
+            if($perfilId <= 2) {
+                $arrSolicitudes = $this->PaquetesUsuario->obtenerPaquetesUsuarios();
+                $resp = !empty($arrSolicitudes) ? true : false;
+            }else {
+                $resp = false;
+            }
+
+            $resp = !empty($arrSolicitudes) ? true : false;
+            
+            echo json_encode(array('resp' => $resp, 'data' => $arrSolicitudes)); 
+        }
+
 }

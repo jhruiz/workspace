@@ -463,4 +463,58 @@ public function obtenerPaqueteCargueArchivos($numOficio, $oficinaId){
         
         return $arrPaquetes;               
     }
+
+    public function contadorPaquetesFinalizados() {
+        $arr_join = array();                        
+
+        array_push($arr_join, array(
+            'table' => 'estados',
+            'alias' => 'E',
+            'type' => 'INNER',
+            'conditions' => array(
+                'E.id = Paquete.estado_id')
+        ));                          
+                        
+        $PQUsuario = $this->find('all', array(
+            'joins' => $arr_join,   
+            'fields' => array(
+                'COUNT(E.id) AS cantidad',
+                'E.descripcion'
+                ),
+            'conditions' => array(
+                'E.estadofinal' => '1'), 
+            'group' => 'E.id',
+            'paramType' => 'querystring',
+            'recursive' => 0
+        )); 
+            
+        return $PQUsuario;
+    }
+
+    public function contadorPaquetesEnGestion() {
+        $arr_join = array();                        
+
+        array_push($arr_join, array(
+            'table' => 'estados',
+            'alias' => 'E',
+            'type' => 'INNER',
+            'conditions' => array(
+                'E.id = Paquete.estado_id')
+        ));                          
+                        
+        $PQUsuario = $this->find('all', array(
+            'joins' => $arr_join,   
+            'fields' => array(
+                'COUNT(E.id) AS cantidad',
+                'E.descripcion'
+                ),
+            'conditions' => array(
+                'E.estadofinal' => '0'), 
+            'group' => 'E.id',
+            'paramType' => 'querystring',
+            'recursive' => 0
+        )); 
+            
+        return $PQUsuario;   
+    }
 }
