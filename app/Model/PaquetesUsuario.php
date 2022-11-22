@@ -350,6 +350,9 @@ class PaquetesUsuario extends AppModel {
                     'COUNT(E.id) AS cantidad',
                     'U.nombre'
                     ),
+                'conditions' => array(
+                    'PaquetesUsuario.asignado' => '1'
+                ),
                 'group' => 'U.id',
                 'paramType' => 'querystring',
                 'recursive' => 0
